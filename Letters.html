@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>For Rica — Photos</title>
+  <title>For Rica — Letters</title>
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
@@ -13,16 +13,16 @@
 
   <style>
     /* ============================================================
-       PHOTOS.HTML — PHOTOS PAGE STYLES
+       LETTERS.HTML — LETTERS PAGE STYLES
        ============================================================ */
 
     /* --- Page Wrapper --- */
-    .photos-wrapper {
-      max-width: 800px;
+    .letters-wrapper {
+      max-width: 640px;
       width: 100%;
     }
 
-    /* --- Page Title --- */
+    /* --- Page Title / Caption --- */
     .page-title {
       text-align: center;
       margin-bottom: 40px;
@@ -46,168 +46,140 @@
       letter-spacing: 2px;
     }
 
-    /* --- Photo Grid --- */
-    .photos-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-
-    /* Individual Photo Tile */
-    .photo-tile {
+    /* --- Letter Paper Card --- */
+    .letter-paper {
+      background: #fffdf8;
+      border: 0.5px solid rgba(185, 130, 80, 0.2);
+      border-radius: 2px;
+      padding: 56px 52px;
       position: relative;
-      overflow: hidden;
-      border-radius: 2px;
-      cursor: pointer;
-      border: 0.5px solid var(--border);
+      box-shadow:
+        0 2px 40px rgba(100, 60, 20, 0.06),
+        0 1px 4px rgba(100, 60, 20, 0.04);
     }
 
-    /* Aspect ratio container */
-    .photo-tile .photo-frame {
-      aspect-ratio: 1;
-      overflow: hidden;
-      background: var(--cream-deep);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .photo-tile img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: sepia(10%) saturate(90%);
-      transition: transform 0.4s ease, filter 0.4s ease;
-      display: block;
-    }
-
-    .photo-tile:hover img {
-      transform: scale(1.04);
-      filter: sepia(0%) saturate(105%);
-    }
-
-    /* Hover overlay caption */
-    .photo-tile .photo-overlay {
+    /* Subtle inner border for elegance */
+    .letter-paper::after {
+      content: "";
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(to top, rgba(44,32,22,0.65) 0%, transparent 100%);
-      padding: 20px 14px 12px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      inset: 12px;
+      border: 0.5px solid rgba(185, 130, 80, 0.08);
+      border-radius: 1px;
+      pointer-events: none;
     }
 
-    .photo-tile:hover .photo-overlay { opacity: 1; }
-
-    .photo-overlay .photo-caption {
+    /* --- Letter Date (top right) --- */
+    .letter-date {
+      text-align: right;
       font-family: var(--font-serif);
       font-style: italic;
-      font-size: 13px;
-      color: var(--cream);
-      letter-spacing: 1px;
-    }
-
-    /* Placeholder tile (no photo yet) */
-    .photo-tile.empty .photo-frame {
-      background: var(--cream-deep);
-      border: 1px dashed rgba(185,130,80,0.25);
-    }
-
-    .photo-tile.empty .placeholder-text {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 13px;
-      color: var(--ink-faint);
-      letter-spacing: 1px;
-      text-align: center;
-      padding: 20px;
-    }
-
-    /* --- Upload Instructions (how to add photos) --- */
-    .upload-note {
-      margin-top: 32px;
-      background: rgba(232,196,160,0.12);
-      border: 0.5px solid var(--border-strong);
-      border-radius: 2px;
-      padding: 20px 24px;
-    }
-
-    .upload-note p {
-      font-size: 13px;
-      line-height: 1.8;
+      font-size: 14px;
       color: var(--ink-light);
+      letter-spacing: 0.5px;
+      margin-bottom: 32px;
+    }
+
+    /* --- Salutation (Dear Rica,...) --- */
+    .letter-salutation {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 28px;
+      letter-spacing: 0.3px;
+    }
+
+    /* --- Body Paragraphs --- */
+    .letter-body p {
+      font-size: 15.5px;
+      line-height: 2;
+      color: var(--ink);
+      margin-bottom: 22px;
       letter-spacing: 0.2px;
     }
 
-    .upload-note code {
-      font-family: monospace;
-      font-size: 12px;
-      background: rgba(185,130,80,0.12);
-      color: var(--rose-dark);
-      padding: 2px 6px;
-      border-radius: 2px;
+    .letter-body p:last-child { margin-bottom: 0; }
+
+    /* Italic Tagalog / emotional phrases */
+    .tagalog {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 15.5px;
+      color: var(--ink);
     }
 
-    /* --- Lightbox Modal (for full-screen photo view) --- */
-    .lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(44, 32, 22, 0.92);
-      z-index: 100;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+    /* --- Closing Block (signature) --- */
+    .letter-closing {
+      margin-top: 36px;
+      border-top: 0.5px solid rgba(185, 130, 80, 0.15);
+      padding-top: 28px;
     }
 
-    .lightbox.open {
-      display: flex;
-    }
-
-    .lightbox img {
-      max-width: 90vw;
-      max-height: 88vh;
-      object-fit: contain;
-      border-radius: 2px;
-      box-shadow: 0 8px 60px rgba(0,0,0,0.5);
-    }
-
-    .lightbox-caption {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
+    .letter-closing .closing-label {
       font-family: var(--font-serif);
       font-style: italic;
       font-size: 15px;
-      color: rgba(253,248,240,0.8);
-      letter-spacing: 2px;
-      white-space: nowrap;
+      color: var(--ink-light);
+      margin-bottom: 6px;
     }
 
-    .lightbox-close {
-      position: absolute;
-      top: 24px;
-      right: 30px;
-      color: var(--blush);
+    .letter-closing .closing-name {
+      font-family: var(--font-serif);
       font-size: 28px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      line-height: 1;
-      transition: color 0.2s ease;
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: 1px;
     }
 
-    .lightbox-close:hover { color: var(--cream); }
+    /* --- Letter Index / More Letters Area --- */
+    /* (For future letters — a small archive list below) */
+    .letters-archive {
+      margin-top: 48px;
+    }
+
+    .archive-label {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--rose);
+      font-weight: 400;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .archive-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 0.5px solid var(--border);
+      cursor: default;
+    }
+
+    .archive-item .archive-title {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 16px;
+      color: var(--ink-light);
+    }
+
+    .archive-item .archive-date {
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: var(--ink-faint);
+    }
+
+    .archive-item .archive-badge {
+      font-size: 11px;
+      background: rgba(201,125,90,0.12);
+      color: var(--rose);
+      padding: 2px 10px;
+      border-radius: 12px;
+    }
 
     /* --- Responsive --- */
     @media (max-width: 768px) {
-      .photos-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 480px) {
-      .photos-grid { grid-template-columns: 1fr; }
+      .letter-paper { padding: 36px 28px; }
+      .letter-body p { font-size: 15px; }
     }
   </style>
 </head>
@@ -227,15 +199,6 @@
     <div class="petal"></div>
     <div class="petal"></div>
     <div class="petal"></div>
-  </div>
-
-  <!-- =========================================================
-       LIGHTBOX (full-screen photo viewer)
-       ========================================================= -->
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
-    <button class="lightbox-close" id="lightbox-close" aria-label="Close photo">&times;</button>
-    <img id="lightbox-img" src="" alt="" />
-    <div class="lightbox-caption" id="lightbox-caption"></div>
   </div>
 
   <!-- =========================================================
@@ -260,14 +223,14 @@
           <li>
             <a href="index.html"><span class="icon" aria-hidden="true">⊞</span> Home</a>
           </li>
-          <li>
+          <!-- Letters is active -->
+          <li class="active">
             <a href="letters.html">
               <span class="icon" aria-hidden="true">✉</span> Letters
               <span class="badge">1</span>
             </a>
           </li>
-          <!-- Photos is active -->
-          <li class="active">
+          <li>
             <a href="photos.html">
               <span class="icon" aria-hidden="true">✾</span> Photos
               <span class="badge">13</span>
@@ -296,10 +259,10 @@
     </aside>
 
     <!-- =====================================================
-         MAIN CONTENT — Photos Page
+         MAIN CONTENT — Letters Page
          ===================================================== -->
     <main class="main-content">
-      <div class="photos-wrapper animate-in">
+      <div class="letters-wrapper animate-in">
 
         <!-- === Ornamental Divider === -->
         <div class="ornament-divider">
@@ -311,226 +274,86 @@
 
         <!-- === Page Title === -->
         <div class="page-title">
-          <span class="eyebrow">captured in time</span>
-          <h1>Photos</h1>
+          <span class="eyebrow">written with care</span>
+          <h1>Letters</h1>
         </div>
-
-        <!-- === Section Label === -->
-        <p class="section-label">us &nbsp;&middot;&nbsp; always</p>
 
         <!-- ===================================================
-             PHOTO GRID
-             HOW TO ADD A PHOTO:
-               1. Place your image file in the same folder as this HTML.
-               2. Copy a <div class="photo-tile"> block below.
-               3. Replace src="YOUR_PHOTO.jpg" with your actual filename.
-               4. Update the data-caption attribute with a short description.
-               5. Remove the class "empty" and the .placeholder-text div.
+             LETTER #1 — April 2026
              =================================================== -->
-        <div class="photos-grid" id="photo-grid">
+        <article class="letter-paper">
 
-          <!-- ─── PHOTO SLOT 1 ─── Replace src with your actual image file ─── -->
-          <div class="photo-tile empty" data-caption="a moment to remember">
-            <div class="photo-frame">
-              <!-- REPLACE: <img src="photo1.jpg" alt="description" /> -->
-              <div class="placeholder-text">photo 1</div>
-            </div>
-            <div class="photo-overlay">
-              <span class="photo-caption">a moment to remember</span>
-            </div>
+          <!-- Date stamp -->
+          <div class="letter-date">April 2026</div>
+
+          <!-- Salutation -->
+          <div class="letter-salutation">Dear Rica, Riri, Little Major,</div>
+
+          <!-- Body -->
+          <div class="letter-body">
+            <p>
+              First things first, thank you. <span class="tagalog">Salamat talaga.</span> For the kindness you gave,
+              for the way you care without being asked, and for being the kind of person who makes everyone around her
+              feel safe and seen. Not everyone is like that, and I hope you know how special that makes you.
+              I do not want to take it for granted.
+            </p>
+            <p>
+              I was a last minute add to the Boscolympics lineup for DBA. No plan, no expectations either.
+              You were there to watch over the students play Football and I remember thinking,
+              <span class="tagalog">blessing talaga toh kese nakasali pa ako. Maybe it&rsquo;s God&rsquo;s will.</span>
+              Because on that day, I met you.
+            </p>
+            <p>
+              And the more I got to know you, the more I realized it was not just the moment or just a feeling.
+              It was you. Your warmth, your love for the people around you, the way you are cute, gorgeous, and kind
+              all at once without even trying.
+              <span class="tagalog">Yung totoo mong pagkatao, yon ang nag-pafall sa akin sayo, Rica.</span>
+            </p>
+            <p>
+              I call you Little Major, Light Furry, Riri. I know it&rsquo;s silly but for me, those names just feel
+              right for you. Small, warm, and mine to keep quietly.
+            </p>
+            <p>
+              I am grateful for you, Rica, I love you dearly. If you ever give me a chance,
+              I will make sure you never regret it.
+            </p>
           </div>
 
-          <!-- ─── PHOTO SLOT 2 ─── -->
-          <div class="photo-tile empty" data-caption="boscolympics day">
-            <div class="photo-frame">
-              <div class="placeholder-text">photo 2</div>
-            </div>
-            <div class="photo-overlay">
-              <span class="photo-caption">boscolympics day</span>
-            </div>
+          <!-- Signature -->
+          <div class="letter-closing">
+            <div class="closing-label">With love and gratitude,</div>
+            <div class="closing-name">Miggy</div>
           </div>
 
-          <!-- ─── PHOTO SLOT 3 ─── -->
-          <div class="photo-tile empty" data-caption="you, always">
-            <div class="photo-frame">
-              <div class="placeholder-text">photo 3</div>
-            </div>
-            <div class="photo-overlay">
-              <span class="photo-caption">you, always</span>
-            </div>
+        </article>
+        <!-- /.letter-paper -->
+
+        <!-- ===================================================
+             ARCHIVE / INDEX OF ALL LETTERS
+             (Add more letter items here as new letters are written)
+             =================================================== -->
+        <div class="letters-archive">
+          <span class="archive-label">ALL LETTERS</span>
+
+          <!-- Current letter -->
+          <div class="archive-item">
+            <span class="archive-title">The One That Started It All</span>
+            <span class="archive-date">April 2026</span>
+            <span class="archive-badge">newest</span>
           </div>
 
-          <!-- ─── PHOTO SLOT 4 ─── -->
-          <div class="photo-tile empty" data-caption="little major">
-            <div class="photo-frame">
-              <div class="placeholder-text">photo 4</div>
-            </div>
-            <div class="photo-overlay">
-              <span class="photo-caption">little major</span>
-            </div>
+          <!-- Placeholder for future letters (style with .disabled if not yet written) -->
+          <div class="archive-item" style="opacity:0.35; cursor:default;">
+            <span class="archive-title" style="font-style:italic;">more letters coming…</span>
+            <span class="archive-date">—</span>
           </div>
 
-          <!-- ─── PHOTO SLOT 5 ─── -->
-          <div class="photo-tile empty" data-caption="your smile">
-            <div class="photo-frame">
-              <div class="placeholder-text">photo 5</div>
-            </div>
-            <div class="photo-overlay">
-              <span class="photo-caption">your smile</span>
-            </div>
-          </div>
-
-          <!-- ─── PHOTO SLOT 6 ─── -->
-          <div class="photo-tile empty" data-caption="warmth">
-            <div class="photo-frame">
-              <div class="placeholder-text">photo 6</div>
-            </div>
-            <div class="photo-overlay">
-              <span class="photo-caption">warmth</span>
-            </div>
-          </div>
-
-          <!-- ─── PHOTO SLOT 7 ─── -->
-          <div class="photo-tile empty" data-caption="light furry">
-            <div class="photo-frame">
-              <div class="placeholder-text">photo 7</div>
-            </div>
-            <div class="photo-overlay">
-              <span class="photo-caption">light furry</span>
-            </div>
-          </div>
-
-          <!-- ─── PHOTO SLOT 8 ─── -->
-          <div class="photo-tile empty" data-caption="together">
-            <div class="photo-frame">
-              <div class="placeholder-text">photo 8</div>
-            </div>
-            <div class="photo-overlay">
-              <span class="photo-caption">together</span>
-            </div>
-          </div>
-
-          <!-- ─── PHOTO SLOT 9 ─── -->
-          <div class="photo-tile empty" data-caption="the day we met">
-            <div class="photo-frame">
-              <div class="placeholder-text">photo 9</div>
-            </div>
-            <div class="photo-overlay">
-              <span class="photo-caption">the day we met</span>
-            </div>
-          </div>
-
-          <!-- ─── PHOTO SLOT 10 ─── -->
-          <div class="photo-tile empty" data-caption="riri">
-            <div class="photo-frame">
-              <div class="placeholder-text">photo 10</div>
-            </div>
-            <div class="photo-overlay">
-              <span class="photo-caption">riri</span>
-            </div>
-          </div>
-
-          <!-- ─── PHOTO SLOT 11 ─── -->
-          <div class="photo-tile empty" data-caption="quiet moments">
-            <div class="photo-frame">
-              <div class="placeholder-text">photo 11</div>
-            </div>
-            <div class="photo-overlay">
-              <span class="photo-caption">quiet moments</span>
-            </div>
-          </div>
-
-          <!-- ─── PHOTO SLOT 12 ─── -->
-          <div class="photo-tile empty" data-caption="always">
-            <div class="photo-frame">
-              <div class="placeholder-text">photo 12</div>
-            </div>
-            <div class="photo-overlay">
-              <span class="photo-caption">always</span>
-            </div>
-          </div>
-
-          <!-- ─── PHOTO SLOT 13 ─── -->
-          <div class="photo-tile empty" data-caption="you">
-            <div class="photo-frame">
-              <div class="placeholder-text">photo 13</div>
-            </div>
-            <div class="photo-overlay">
-              <span class="photo-caption">you</span>
-            </div>
-          </div>
-
-        </div>
-        <!-- /.photos-grid -->
-
-        <!-- === How to Add Photos Note === -->
-        <div class="upload-note">
-          <p>
-            <strong>How to add your photos:</strong> Place your image files (JPG, PNG, WEBP) in the same folder as this
-            HTML file. In each photo tile above, remove the <code>empty</code> class and replace the placeholder
-            <code>&lt;div&gt;</code> with <code>&lt;img src="your-file.jpg" alt="description" /&gt;</code>.
-            Update the <code>data-caption</code> attribute with a short description for the hover overlay.
-          </p>
         </div>
 
       </div>
     </main>
 
   </div><!-- /.app-container -->
-
-  <!-- =========================================================
-       JAVASCRIPT — Lightbox for photos
-       ========================================================= -->
-  <script>
-    /**
-     * LIGHTBOX
-     * Opens a full-screen view when a non-empty photo tile is clicked.
-     * Empty placeholder tiles are skipped (no lightbox for them).
-     */
-
-    const lightbox      = document.getElementById('lightbox');
-    const lightboxImg   = document.getElementById('lightbox-img');
-    const lightboxCap   = document.getElementById('lightbox-caption');
-    const lightboxClose = document.getElementById('lightbox-close');
-
-    // Attach click listeners to every photo tile
-    document.querySelectorAll('.photo-tile').forEach(tile => {
-      tile.addEventListener('click', () => {
-        // Skip empty placeholder tiles
-        if (tile.classList.contains('empty')) return;
-
-        const img     = tile.querySelector('img');
-        const caption = tile.dataset.caption || '';
-
-        if (img) {
-          lightboxImg.src = img.src;
-          lightboxImg.alt = img.alt;
-          lightboxCap.textContent = caption;
-          lightbox.classList.add('open');
-          document.body.style.overflow = 'hidden'; // prevent background scroll
-        }
-      });
-    });
-
-    // Close lightbox on ✕ button click
-    lightboxClose.addEventListener('click', closeLightbox);
-
-    // Close lightbox when clicking the dark backdrop (outside the image)
-    lightbox.addEventListener('click', e => {
-      if (e.target === lightbox) closeLightbox();
-    });
-
-    // Close lightbox on Escape key
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeLightbox();
-    });
-
-    function closeLightbox() {
-      lightbox.classList.remove('open');
-      lightboxImg.src = '';
-      document.body.style.overflow = '';
-    }
-  </script>
 
 </body>
 </html>
