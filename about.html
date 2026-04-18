@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Rica — About Miggy</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+
+  <!-- Shared styles -->
+  <link rel="stylesheet" href="shared.css" />
+
+  <style>
+    /* ============================================================
+       ABOUT.HTML — ABOUT PAGE STYLES
+       ============================================================ */
+
+    /* --- Page Wrapper --- */
+    .about-wrapper {
+      max-width: 600px;
+      width: 100%;
+    }
+
+    /* --- Page Title --- */
+    .page-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .page-title .eyebrow {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 13px;
+      letter-spacing: 4px;
+      color: var(--ink-faint);
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .page-title h1 {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 36px;
+      color: var(--ink);
+      letter-spacing: 2px;
+    }
+
+    /* --- About Card --- */
+    .about-card {
+      background: #fffdf8;
+      border: 0.5px solid rgba(185, 130, 80, 0.2);
+      border-radius: 2px;
+      padding: 52px 52px;
+      position: relative;
+      box-shadow:
+        0 2px 40px rgba(100,60,20,0.06),
+        0 1px 4px rgba(100,60,20,0.04);
+    }
+
+    /* Subtle inner border */
+    .about-card::after {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 0.5px solid rgba(185,130,80,0.08);
+      border-radius: 1px;
+      pointer-events: none;
+    }
+
+    /* --- Name Heading in card --- */
+    .about-card .about-name {
+      font-family: var(--font-serif);
+      font-size: 30px;
+      font-weight: 300;
+      color: var(--ink);
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+
+    .about-card .about-sub {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 14px;
+      color: var(--rose);
+      letter-spacing: 2px;
+      margin-bottom: 28px;
+      display: block;
+    }
+
+    /* --- Body paragraphs --- */
+    .about-card p {
+      font-size: 15.5px;
+      line-height: 2;
+      color: var(--ink);
+      margin-bottom: 20px;
+      letter-spacing: 0.2px;
+    }
+
+    .about-card p:last-of-type { margin-bottom: 0; }
+
+    /* --- Fact List (small details about Miggy) --- */
+    .about-facts {
+      margin-top: 32px;
+      padding-top: 28px;
+      border-top: 0.5px solid rgba(185,130,80,0.15);
+    }
+
+    .about-facts h3 {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--rose);
+      font-weight: 400;
+      margin-bottom: 16px;
+    }
+
+    .fact-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 10px 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .fact-row:last-child { border-bottom: none; }
+
+    .fact-label {
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      color: var(--ink-faint);
+      text-transform: uppercase;
+    }
+
+    .fact-value {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 15px;
+      color: var(--ink-light);
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 768px) {
+      .about-card { padding: 36px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================
+       FLOATING PETALS
+       ========================================================= -->
+  <div class="petals-container" aria-hidden="true">
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+  </div>
+
+  <!-- =========================================================
+       APP CONTAINER
+       ========================================================= -->
+  <div class="app-container">
+
+    <!-- =====================================================
+         SIDEBAR NAVIGATION
+         ===================================================== -->
+    <aside class="sidebar">
+
+      <div class="sidebar-header">
+        <span class="star" aria-hidden="true">✦</span>
+        <h2>for rica</h2>
+      </div>
+
+      <nav class="sidebar-menu" aria-label="Main navigation">
+
+        <h3>MAIN</h3>
+        <ul>
+          <li>
+            <a href="index.html"><span class="icon" aria-hidden="true">⊞</span> Home</a>
+          </li>
+          <li>
+            <a href="letters.html">
+              <span class="icon" aria-hidden="true">✉</span> Letters
+              <span class="badge">1</span>
+            </a>
+          </li>
+          <li>
+            <a href="photos.html">
+              <span class="icon" aria-hidden="true">✾</span> Photos
+              <span class="badge">13</span>
+            </a>
+          </li>
+        </ul>
+
+        <h3>COMING SOON</h3>
+        <ul>
+          <li class="disabled"><a href="#"><span class="icon" aria-hidden="true">☆</span> Memories</a></li>
+          <li class="disabled"><a href="#"><span class="icon" aria-hidden="true">◷</span> Timeline</a></li>
+          <li class="disabled"><a href="#"><span class="icon" aria-hidden="true">⚲</span> Places</a></li>
+        </ul>
+
+      </nav>
+
+      <!-- Bottom: About Miggy is active here -->
+      <div class="sidebar-bottom">
+        <ul>
+          <li class="active" style="border-left: 3px solid var(--rose); background: rgba(232,196,160,0.2);">
+            <a href="about.html" style="padding: 8px 0;">
+              <span class="icon" aria-hidden="true">♙</span> About Miggy
+            </a>
+          </li>
+        </ul>
+        <div class="sidebar-footer">with love &middot; always</div>
+      </div>
+
+    </aside>
+
+    <!-- =====================================================
+         MAIN CONTENT — About Page
+         ===================================================== -->
+    <main class="main-content">
+      <div class="about-wrapper animate-in">
+
+        <!-- === Ornamental Divider === -->
+        <div class="ornament-divider">
+          <span class="star-glyph" aria-hidden="true">✦</span>
+          <span class="line" aria-hidden="true"></span>
+          <span class="diamond" aria-hidden="true"></span>
+          <span class="line" aria-hidden="true"></span>
+        </div>
+
+        <!-- === Page Title === -->
+        <div class="page-title">
+          <span class="eyebrow">the one who made this</span>
+          <h1>About Miggy</h1>
+        </div>
+
+        <!-- === About Card === -->
+        <div class="about-card">
+
+          <div class="about-name">Miggy</div>
+          <span class="about-sub">the one who cares, quietly</span>
+
+          <p>
+            Hi. I'm the person behind this little website — the one who spent too many late nights thinking about
+            how to say things he feels but can't always put into words out loud.
+          </p>
+          <p>
+            I made this place as a way to show Rica how much she means to me. Not through grand gestures,
+            but through honesty — a letter, some photos, small things that add up to something real.
+          </p>
+          <p>
+            If you're reading this, Rica — hello. You are the reason this exists.
+          </p>
+
+          <!-- Quick Facts Table -->
+          <div class="about-facts">
+            <h3>A FEW THINGS</h3>
+
+            <div class="fact-row">
+              <span class="fact-label">known for</span>
+              <span class="fact-value">showing up unexpectedly</span>
+            </div>
+            <div class="fact-row">
+              <span class="fact-label">hobby</span>
+              <span class="fact-value">building things for people he loves</span>
+            </div>
+            <div class="fact-row">
+              <span class="fact-label">first met Rica</span>
+              <span class="fact-value">Boscolympics, Football sideline</span>
+            </div>
+            <div class="fact-row">
+              <span class="fact-label">calls her</span>
+              <span class="fact-value">Riri, Little Major, Light Furry</span>
+            </div>
+            <div class="fact-row">
+              <span class="fact-label">favorite thing about Rica</span>
+              <span class="fact-value">her warmth — it fills a room</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div><!-- /.app-container -->
+
+</body>
+</html>
