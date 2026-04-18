@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Rica — Letters</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream: #fdf8f0; --cream-deep: #f5ede0;
+      --ink: #2c2016; --ink-light: #6b5744; --ink-faint: #a8917c;
+      --blush: #e8c4a0; --rose: #c97d5a; --rose-dark: #a05f40; --gold: #b98250;
+      --border: rgba(185,130,80,0.15); --border-strong: rgba(185,130,80,0.30);
+      --shadow-warm: rgba(100,60,20,0.07);
+      --font-serif: "Cormorant Garamond", serif; --font-sans: "Lato", sans-serif;
+      --sidebar-w: 260px;
+    }
+
+    html, body {
+      min-height: 100vh; background-color: var(--cream);
+      font-family: var(--font-sans); font-weight: 300;
+      color: var(--ink); overflow-x: hidden;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0;
+      background: radial-gradient(ellipse at 10% 20%, rgba(200,140,100,0.08) 0%, transparent 50%),
+                  radial-gradient(ellipse at 90% 80%, rgba(185,130,80,0.07) 0%, transparent 50%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* PETALS */
+    .petals-container { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+    .petal {
+      position: absolute; top: -40px;
+      background: radial-gradient(ellipse at 40% 30%, #f2c4a8, #d9896a);
+      border-radius: 50% 0 50% 0; opacity: 0; animation: petalFall linear infinite;
+    }
+    @keyframes petalFall {
+      0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
+      5% { opacity: 0.6; } 95% { opacity: 0.3; }
+      100% { transform: translateY(110vh) rotate(360deg) translateX(60px); opacity: 0; }
+    }
+    .petal:nth-child(1)  { left:5%;  width:8px;  height:11px; animation-duration:9s;  animation-delay:0s;   }
+    .petal:nth-child(2)  { left:15%; width:12px; height:16px; animation-duration:11s; animation-delay:1.5s; }
+    .petal:nth-child(3)  { left:28%; width:9px;  height:12px; animation-duration:8s;  animation-delay:3s;   }
+    .petal:nth-child(4)  { left:40%; width:11px; height:15px; animation-duration:13s; animation-delay:0.8s; }
+    .petal:nth-child(5)  { left:55%; width:8px;  height:11px; animation-duration:10s; animation-delay:2.2s; }
+    .petal:nth-child(6)  { left:68%; width:13px; height:17px; animation-duration:9s;  animation-delay:4s;   }
+    .petal:nth-child(7)  { left:78%; width:9px;  height:12px; animation-duration:12s; animation-delay:1s;   }
+    .petal:nth-child(8)  { left:88%; width:10px; height:14px; animation-duration:8s;  animation-delay:3.5s; }
+    .petal:nth-child(9)  { left:22%; width:7px;  height:10px; animation-duration:14s; animation-delay:5s;   }
+    .petal:nth-child(10) { left:62%; width:11px; height:15px; animation-duration:11s; animation-delay:6s;   }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:translateY(0); } }
+    .animate-in { animation: fadeUp 1.2s cubic-bezier(0.22,1,0.36,1) both; }
+
+    /* LAYOUT */
+    .app-container { display: flex; min-height: 100vh; position: relative; z-index: 2; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: var(--sidebar-w); flex-shrink: 0;
+      background-color: transparent; border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; padding: 40px 0;
+      position: sticky; top: 0; height: 100vh; overflow-y: auto;
+    }
+    .sidebar-header { padding: 0 30px; margin-bottom: 40px; }
+    .sidebar-header .star { color: var(--rose); font-size: 20px; margin-bottom: 10px; display: block; }
+    .sidebar-header h2 { font-family: var(--font-serif); font-style: italic; font-size: 22px; font-weight: 300; letter-spacing: 2px; color: var(--ink-light); }
+    .sidebar-menu { flex: 1; }
+    .sidebar-menu h3 { font-size: 11px; letter-spacing: 3px; color: var(--rose); padding: 0 30px; margin: 20px 0 10px; font-weight: 400; }
+    .sidebar-menu ul { list-style: none; margin-bottom: 30px; }
+    .sidebar-menu li { display: flex; align-items: center; border-left: 3px solid transparent; transition: background 0.2s ease; }
+    .sidebar-menu li:hover { background-color: rgba(232,196,160,0.1); }
+    .sidebar-menu li.active { background-color: rgba(232,196,160,0.2); border-left: 3px solid var(--rose); }
+    .sidebar-menu li a { text-decoration: none; color: var(--ink); font-size: 15px; display: flex; align-items: center; width: 100%; padding: 12px 30px; transition: color 0.2s ease; }
+    .sidebar-menu li.disabled a { color: var(--ink-faint); pointer-events: none; }
+    .sidebar-menu .icon { margin-right: 14px; font-size: 17px; opacity: 0.7; }
+    .badge { margin-left: auto; background-color: rgba(201,125,90,0.15); color: var(--rose); font-size: 11px; padding: 2px 8px; border-radius: 12px; font-weight: 400; }
+    .sidebar-bottom { padding: 0 30px; }
+    .sidebar-bottom ul { list-style: none; border-top: 1px solid var(--border); padding-top: 20px; margin-bottom: 20px; }
+    .sidebar-bottom li a { text-decoration: none; color: var(--ink-light); font-size: 15px; display: flex; align-items: center; padding: 8px 0; transition: color 0.2s ease; }
+    .sidebar-bottom li a:hover { color: var(--rose); }
+    .sidebar-footer { font-family: var(--font-serif); font-style: italic; font-size: 14px; color: var(--ink-faint); letter-spacing: 2px; border-top: 1px solid var(--border); padding-top: 20px; }
+
+    /* MAIN */
+    .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 60px 20px; overflow-y: auto; height: 100vh; }
+
+    /* ORNAMENT */
+    .ornament-divider { text-align: center; margin-bottom: 40px; }
+    .ornament-divider .star-glyph { font-family: var(--font-serif); font-size: 26px; color: var(--rose); letter-spacing: 8px; display: block; margin-bottom: 8px; }
+    .ornament-divider .line { display: inline-block; width: 100px; height: 0.5px; background: linear-gradient(to right, transparent, var(--blush), transparent); vertical-align: middle; }
+    .ornament-divider .diamond { display: inline-block; width: 6px; height: 6px; background: var(--rose); transform: rotate(45deg); margin: 0 12px; vertical-align: middle; }
+
+    /* ============================================================
+       LETTERS — SPECIFIC STYLES
+       ============================================================ */
+    .letters-wrapper { max-width: 640px; width: 100%; }
+
+    .page-title { text-align: center; margin-bottom: 40px; }
+    .page-title .eyebrow { font-family: var(--font-serif); font-style: italic; font-size: 13px; letter-spacing: 4px; color: var(--ink-faint); display: block; margin-bottom: 10px; }
+    .page-title h1 { font-family: var(--font-serif); font-weight: 300; font-size: 36px; color: var(--ink); letter-spacing: 2px; }
+
+    /* Letter paper card */
+    .letter-paper {
+      background: #fffdf8; border: 0.5px solid rgba(185,130,80,0.2);
+      border-radius: 2px; padding: 56px 52px; position: relative;
+      box-shadow: 0 2px 40px rgba(100,60,20,0.06), 0 1px 4px rgba(100,60,20,0.04);
+    }
+    .letter-paper::after {
+      content: ""; position: absolute; inset: 12px;
+      border: 0.5px solid rgba(185,130,80,0.08); border-radius: 1px; pointer-events: none;
+    }
+    .letter-date { text-align: right; font-family: var(--font-serif); font-style: italic; font-size: 14px; color: var(--ink-light); letter-spacing: 0.5px; margin-bottom: 32px; }
+    .letter-salutation { font-family: var(--font-serif); font-size: 22px; font-weight: 400; color: var(--ink); margin-bottom: 28px; letter-spacing: 0.3px; }
+    .letter-body p { font-size: 15.5px; line-height: 2; color: var(--ink); margin-bottom: 22px; letter-spacing: 0.2px; }
+    .letter-body p:last-child { margin-bottom: 0; }
+    .tagalog { font-family: var(--font-serif); font-style: italic; font-size: 15.5px; color: var(--ink); }
+    .letter-closing { margin-top: 36px; border-top: 0.5px solid rgba(185,130,80,0.15); padding-top: 28px; }
+    .letter-closing .closing-label { font-family: var(--font-serif); font-style: italic; font-size: 15px; color: var(--ink-light); margin-bottom: 6px; }
+    .letter-closing .closing-name { font-family: var(--font-serif); font-size: 28px; font-weight: 400; color: var(--ink); letter-spacing: 1px; }
+
+    /* Archive */
+    .letters-archive { margin-top: 48px; }
+    .archive-label { font-size: 11px; letter-spacing: 3px; color: var(--rose); font-weight: 400; margin-bottom: 16px; display: block; }
+    .archive-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 0.5px solid var(--border); }
+    .archive-item .archive-title { font-family: var(--font-serif); font-style: italic; font-size: 16px; color: var(--ink-light); }
+    .archive-item .archive-date { font-size: 12px; letter-spacing: 1px; color: var(--ink-faint); }
+    .archive-item .archive-badge { font-size: 11px; background: rgba(201,125,90,0.12); color: var(--rose); padding: 2px 10px; border-radius: 12px; }
+
+    @media (max-width: 768px) {
+      .app-container { flex-direction: column; }
+      .sidebar { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border); padding: 20px 0; }
+      .main-content { height: auto; overflow-y: visible; padding: 40px 15px; }
+      .letter-paper { padding: 36px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="petals-container" aria-hidden="true">
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div>
+  </div>
+
+  <div class="app-container">
+
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <span class="star">✦</span>
+        <h2>for rica</h2>
+      </div>
+      <nav class="sidebar-menu">
+        <h3>MAIN</h3>
+        <ul>
+          <li><a href="index.html"><span class="icon">⊞</span> Home</a></li>
+          <li class="active"><a href="letters.html"><span class="icon">✉</span> Letters <span class="badge">1</span></a></li>
+          <li><a href="photos.html"><span class="icon">✾</span> Photos <span class="badge">13</span></a></li>
+        </ul>
+        <h3>COMING SOON</h3>
+        <ul>
+          <li class="disabled"><a href="#"><span class="icon">☆</span> Memories</a></li>
+          <li class="disabled"><a href="#"><span class="icon">◷</span> Timeline</a></li>
+          <li class="disabled"><a href="#"><span class="icon">⚲</span> Places</a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-bottom">
+        <ul><li><a href="about.html"><span class="icon">♙</span> About Miggy</a></li></ul>
+        <div class="sidebar-footer">with love &middot; always</div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="letters-wrapper animate-in">
+
+        <div class="ornament-divider">
+          <span class="star-glyph">✦</span>
+          <span class="line"></span><span class="diamond"></span><span class="line"></span>
+        </div>
+
+        <div class="page-title">
+          <span class="eyebrow">written with care</span>
+          <h1>Letters</h1>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════
+             LETTER #1 — April 2026
+             To add a new letter: copy this entire <article> block,
+             paste it below, and update the date, salutation, body, etc.
+             ═══════════════════════════════════════════════════ -->
+        <article class="letter-paper">
+          <div class="letter-date">April 2026</div>
+          <div class="letter-salutation">Dear Rica, Riri, Little Major,</div>
+          <div class="letter-body">
+            <p>
+              First things first, thank you. <span class="tagalog">Salamat talaga.</span> For the kindness you gave,
+              for the way you care without being asked, and for being the kind of person who makes everyone around her
+              feel safe and seen. Not everyone is like that, and I hope you know how special that makes you.
+              I do not want to take it for granted.
+            </p>
+            <p>
+              I was a last minute add to the Boscolympics lineup for DBA. No plan, no expectations either.
+              You were there to watch over the students play Football and I remember thinking,
+              <span class="tagalog">blessing talaga toh kese nakasali pa ako. Maybe it&rsquo;s God&rsquo;s will.</span>
+              Because on that day, I met you.
+            </p>
+            <p>
+              And the more I got to know you, the more I realized it was not just the moment or just a feeling.
+              It was you. Your warmth, your love for the people around you, the way you are cute, gorgeous, and kind
+              all at once without even trying.
+              <span class="tagalog">Yung totoo mong pagkatao, yon ang nag-pafall sa akin sayo, Rica.</span>
+            </p>
+            <p>
+              I call you Little Major, Light Furry, Riri. I know it&rsquo;s silly but for me, those names just feel
+              right for you. Small, warm, and mine to keep quietly.
+            </p>
+            <p>
+              I am grateful for you, Rica, I love you dearly. If you ever give me a chance,
+              I will make sure you never regret it.
+            </p>
+          </div>
+          <div class="letter-closing">
+            <div class="closing-label">With love and gratitude,</div>
+            <div class="closing-name">Miggy</div>
+          </div>
+        </article>
+
+        <!-- Archive index -->
+        <div class="letters-archive">
+          <span class="archive-label">ALL LETTERS</span>
+          <div class="archive-item">
+            <span class="archive-title">The One That Started It All</span>
+            <span class="archive-date">April 2026</span>
+            <span class="archive-badge">newest</span>
+          </div>
+          <div class="archive-item" style="opacity:0.35;">
+            <span class="archive-title" style="font-style:italic;">more letters coming…</span>
+            <span class="archive-date">—</span>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>
