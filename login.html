@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Rica — Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       RESET & VARIABLES
+       ============================================================ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream:         #fdf8f0;
+      --cream-deep:    #f5ede0;
+      --ink:           #2c2016;
+      --ink-light:     #6b5744;
+      --ink-faint:     #a8917c;
+      --blush:         #e8c4a0;
+      --rose:          #c97d5a;
+      --rose-dark:     #a05f40;
+      --border:        rgba(185,130,80,0.15);
+      --border-strong: rgba(185,130,80,0.30);
+      --shadow-warm:   rgba(100,60,20,0.07);
+      --font-serif:    "Cormorant Garamond", serif;
+      --font-sans:     "Lato", sans-serif;
+    }
+
+    html, body {
+      min-height: 100vh;
+      background-color: var(--cream);
+      font-family: var(--font-sans);
+      font-weight: 300;
+      color: var(--ink);
+      overflow-x: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Warm ambient background */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 10% 20%, rgba(200,140,100,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 80%, rgba(185,130,80,0.07) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ============================================================
+       FLOATING PETALS
+       ============================================================ */
+    .petals-container {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 1; overflow: hidden;
+    }
+    .petal {
+      position: absolute; top: -40px;
+      background: radial-gradient(ellipse at 40% 30%, #f2c4a8, #d9896a);
+      border-radius: 50% 0 50% 0; opacity: 0;
+      animation: petalFall linear infinite;
+    }
+    @keyframes petalFall {
+      0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
+      5%   { opacity: 0.6; }
+      95%  { opacity: 0.3; }
+      100% { transform: translateY(110vh) rotate(360deg) translateX(60px); opacity: 0; }
+    }
+    .petal:nth-child(1)  { left:5%;  width:8px;  height:11px; animation-duration:9s;  animation-delay:0s;   }
+    .petal:nth-child(2)  { left:15%; width:12px; height:16px; animation-duration:11s; animation-delay:1.5s; }
+    .petal:nth-child(3)  { left:28%; width:9px;  height:12px; animation-duration:8s;  animation-delay:3s;   }
+    .petal:nth-child(4)  { left:40%; width:11px; height:15px; animation-duration:13s; animation-delay:0.8s; }
+    .petal:nth-child(5)  { left:55%; width:8px;  height:11px; animation-duration:10s; animation-delay:2.2s; }
+    .petal:nth-child(6)  { left:68%; width:13px; height:17px; animation-duration:9s;  animation-delay:4s;   }
+    .petal:nth-child(7)  { left:78%; width:9px;  height:12px; animation-duration:12s; animation-delay:1s;   }
+    .petal:nth-child(8)  { left:88%; width:10px; height:14px; animation-duration:8s;  animation-delay:3.5s; }
+    .petal:nth-child(9)  { left:22%; width:7px;  height:10px; animation-duration:14s; animation-delay:5s;   }
+    .petal:nth-child(10) { left:62%; width:11px; height:15px; animation-duration:11s; animation-delay:6s;   }
+
+    /* ============================================================
+       FADE-IN ANIMATION
+       ============================================================ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================================
+       LOGIN BOX WRAPPER
+       ============================================================ */
+    .login-box {
+      max-width: 420px;
+      width: 100%;
+      padding: 20px;
+      position: relative;
+      z-index: 2;
+      animation: fadeUp 1s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    /* ============================================================
+       ORNAMENTAL DIVIDER
+       ============================================================ */
+    .login-ornament {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .login-ornament .star-glyph {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: var(--rose);
+      letter-spacing: 8px;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .login-ornament .line {
+      display: inline-block; width: 80px; height: 0.5px;
+      background: linear-gradient(to right, transparent, var(--blush), transparent);
+      vertical-align: middle;
+    }
+    .login-ornament .diamond {
+      display: inline-block; width: 5px; height: 5px;
+      background: var(--rose); transform: rotate(45deg);
+      margin: 0 10px; vertical-align: middle;
+    }
+
+    /* ============================================================
+       LOGIN CARD
+       ============================================================ */
+    .login-card {
+      background: #fffdf8;
+      border: 0.5px solid rgba(185,130,80,0.2);
+      border-radius: 2px;
+      padding: 48px 44px;
+      position: relative;
+      box-shadow: 0 2px 40px var(--shadow-warm), 0 1px 4px rgba(100,60,20,0.04);
+      transition: transform 0.15s ease;
+    }
+
+    /* Subtle inner border */
+    .login-card::after {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border: 0.5px solid rgba(185,130,80,0.07);
+      border-radius: 1px;
+      pointer-events: none;
+    }
+
+    /* Title */
+    .login-title {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 34px;
+      color: var(--ink);
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+
+    .login-subtitle {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 13px;
+      color: var(--ink-faint);
+      letter-spacing: 2px;
+      margin-bottom: 36px;
+      display: block;
+    }
+
+    /* ============================================================
+       FORM FIELDS
+       ============================================================ */
+    .field-group {
+      margin-bottom: 26px;
+    }
+
+    .field-group label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      color: var(--rose);
+      font-weight: 400;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .field-group input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border-strong);
+      padding: 10px 0;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.25s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .field-group input::placeholder {
+      color: var(--ink-faint);
+      font-style: italic;
+      font-family: var(--font-serif);
+      font-size: 15px;
+      letter-spacing: 1px;
+    }
+
+    .field-group input:focus {
+      border-bottom-color: var(--rose);
+    }
+
+    /* ============================================================
+       LOGIN BUTTON
+       ============================================================ */
+    .login-btn {
+      width: 100%;
+      margin-top: 32px;
+      background: transparent;
+      border: 0.5px solid var(--border-strong);
+      border-radius: 2px;
+      padding: 14px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 3px;
+      color: var(--ink-light);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-transform: uppercase;
+    }
+
+    .login-btn:hover {
+      background: rgba(201,125,90,0.08);
+      border-color: var(--rose);
+      color: var(--rose);
+    }
+
+    /* ============================================================
+       ERROR MESSAGE
+       ============================================================ */
+    .login-error {
+      display: none;
+      margin-top: 18px;
+      text-align: center;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 14px;
+      color: var(--rose-dark);
+      letter-spacing: 0.5px;
+      animation: fadeUp 0.3s ease both;
+    }
+
+    .login-error.visible { display: block; }
+
+    /* ============================================================
+       LOGIN PAGE FOOTER
+       ============================================================ */
+    .login-footer {
+      text-align: center;
+      margin-top: 28px;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 13px;
+      color: var(--ink-faint);
+      letter-spacing: 2px;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 480px) {
+      .login-card { padding: 36px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FLOATING PETALS -->
+  <div class="petals-container" aria-hidden="true">
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div>
+  </div>
+
+  <!-- ============================================================
+       LOGIN BOX
+       ============================================================ -->
+  <div class="login-box">
+
+    <!-- Ornament -->
+    <div class="login-ornament">
+      <span class="star-glyph">✦</span>
+      <span class="line"></span>
+      <span class="diamond"></span>
+      <span class="line"></span>
+    </div>
+
+    <!-- Card -->
+    <div class="login-card" id="login-card">
+
+      <div class="login-title">Login</div>
+      <span class="login-subtitle">a private place, just for us</span>
+
+      <!-- Username -->
+      <div class="field-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          placeholder="First Name, Last Name"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+
+      <!-- Password -->
+      <div class="field-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="enter your password"
+        />
+      </div>
+
+      <!-- Submit -->
+      <button class="login-btn" id="login-btn">Enter</button>
+
+      <!-- Error -->
+      <div class="login-error" id="login-error">
+        Incorrect username or password. Please try again.
+      </div>
+
+    </div>
+
+    <div class="login-footer">with love &middot; always</div>
+  </div>
+
+  <script>
+    /* ============================================================
+       LOGIN SYSTEM — login.html
+       ============================================================
+
+       HOW TO ADD MORE USERS:
+       Find the USERS object below and add a new line:
+         "First Last": "password",
+
+       Example:
+         "Juan Dela Cruz": "mypassword",
+
+       Usernames are NOT case-sensitive.
+       Passwords ARE case-sensitive.
+       ============================================================ */
+
+    const USERS = {
+      "Ajel Salvador": "Riri",
+      "Rica Hizon":    "Miggy",
+      /* ── ADD MORE USERS BELOW THIS LINE ──────────────────────
+         "First Last": "password",
+         "First Last": "password",
+         ────────────────────────────────────────────────────── */
+    };
+
+    const SESSION_KEY = 'rica-session';
+
+    /* --- DOM Elements --- */
+    const loginBtn      = document.getElementById('login-btn');
+    const loginError    = document.getElementById('login-error');
+    const loginCard     = document.getElementById('login-card');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+
+    /* ----------------------------------------------------------
+       CHECK IF ALREADY LOGGED IN
+       If they're already authenticated, skip login and go home
+    ---------------------------------------------------------- */
+    if (sessionStorage.getItem(SESSION_KEY)) {
+      window.location.replace('index.html');
+    }
+
+    /* ----------------------------------------------------------
+       ATTEMPT LOGIN
+    ---------------------------------------------------------- */
+    function attemptLogin() {
+      const enteredUser = usernameInput.value.trim();
+      const enteredPass = passwordInput.value;
+
+      // Match username case-insensitively
+      const matchedKey = Object.keys(USERS).find(
+        name => name.toLowerCase() === enteredUser.toLowerCase()
+      );
+
+      if (matchedKey && USERS[matchedKey] === enteredPass) {
+        // ✅ Correct credentials — save session and go to home
+        sessionStorage.setItem(SESSION_KEY, matchedKey);
+        window.location.href = 'index.html';
+      } else {
+        // ❌ Wrong — show error and shake the card
+        loginError.classList.add('visible');
+        passwordInput.value = '';
+        passwordInput.focus();
+        shakeCard();
+      }
+    }
+
+    /* ----------------------------------------------------------
+       SHAKE ANIMATION on wrong password
+    ---------------------------------------------------------- */
+    function shakeCard() {
+      loginCard.style.transition = 'transform 0.08s ease';
+      const moves = [-8, 8, -5, 5, -2, 0];
+      moves.forEach((x, i) => {
+        setTimeout(() => {
+          loginCard.style.transform = `translateX(${x}px)`;
+        }, i * 80);
+      });
+    }
+
+    /* ----------------------------------------------------------
+       EVENT LISTENERS
+    ---------------------------------------------------------- */
+    loginBtn.addEventListener('click', attemptLogin);
+
+    // Tab from username → password
+    usernameInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') passwordInput.focus();
+    });
+
+    // Enter in password → submit
+    passwordInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') attemptLogin();
+    });
+
+    // Clear error when user starts typing again
+    usernameInput.addEventListener('input', () => loginError.classList.remove('visible'));
+    passwordInput.addEventListener('input', () => loginError.classList.remove('visible'));
+  </script>
+
+</body>
+</html>
