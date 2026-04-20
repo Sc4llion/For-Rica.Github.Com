@@ -7,9 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
 
   <style>
-    /* ============================================================
-       RESET & CSS VARIABLES
-       ============================================================ */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
@@ -30,9 +27,6 @@
       --sidebar-w:     260px;
     }
 
-    /* ============================================================
-       BASE
-       ============================================================ */
     html, body {
       min-height: 100vh;
       background-color: var(--cream);
@@ -53,25 +47,10 @@
       z-index: 0;
     }
 
-    /* ============================================================
-       PETALS
-       ============================================================ */
-    .petals-container {
-      position: fixed; inset: 0;
-      pointer-events: none; z-index: 1; overflow: hidden;
-    }
-    .petal {
-      position: absolute; top: -40px;
-      background: radial-gradient(ellipse at 40% 30%, #f2c4a8, #d9896a);
-      border-radius: 50% 0 50% 0; opacity: 0;
-      animation: petalFall linear infinite;
-    }
-    @keyframes petalFall {
-      0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
-      5%   { opacity: 0.6; }
-      95%  { opacity: 0.3; }
-      100% { transform: translateY(110vh) rotate(360deg) translateX(60px); opacity: 0; }
-    }
+    /* PETALS */
+    .petals-container { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+    .petal { position: absolute; top: -40px; background: radial-gradient(ellipse at 40% 30%, #f2c4a8, #d9896a); border-radius: 50% 0 50% 0; opacity: 0; animation: petalFall linear infinite; }
+    @keyframes petalFall { 0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; } 5% { opacity: 0.6; } 95% { opacity: 0.3; } 100% { transform: translateY(110vh) rotate(360deg) translateX(60px); opacity: 0; } }
     .petal:nth-child(1)  { left:5%;  width:8px;  height:11px; animation-duration:9s;  animation-delay:0s;   }
     .petal:nth-child(2)  { left:15%; width:12px; height:16px; animation-duration:11s; animation-delay:1.5s; }
     .petal:nth-child(3)  { left:28%; width:9px;  height:12px; animation-duration:8s;  animation-delay:3s;   }
@@ -83,205 +62,78 @@
     .petal:nth-child(9)  { left:22%; width:7px;  height:10px; animation-duration:14s; animation-delay:5s;   }
     .petal:nth-child(10) { left:62%; width:11px; height:15px; animation-duration:11s; animation-delay:6s;   }
 
-    /* ============================================================
-       FADE-IN ANIMATION
-       ============================================================ */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
     .animate-in { animation: fadeUp 1.2s cubic-bezier(0.22,1,0.36,1) both; }
 
-    /* ============================================================
-       LAYOUT
-       ============================================================ */
-    .app-container {
-      display: flex; min-height: 100vh;
-      position: relative; z-index: 2;
-    }
+    /* LAYOUT */
+    .app-container { display: flex; min-height: 100vh; position: relative; z-index: 2; }
 
-    /* ============================================================
-       SIDEBAR
-       ============================================================ */
-    .sidebar {
-      width: var(--sidebar-w); flex-shrink: 0;
-      background-color: transparent;
-      border-right: 1px solid var(--border);
-      display: flex; flex-direction: column;
-      padding: 40px 0;
-      position: sticky; top: 0; height: 100vh;
-      overflow-y: auto;
-    }
+    /* SIDEBAR */
+    .sidebar { width: var(--sidebar-w); flex-shrink: 0; background-color: transparent; border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 40px 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
     .sidebar-header { padding: 0 30px; margin-bottom: 40px; }
     .sidebar-header .star { color: var(--rose); font-size: 20px; margin-bottom: 10px; display: block; }
-    .sidebar-header h2 {
-      font-family: var(--font-serif); font-style: italic;
-      font-size: 22px; font-weight: 300; letter-spacing: 2px; color: var(--ink-light);
-    }
+    .sidebar-header h2 { font-family: var(--font-serif); font-style: italic; font-size: 22px; font-weight: 300; letter-spacing: 2px; color: var(--ink-light); }
     .sidebar-menu { flex: 1; }
-    .sidebar-menu h3 {
-      font-size: 11px; letter-spacing: 3px; color: var(--rose);
-      padding: 0 30px; margin: 20px 0 10px; font-weight: 400;
-    }
+    .sidebar-menu h3 { font-size: 11px; letter-spacing: 3px; color: var(--rose); padding: 0 30px; margin: 20px 0 10px; font-weight: 400; }
     .sidebar-menu ul { list-style: none; margin-bottom: 30px; }
-    .sidebar-menu li {
-      display: flex; align-items: center;
-      border-left: 3px solid transparent;
-      transition: background 0.2s ease;
-    }
+    .sidebar-menu li { display: flex; align-items: center; border-left: 3px solid transparent; transition: background 0.2s ease; }
     .sidebar-menu li:hover { background-color: rgba(232,196,160,0.1); }
-    .sidebar-menu li.active {
-      background-color: rgba(232,196,160,0.2);
-      border-left: 3px solid var(--rose);
-    }
-    .sidebar-menu li a {
-      text-decoration: none; color: var(--ink);
-      font-size: 15px; display: flex; align-items: center;
-      width: 100%; padding: 12px 30px;
-      transition: color 0.2s ease;
-    }
+    .sidebar-menu li.active { background-color: rgba(232,196,160,0.2); border-left: 3px solid var(--rose); }
+    .sidebar-menu li a { text-decoration: none; color: var(--ink); font-size: 15px; display: flex; align-items: center; width: 100%; padding: 12px 30px; transition: color 0.2s ease; }
     .sidebar-menu li.disabled a { color: var(--ink-faint); pointer-events: none; }
     .sidebar-menu .icon { margin-right: 14px; font-size: 17px; opacity: 0.7; }
-    .badge {
-      margin-left: auto; background-color: rgba(201,125,90,0.15);
-      color: var(--rose); font-size: 11px; padding: 2px 8px;
-      border-radius: 12px; font-weight: 400;
-    }
+    .badge { margin-left: auto; background-color: rgba(201,125,90,0.15); color: var(--rose); font-size: 11px; padding: 2px 8px; border-radius: 12px; font-weight: 400; }
     .sidebar-bottom { padding: 0 30px; }
-    .sidebar-bottom ul {
-      list-style: none; border-top: 1px solid var(--border);
-      padding-top: 20px; margin-bottom: 20px;
-    }
-    .sidebar-bottom li a {
-      text-decoration: none; color: var(--ink-light);
-      font-size: 15px; display: flex; align-items: center;
-      padding: 8px 0; transition: color 0.2s ease;
-    }
+    .sidebar-bottom ul { list-style: none; border-top: 1px solid var(--border); padding-top: 20px; margin-bottom: 20px; }
+    .sidebar-bottom li a { text-decoration: none; color: var(--ink-light); font-size: 15px; display: flex; align-items: center; padding: 8px 0; transition: color 0.2s ease; }
     .sidebar-bottom li a:hover { color: var(--rose); }
-    .sidebar-footer {
-      font-family: var(--font-serif); font-style: italic;
-      font-size: 14px; color: var(--ink-faint);
-      letter-spacing: 2px; border-top: 1px solid var(--border);
-      padding-top: 20px;
-    }
 
-    /* ============================================================
-       MAIN CONTENT
-       ============================================================ */
-    .main-content {
-      flex: 1; display: flex; flex-direction: column;
-      align-items: center; padding: 60px 20px;
-      overflow-y: auto; height: 100vh;
-    }
+    /* Logged in user display */
+    .sidebar-user { font-family: var(--font-serif); font-style: italic; font-size: 13px; color: var(--ink-faint); letter-spacing: 1px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 0.5px solid var(--border); line-height: 1.6; }
+    .sidebar-user span { color: var(--rose); font-style: normal; }
 
-    /* ============================================================
-       ORNAMENTAL DIVIDER
-       ============================================================ */
+    /* Logout link */
+    .logout-link { font-size: 11px !important; letter-spacing: 2px !important; color: var(--ink-faint) !important; text-transform: uppercase; cursor: pointer; }
+    .logout-link:hover { color: var(--rose) !important; }
+
+    .sidebar-footer { font-family: var(--font-serif); font-style: italic; font-size: 14px; color: var(--ink-faint); letter-spacing: 2px; border-top: 1px solid var(--border); padding-top: 20px; }
+
+    /* MAIN */
+    .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 60px 20px; overflow-y: auto; height: 100vh; }
+
+    /* ORNAMENT */
     .ornament-divider { text-align: center; margin-bottom: 40px; }
-    .ornament-divider .star-glyph {
-      font-family: var(--font-serif); font-size: 26px;
-      color: var(--rose); letter-spacing: 8px;
-      display: block; margin-bottom: 8px;
-    }
-    .ornament-divider .line {
-      display: inline-block; width: 100px; height: 0.5px;
-      background: linear-gradient(to right, transparent, var(--blush), transparent);
-      vertical-align: middle;
-    }
-    .ornament-divider .diamond {
-      display: inline-block; width: 6px; height: 6px;
-      background: var(--rose); transform: rotate(45deg);
-      margin: 0 12px; vertical-align: middle;
-    }
+    .ornament-divider .star-glyph { font-family: var(--font-serif); font-size: 26px; color: var(--rose); letter-spacing: 8px; display: block; margin-bottom: 8px; }
+    .ornament-divider .line { display: inline-block; width: 100px; height: 0.5px; background: linear-gradient(to right, transparent, var(--blush), transparent); vertical-align: middle; }
+    .ornament-divider .diamond { display: inline-block; width: 6px; height: 6px; background: var(--rose); transform: rotate(45deg); margin: 0 12px; vertical-align: middle; }
 
-    /* ============================================================
-       HOME PAGE — SPECIFIC STYLES
-       ============================================================ */
+    /* HOME PAGE */
     .home-wrapper { max-width: 680px; width: 100%; }
-
     .welcome-headline { text-align: center; margin-bottom: 48px; }
-    .welcome-headline .eyebrow {
-      font-family: var(--font-serif); font-style: italic;
-      font-size: 13px; letter-spacing: 4px;
-      color: var(--ink-faint); display: block; margin-bottom: 14px;
-    }
-    .welcome-headline h1 {
-      font-family: var(--font-serif); font-weight: 300;
-      font-size: clamp(42px, 6vw, 68px); color: var(--ink);
-      line-height: 1.1; letter-spacing: 2px;
-    }
+    .welcome-headline .eyebrow { font-family: var(--font-serif); font-style: italic; font-size: 13px; letter-spacing: 4px; color: var(--ink-faint); display: block; margin-bottom: 14px; }
+    .welcome-headline h1 { font-family: var(--font-serif); font-weight: 300; font-size: clamp(42px, 6vw, 68px); color: var(--ink); line-height: 1.1; letter-spacing: 2px; }
     .welcome-headline h1 em { color: var(--rose); font-style: italic; }
-    .welcome-headline .subtitle {
-      margin-top: 16px; font-size: 14px;
-      letter-spacing: 2px; color: var(--ink-faint);
-    }
+    .welcome-headline .subtitle { margin-top: 16px; font-size: 14px; letter-spacing: 2px; color: var(--ink-faint); }
 
-    .welcome-card {
-      background: #fffdf8;
-      border: 0.5px solid rgba(185,130,80,0.2);
-      border-radius: 2px; padding: 52px 56px;
-      position: relative;
-      box-shadow: 0 2px 40px var(--shadow-warm), 0 1px 4px rgba(100,60,20,0.04);
-    }
-    .welcome-card::after {
-      content: ""; position: absolute; inset: 12px;
-      border: 0.5px solid rgba(185,130,80,0.08);
-      border-radius: 1px; pointer-events: none;
-    }
-    .welcome-card .greeting {
-      font-family: var(--font-serif); font-size: 20px;
-      font-weight: 300; color: var(--ink-light);
-      margin-bottom: 20px; letter-spacing: 0.5px;
-    }
-    .welcome-card p {
-      font-size: 15.5px; line-height: 2; color: var(--ink);
-      margin-bottom: 20px; letter-spacing: 0.2px;
-    }
+    .welcome-card { background: #fffdf8; border: 0.5px solid rgba(185,130,80,0.2); border-radius: 2px; padding: 52px 56px; position: relative; box-shadow: 0 2px 40px var(--shadow-warm), 0 1px 4px rgba(100,60,20,0.04); }
+    .welcome-card::after { content: ""; position: absolute; inset: 12px; border: 0.5px solid rgba(185,130,80,0.08); border-radius: 1px; pointer-events: none; }
+    .welcome-card .greeting { font-family: var(--font-serif); font-size: 20px; font-weight: 300; color: var(--ink-light); margin-bottom: 20px; letter-spacing: 0.5px; }
+    .welcome-card p { font-size: 15.5px; line-height: 2; color: var(--ink); margin-bottom: 20px; letter-spacing: 0.2px; }
     .welcome-card p:last-of-type { margin-bottom: 0; }
 
-    .quick-links {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 12px; margin-top: 40px;
-    }
-    .quick-link-card {
-      background: #fffdf8;
-      border: 0.5px solid var(--border-strong);
-      border-radius: 2px; padding: 24px 20px;
-      text-align: center; text-decoration: none;
-      color: var(--ink);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-    }
-    .quick-link-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 30px var(--shadow-warm);
-      border-color: rgba(201,125,90,0.4);
-    }
-    .quick-link-card .card-icon {
-      font-size: 26px; display: block; margin-bottom: 10px; opacity: 0.75;
-    }
-    .quick-link-card .card-title {
-      font-family: var(--font-serif); font-style: italic;
-      font-size: 17px; color: var(--ink-light);
-      display: block; margin-bottom: 6px;
-    }
-    .quick-link-card .card-desc {
-      font-size: 12px; letter-spacing: 1px; color: var(--ink-faint);
-    }
+    .quick-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 40px; }
+    .quick-link-card { background: #fffdf8; border: 0.5px solid var(--border-strong); border-radius: 2px; padding: 24px 20px; text-align: center; text-decoration: none; color: var(--ink); transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+    .quick-link-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px var(--shadow-warm); border-color: rgba(201,125,90,0.4); }
+    .quick-link-card .card-icon { font-size: 26px; display: block; margin-bottom: 10px; opacity: 0.75; }
+    .quick-link-card .card-title { font-family: var(--font-serif); font-style: italic; font-size: 17px; color: var(--ink-light); display: block; margin-bottom: 6px; }
+    .quick-link-card .card-desc { font-size: 12px; letter-spacing: 1px; color: var(--ink-faint); }
     .quick-link-card.disabled { opacity: 0.4; pointer-events: none; }
 
     .home-closing { margin-top: 48px; text-align: center; }
-    .home-closing .closing-line {
-      display: inline-block; width: 60px; height: 0.5px;
-      background: var(--blush); vertical-align: middle; margin: 0 12px;
-    }
-    .home-closing .closing-text {
-      font-family: var(--font-serif); font-style: italic;
-      font-size: 14px; color: var(--ink-faint); letter-spacing: 2px;
-    }
+    .home-closing .closing-line { display: inline-block; width: 60px; height: 0.5px; background: var(--blush); vertical-align: middle; margin: 0 12px; }
+    .home-closing .closing-text { font-family: var(--font-serif); font-style: italic; font-size: 14px; color: var(--ink-faint); letter-spacing: 2px; }
 
-    /* ============================================================
-       RESPONSIVE
-       ============================================================ */
+    /* RESPONSIVE */
     @media (max-width: 768px) {
       .app-container { flex-direction: column; }
       .sidebar { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border); padding: 20px 0; }
@@ -303,651 +155,12 @@
 
   <div class="app-container">
 
-    <!-- ===================== SIDEBAR ===================== -->
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <span class="star">✦</span>
-        <h2>for rica</h2>
-      </div>
-      <nav class="sidebar-menu">
-        <h3>MAIN</h3>
-        <ul>
-          <li class="active"><a href="index.html"><span class="icon">⊞</span> Home</a></li>
-          <li><a href="letters.html"><span class="icon">✉</span> Letters <span class="badge">1</span></a></li>
-          <li><a href="photos.html"><span class="icon">✾</span> Photos <span class="badge">13</span></a></li>
-        </ul>
-        <h3>COMING SOON</h3>
-        <ul>
-          <li class="disabled"><a href="#"><span class="icon">☆</span> Memories</a></li>
-          <li class="disabled"><a href="#"><span class="icon">◷</span> Timeline</a></li>
-          <li class="disabled"><a href="#"><span class="icon">⚲</span> Places</a></li>
-        </ul>
-      </nav>
-      <div class="sidebar-bottom">
-        <ul>
-          <li><a href="about.html"><span class="icon">♙</span> About Miggy</a></li>
-        </ul>
-        <div class="sidebar-footer">with love &middot; always</div>
-      </div>
-    </aside>
-
-    <!-- =================== MAIN CONTENT =================== -->
-    <main class="main-content">
-      <div class="home-wrapper animate-in">
-
-        <div class="ornament-divider">
-          <span class="star-glyph">✦</span>
-          <span class="line"></span><span class="diamond"></span><span class="line"></span>
-        </div>
-
-        <div class="welcome-headline">
-          <span class="eyebrow">a little place made for you</span>
-          <h1>Welcome, <em>Rica.</em></h1>
-          <p class="subtitle">something quiet &nbsp;&middot;&nbsp; something yours</p>
-        </div>
-
-        <div class="welcome-card">
-          <div class="greeting">Riri, Little Major, Light Furry</div>
-          <p>
-            This little corner of the internet was made just for you, a space to hold the things I feel but sometimes
-            struggle to say out loud. You'll find letters, photos, and small reminders of how much you mean to me.
-          </p>
-          <p>
-            Explore whenever you like. There's no rush here. Just warmth, honesty, and a lot of love, quietly waiting
-            for you in every page.
-          </p>
-        </div>
-
-        <div class="quick-links">
-          <a class="quick-link-card" href="letters.html">
-            <span class="card-icon">✉</span>
-            <span class="card-title">Letters</span>
-            <span class="card-desc">words from the heart</span>
-          </a>
-          <a class="quick-link-card" href="photos.html">
-            <span class="card-icon">✾</span>
-            <span class="card-title">Photos</span>
-            <span class="card-desc">moments we shared</span>
-          </a>
-          <a class="quick-link-card disabled" href="#">
-            <span class="card-icon">☆</span><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>For Rica — Home</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
-
-  <style>
-    /* ============================================================
-       RESET & CSS VARIABLES
-       ============================================================ */
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-      --cream:         #fdf8f0;
-      --cream-deep:    #f5ede0;
-      --ink:           #2c2016;
-      --ink-light:     #6b5744;
-      --ink-faint:     #a8917c;
-      --blush:         #e8c4a0;
-      --rose:          #c97d5a;
-      --rose-dark:     #a05f40;
-      --gold:          #b98250;
-      --border:        rgba(185,130,80,0.15);
-      --border-strong: rgba(185,130,80,0.30);
-      --shadow-warm:   rgba(100,60,20,0.07);
-      --font-serif:    "Cormorant Garamond", serif;
-      --font-sans:     "Lato", sans-serif;
-      --sidebar-w:     260px;
-    }
-
-    html, body {
-      min-height: 100vh;
-      background-color: var(--cream);
-      font-family: var(--font-sans);
-      font-weight: 300;
-      color: var(--ink);
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse at 10% 20%, rgba(200,140,100,0.08) 0%, transparent 50%),
-        radial-gradient(ellipse at 90% 80%, rgba(185,130,80,0.07) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ============================================================
-       PETALS
-       ============================================================ */
-    .petals-container {
-      position: fixed; inset: 0;
-      pointer-events: none; z-index: 1; overflow: hidden;
-    }
-    .petal {
-      position: absolute; top: -40px;
-      background: radial-gradient(ellipse at 40% 30%, #f2c4a8, #d9896a);
-      border-radius: 50% 0 50% 0; opacity: 0;
-      animation: petalFall linear infinite;
-    }
-    @keyframes petalFall {
-      0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
-      5%   { opacity: 0.6; }
-      95%  { opacity: 0.3; }
-      100% { transform: translateY(110vh) rotate(360deg) translateX(60px); opacity: 0; }
-    }
-    .petal:nth-child(1)  { left:5%;  width:8px;  height:11px; animation-duration:9s;  animation-delay:0s;   }
-    .petal:nth-child(2)  { left:15%; width:12px; height:16px; animation-duration:11s; animation-delay:1.5s; }
-    .petal:nth-child(3)  { left:28%; width:9px;  height:12px; animation-duration:8s;  animation-delay:3s;   }
-    .petal:nth-child(4)  { left:40%; width:11px; height:15px; animation-duration:13s; animation-delay:0.8s; }
-    .petal:nth-child(5)  { left:55%; width:8px;  height:11px; animation-duration:10s; animation-delay:2.2s; }
-    .petal:nth-child(6)  { left:68%; width:13px; height:17px; animation-duration:9s;  animation-delay:4s;   }
-    .petal:nth-child(7)  { left:78%; width:9px;  height:12px; animation-duration:12s; animation-delay:1s;   }
-    .petal:nth-child(8)  { left:88%; width:10px; height:14px; animation-duration:8s;  animation-delay:3.5s; }
-    .petal:nth-child(9)  { left:22%; width:7px;  height:10px; animation-duration:14s; animation-delay:5s;   }
-    .petal:nth-child(10) { left:62%; width:11px; height:15px; animation-duration:11s; animation-delay:6s;   }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .animate-in { animation: fadeUp 1.2s cubic-bezier(0.22,1,0.36,1) both; }
-
-    /* ============================================================
-       LOGIN SCREEN — overlays everything until authenticated
-       ============================================================ */
-    #login-screen {
-      position: fixed;
-      inset: 0;
-      z-index: 999;
-      background-color: var(--cream);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
-    }
-
-    /* Hide login screen after successful login */
-    #login-screen.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .login-box {
-      max-width: 420px;
-      width: 100%;
-      animation: fadeUp 1s cubic-bezier(0.22,1,0.36,1) both;
-    }
-
-    /* Ornament above the login card */
-    .login-ornament {
-      text-align: center;
-      margin-bottom: 32px;
-    }
-
-    .login-ornament .star-glyph {
-      font-family: var(--font-serif);
-      font-size: 24px;
-      color: var(--rose);
-      letter-spacing: 8px;
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    .login-ornament .line {
-      display: inline-block; width: 80px; height: 0.5px;
-      background: linear-gradient(to right, transparent, var(--blush), transparent);
-      vertical-align: middle;
-    }
-
-    .login-ornament .diamond {
-      display: inline-block; width: 5px; height: 5px;
-      background: var(--rose); transform: rotate(45deg);
-      margin: 0 10px; vertical-align: middle;
-    }
-
-    /* Login card paper */
-    .login-card {
-      background: #fffdf8;
-      border: 0.5px solid rgba(185,130,80,0.2);
-      border-radius: 2px;
-      padding: 48px 44px;
-      position: relative;
-      box-shadow: 0 2px 40px var(--shadow-warm), 0 1px 4px rgba(100,60,20,0.04);
-    }
-
-    /* Subtle inner border */
-    .login-card::after {
-      content: "";
-      position: absolute;
-      inset: 10px;
-      border: 0.5px solid rgba(185,130,80,0.07);
-      border-radius: 1px;
-      pointer-events: none;
-    }
-
-    /* Title inside login card */
-    .login-title {
-      font-family: var(--font-serif);
-      font-weight: 300;
-      font-size: 32px;
-      color: var(--ink);
-      letter-spacing: 2px;
-      margin-bottom: 6px;
-    }
-
-    .login-subtitle {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 13px;
-      color: var(--ink-faint);
-      letter-spacing: 2px;
-      margin-bottom: 36px;
-      display: block;
-    }
-
-    /* Form field group */
-    .field-group {
-      margin-bottom: 22px;
-    }
-
-    .field-group label {
-      display: block;
-      font-size: 11px;
-      letter-spacing: 2.5px;
-      color: var(--rose);
-      font-weight: 400;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-    }
-
-    .field-group input {
-      width: 100%;
-      background: transparent;
-      border: none;
-      border-bottom: 1px solid var(--border-strong);
-      padding: 10px 0;
-      font-family: var(--font-sans);
-      font-size: 15px;
-      font-weight: 300;
-      color: var(--ink);
-      outline: none;
-      transition: border-color 0.25s ease;
-      letter-spacing: 0.5px;
-    }
-
-    .field-group input::placeholder {
-      color: var(--ink-faint);
-      font-style: italic;
-      font-family: var(--font-serif);
-      font-size: 15px;
-      letter-spacing: 1px;
-    }
-
-    .field-group input:focus {
-      border-bottom-color: var(--rose);
-    }
-
-    /* Login button */
-    .login-btn {
-      width: 100%;
-      margin-top: 32px;
-      background: transparent;
-      border: 0.5px solid var(--border-strong);
-      border-radius: 2px;
-      padding: 14px;
-      font-family: var(--font-sans);
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 3px;
-      color: var(--ink-light);
-      cursor: pointer;
-      transition: all 0.25s ease;
-      text-transform: uppercase;
-    }
-
-    .login-btn:hover {
-      background: rgba(201,125,90,0.08);
-      border-color: var(--rose);
-      color: var(--rose);
-    }
-
-    /* Error message */
-    .login-error {
-      display: none;
-      margin-top: 16px;
-      text-align: center;
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 14px;
-      color: var(--rose-dark);
-      letter-spacing: 0.5px;
-      animation: fadeUp 0.3s ease both;
-    }
-
-    .login-error.visible { display: block; }
-
-    /* Login footer */
-    .login-footer {
-      text-align: center;
-      margin-top: 28px;
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 13px;
-      color: var(--ink-faint);
-      letter-spacing: 2px;
-    }
-
-    /* ============================================================
-       LAYOUT
-       ============================================================ */
-    .app-container {
-      display: flex; min-height: 100vh;
-      position: relative; z-index: 2;
-    }
-
-    /* ============================================================
-       SIDEBAR
-       ============================================================ */
-    .sidebar {
-      width: var(--sidebar-w); flex-shrink: 0;
-      background-color: transparent;
-      border-right: 1px solid var(--border);
-      display: flex; flex-direction: column;
-      padding: 40px 0;
-      position: sticky; top: 0; height: 100vh;
-      overflow-y: auto;
-    }
-    .sidebar-header { padding: 0 30px; margin-bottom: 40px; }
-    .sidebar-header .star { color: var(--rose); font-size: 20px; margin-bottom: 10px; display: block; }
-    .sidebar-header h2 {
-      font-family: var(--font-serif); font-style: italic;
-      font-size: 22px; font-weight: 300; letter-spacing: 2px; color: var(--ink-light);
-    }
-    .sidebar-menu { flex: 1; }
-    .sidebar-menu h3 {
-      font-size: 11px; letter-spacing: 3px; color: var(--rose);
-      padding: 0 30px; margin: 20px 0 10px; font-weight: 400;
-    }
-    .sidebar-menu ul { list-style: none; margin-bottom: 30px; }
-    .sidebar-menu li {
-      display: flex; align-items: center;
-      border-left: 3px solid transparent;
-      transition: background 0.2s ease;
-    }
-    .sidebar-menu li:hover { background-color: rgba(232,196,160,0.1); }
-    .sidebar-menu li.active {
-      background-color: rgba(232,196,160,0.2);
-      border-left: 3px solid var(--rose);
-    }
-    .sidebar-menu li a {
-      text-decoration: none; color: var(--ink);
-      font-size: 15px; display: flex; align-items: center;
-      width: 100%; padding: 12px 30px;
-      transition: color 0.2s ease;
-    }
-    .sidebar-menu li.disabled a { color: var(--ink-faint); pointer-events: none; }
-    .sidebar-menu .icon { margin-right: 14px; font-size: 17px; opacity: 0.7; }
-    .badge {
-      margin-left: auto; background-color: rgba(201,125,90,0.15);
-      color: var(--rose); font-size: 11px; padding: 2px 8px;
-      border-radius: 12px; font-weight: 400;
-    }
-    .sidebar-bottom { padding: 0 30px; }
-    .sidebar-bottom ul {
-      list-style: none; border-top: 1px solid var(--border);
-      padding-top: 20px; margin-bottom: 20px;
-    }
-    .sidebar-bottom li a {
-      text-decoration: none; color: var(--ink-light);
-      font-size: 15px; display: flex; align-items: center;
-      padding: 8px 0; transition: color 0.2s ease;
-    }
-    .sidebar-bottom li a:hover { color: var(--rose); }
-
-    /* Logged-in user display in sidebar */
-    .sidebar-user {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 13px;
-      color: var(--ink-faint);
-      letter-spacing: 1px;
-      margin-bottom: 10px;
-      padding-bottom: 10px;
-      border-bottom: 0.5px solid var(--border);
-    }
-
-    .sidebar-user span {
-      color: var(--rose);
-      font-style: normal;
-    }
-
-    /* Logout link */
-    .logout-link {
-      font-size: 11px !important;
-      letter-spacing: 2px !important;
-      color: var(--ink-faint) !important;
-      cursor: pointer;
-      text-transform: uppercase;
-      padding: 4px 0 !important;
-    }
-
-    .logout-link:hover { color: var(--rose) !important; }
-
-    .sidebar-footer {
-      font-family: var(--font-serif); font-style: italic;
-      font-size: 14px; color: var(--ink-faint);
-      letter-spacing: 2px; border-top: 1px solid var(--border);
-      padding-top: 20px;
-    }
-
-    /* ============================================================
-       MAIN CONTENT
-       ============================================================ */
-    .main-content {
-      flex: 1; display: flex; flex-direction: column;
-      align-items: center; padding: 60px 20px;
-      overflow-y: auto; height: 100vh;
-    }
-
-    /* ============================================================
-       ORNAMENTAL DIVIDER
-       ============================================================ */
-    .ornament-divider { text-align: center; margin-bottom: 40px; }
-    .ornament-divider .star-glyph {
-      font-family: var(--font-serif); font-size: 26px;
-      color: var(--rose); letter-spacing: 8px;
-      display: block; margin-bottom: 8px;
-    }
-    .ornament-divider .line {
-      display: inline-block; width: 100px; height: 0.5px;
-      background: linear-gradient(to right, transparent, var(--blush), transparent);
-      vertical-align: middle;
-    }
-    .ornament-divider .diamond {
-      display: inline-block; width: 6px; height: 6px;
-      background: var(--rose); transform: rotate(45deg);
-      margin: 0 12px; vertical-align: middle;
-    }
-
-    /* ============================================================
-       HOME PAGE STYLES
-       ============================================================ */
-    .home-wrapper { max-width: 680px; width: 100%; }
-
-    .welcome-headline { text-align: center; margin-bottom: 48px; }
-    .welcome-headline .eyebrow {
-      font-family: var(--font-serif); font-style: italic;
-      font-size: 13px; letter-spacing: 4px;
-      color: var(--ink-faint); display: block; margin-bottom: 14px;
-    }
-    .welcome-headline h1 {
-      font-family: var(--font-serif); font-weight: 300;
-      font-size: clamp(42px, 6vw, 68px); color: var(--ink);
-      line-height: 1.1; letter-spacing: 2px;
-    }
-    .welcome-headline h1 em { color: var(--rose); font-style: italic; }
-    .welcome-headline .subtitle {
-      margin-top: 16px; font-size: 14px;
-      letter-spacing: 2px; color: var(--ink-faint);
-    }
-
-    .welcome-card {
-      background: #fffdf8;
-      border: 0.5px solid rgba(185,130,80,0.2);
-      border-radius: 2px; padding: 52px 56px;
-      position: relative;
-      box-shadow: 0 2px 40px var(--shadow-warm), 0 1px 4px rgba(100,60,20,0.04);
-    }
-    .welcome-card::after {
-      content: ""; position: absolute; inset: 12px;
-      border: 0.5px solid rgba(185,130,80,0.08);
-      border-radius: 1px; pointer-events: none;
-    }
-    .welcome-card .greeting {
-      font-family: var(--font-serif); font-size: 20px;
-      font-weight: 300; color: var(--ink-light);
-      margin-bottom: 20px; letter-spacing: 0.5px;
-    }
-    .welcome-card p {
-      font-size: 15.5px; line-height: 2; color: var(--ink);
-      margin-bottom: 20px; letter-spacing: 0.2px;
-    }
-    .welcome-card p:last-of-type { margin-bottom: 0; }
-
-    .quick-links {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 12px; margin-top: 40px;
-    }
-    .quick-link-card {
-      background: #fffdf8;
-      border: 0.5px solid var(--border-strong);
-      border-radius: 2px; padding: 24px 20px;
-      text-align: center; text-decoration: none;
-      color: var(--ink);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-    }
-    .quick-link-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 30px var(--shadow-warm);
-      border-color: rgba(201,125,90,0.4);
-    }
-    .quick-link-card .card-icon { font-size: 26px; display: block; margin-bottom: 10px; opacity: 0.75; }
-    .quick-link-card .card-title {
-      font-family: var(--font-serif); font-style: italic;
-      font-size: 17px; color: var(--ink-light);
-      display: block; margin-bottom: 6px;
-    }
-    .quick-link-card .card-desc { font-size: 12px; letter-spacing: 1px; color: var(--ink-faint); }
-    .quick-link-card.disabled { opacity: 0.4; pointer-events: none; }
-
-    .home-closing { margin-top: 48px; text-align: center; }
-    .home-closing .closing-line {
-      display: inline-block; width: 60px; height: 0.5px;
-      background: var(--blush); vertical-align: middle; margin: 0 12px;
-    }
-    .home-closing .closing-text {
-      font-family: var(--font-serif); font-style: italic;
-      font-size: 14px; color: var(--ink-faint); letter-spacing: 2px;
-    }
-
-    /* ============================================================
-       RESPONSIVE
-       ============================================================ */
-    @media (max-width: 768px) {
-      .app-container { flex-direction: column; }
-      .sidebar { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border); padding: 20px 0; }
-      .main-content { height: auto; overflow-y: visible; padding: 40px 15px; }
-      .welcome-card { padding: 36px 28px; }
-      .quick-links { grid-template-columns: 1fr; }
-      .login-card { padding: 36px 28px; }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- PETALS (visible on both login and home) -->
-  <div class="petals-container" aria-hidden="true">
-    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-    <div class="petal"></div>
-  </div>
-
-  <!-- ============================================================
-       LOGIN SCREEN
-       Shows before the home page. Hidden on successful login.
-       ============================================================ -->
-  <div id="login-screen">
-    <div class="login-box">
-
-      <!-- Ornament -->
-      <div class="login-ornament">
-        <span class="star-glyph">✦</span>
-        <span class="line"></span>
-        <span class="diamond"></span>
-        <span class="line"></span>
-      </div>
-
-      <!-- Login Card -->
-      <div class="login-card">
-        <div class="login-title">Login</div>
-        <span class="login-subtitle">a private place, just for us</span>
-
-        <!-- Username field -->
-        <div class="field-group">
-          <label for="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            placeholder="First Name, Last Name"
-            autocomplete="off"
-            spellcheck="false"
-          />
-        </div>
-
-        <!-- Password field -->
-        <div class="field-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="enter your password"
-          />
-        </div>
-
-        <!-- Submit -->
-        <button class="login-btn" id="login-btn">Enter</button>
-
-        <!-- Error message (shown on wrong credentials) -->
-        <div class="login-error" id="login-error">
-          Incorrect username or password. Try again.
-        </div>
-      </div>
-
-      <div class="login-footer">with love &middot; always</div>
-    </div>
-  </div>
-
-  <!-- ============================================================
-       HOME PAGE (hidden behind login screen initially)
-       ============================================================ -->
-  <div class="app-container">
-
     <!-- SIDEBAR -->
     <aside class="sidebar">
       <div class="sidebar-header">
         <span class="star">✦</span>
         <h2>for rica</h2>
       </div>
-
       <nav class="sidebar-menu">
         <h3>MAIN</h3>
         <ul>
@@ -962,13 +175,13 @@
           <li class="disabled"><a href="#"><span class="icon">⚲</span> Places</a></li>
         </ul>
       </nav>
-
       <div class="sidebar-bottom">
-        <!-- Shows who is logged in -->
-        <div class="sidebar-user">signed in as <span id="display-name">—</span></div>
+        <!-- Logged-in user shown here -->
+        <div class="sidebar-user">
+          signed in as<br><span id="display-name">—</span>
+        </div>
         <ul>
           <li><a href="about.html"><span class="icon">♙</span> About Miggy</a></li>
-          <!-- Logout -->
           <li><a class="logout-link" id="logout-btn"><span class="icon">↩</span> Log out</a></li>
         </ul>
         <div class="sidebar-footer">with love &middot; always</div>
@@ -1029,142 +242,30 @@
       </div>
     </main>
 
-  </div><!-- /.app-container -->
+  </div>
 
   <script>
     /* ============================================================
-       LOGIN SYSTEM
-       ============================================================
-
-       TO ADD A NEW USER:
-       Simply add a new entry to the USERS object below.
-       Format:  "Full Name": "password"
-       Example: "Juan Dela Cruz": "mypassword123"
-
-       Usernames are NOT case-sensitive (compared in lowercase).
-       Passwords ARE case-sensitive.
+       SESSION GUARD — index.html
+       If not logged in, redirect immediately to login.html
        ============================================================ */
+    const SESSION_KEY  = 'rica-session';
+    const loggedInUser = sessionStorage.getItem(SESSION_KEY);
 
-    const USERS = {
-      "Ajel Salvador": "Riri",
-      "Rica Hizon":    "Miggy",
-      /* ── ADD MORE USERS BELOW THIS LINE ──────────────────────
-         "First Last": "password",
-         "First Last": "password",
-         ────────────────────────────────────────────────────── */
-    };
-
-    /* Storage key — keeps user logged in across page navigations */
-    const SESSION_KEY = 'rica-session';
-
-    /* --- DOM Elements --- */
-    const loginScreen  = document.getElementById('login-screen');
-    const loginBtn     = document.getElementById('login-btn');
-    const loginError   = document.getElementById('login-error');
-    const usernameInput= document.getElementById('username');
-    const passwordInput= document.getElementById('password');
-    const displayName  = document.getElementById('display-name');
-    const logoutBtn    = document.getElementById('logout-btn');
-
-    /* ----------------------------------------------------------
-       CHECK SESSION — if already logged in, skip login screen
-    ---------------------------------------------------------- */
-    function checkSession() {
-      const saved = sessionStorage.getItem(SESSION_KEY);
-      if (saved) {
-        // Already authenticated this session — go straight to home
-        showHome(saved);
-      }
-      // If not saved, login screen stays visible (default)
+    if (!loggedInUser) {
+      // Not logged in — send to login page
+      window.location.replace('login.html');
+    } else {
+      // Show their name in the sidebar
+      document.getElementById('display-name').textContent = loggedInUser;
     }
 
-    /* ----------------------------------------------------------
-       ATTEMPT LOGIN — called on button click or Enter key
-    ---------------------------------------------------------- */
-    function attemptLogin() {
-      const enteredUser = usernameInput.value.trim();
-      const enteredPass = passwordInput.value;
-
-      // Find matching user (case-insensitive name comparison)
-      const matchedKey = Object.keys(USERS).find(
-        name => name.toLowerCase() === enteredUser.toLowerCase()
-      );
-
-      if (matchedKey && USERS[matchedKey] === enteredPass) {
-        // ✅ Correct — save session and show home
-        sessionStorage.setItem(SESSION_KEY, matchedKey);
-        loginError.classList.remove('visible');
-        showHome(matchedKey);
-      } else {
-        // ❌ Wrong — shake the card and show error
-        loginError.classList.add('visible');
-        passwordInput.value = '';
-        passwordInput.focus();
-
-        // Brief shake animation on error
-        const card = document.querySelector('.login-card');
-        card.style.animation = 'none';
-        card.style.transform = 'translateX(-8px)';
-        setTimeout(() => { card.style.transform = 'translateX(8px)'; }, 80);
-        setTimeout(() => { card.style.transform = 'translateX(-5px)'; }, 160);
-        setTimeout(() => { card.style.transform = 'translateX(0)'; card.style.transition = 'transform 0.2s ease'; }, 240);
-      }
-    }
-
-    /* ----------------------------------------------------------
-       SHOW HOME — hides login screen, shows home with user's name
-    ---------------------------------------------------------- */
-    function showHome(username) {
-      loginScreen.classList.add('hidden');
-      displayName.textContent = username;
-    }
-
-    /* ----------------------------------------------------------
-       LOGOUT — clears session and shows login screen again
-    ---------------------------------------------------------- */
-    logoutBtn.addEventListener('click', () => {
+    /* Logout button — clears session and goes back to login */
+    document.getElementById('logout-btn').addEventListener('click', () => {
       sessionStorage.removeItem(SESSION_KEY);
-      usernameInput.value = '';
-      passwordInput.value = '';
-      loginError.classList.remove('visible');
-      loginScreen.classList.remove('hidden');
-      displayName.textContent = '—';
+      window.location.href = 'login.html';
     });
-
-    /* ----------------------------------------------------------
-       LOGIN BUTTON CLICK
-    ---------------------------------------------------------- */
-    loginBtn.addEventListener('click', attemptLogin);
-
-    /* ----------------------------------------------------------
-       PRESS ENTER IN EITHER FIELD TO SUBMIT
-    ---------------------------------------------------------- */
-    usernameInput.addEventListener('keydown', e => { if (e.key === 'Enter') passwordInput.focus(); });
-    passwordInput.addEventListener('keydown', e => { if (e.key === 'Enter') attemptLogin(); });
-
-    /* ----------------------------------------------------------
-       INIT — check if already logged in on page load
-    ---------------------------------------------------------- */
-    checkSession();
   </script>
-
-</body>
-</html>
-            <span class="card-title">Memories</span>
-            <span class="card-desc">coming soon</span>
-          </a>
-        </div>
-
-        <div class="home-closing">
-          <span class="closing-line"></span>
-          <span class="closing-text">made with love, by Miggy</span>
-          <span class="closing-line"></span>
-        </div>
-
-      </div>
-    </main>
-
-  </div>
 
 </body>
 </html>
