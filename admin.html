@@ -6,22 +6,18 @@
   <title>For Rica — Admin</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     :root {
-      --cream: #fdf8f0; --cream-deep: #f5ede0;
-      --ink: #2c2016; --ink-light: #6b5744; --ink-faint: #a8917c;
-      --blush: #e8c4a0; --rose: #c97d5a; --rose-dark: #a05f40;
-      --green: #6a9f6a; --red: #b85555;
-      --border: rgba(185,130,80,0.15); --border-strong: rgba(185,130,80,0.30);
-      --shadow-warm: rgba(100,60,20,0.07);
-      --font-serif: "Cormorant Garamond", serif;
-      --font-sans: "Lato", sans-serif;
+      --cream:#fdf8f0; --cream-deep:#f5ede0; --ink:#2c2016; --ink-light:#6b5744; --ink-faint:#a8917c;
+      --blush:#e8c4a0; --rose:#c97d5a; --rose-dark:#a05f40; --green:#6a9f6a; --red:#b85555;
+      --border:rgba(185,130,80,0.15); --border-strong:rgba(185,130,80,0.30); --shadow-warm:rgba(100,60,20,0.07);
+      --font-serif:"Cormorant Garamond",serif; --font-sans:"Lato",sans-serif;
     }
-    html, body { min-height: 100vh; background-color: var(--cream); font-family: var(--font-sans); font-weight: 300; color: var(--ink); overflow-x: hidden; }
-    body::before { content: ""; position: fixed; inset: 0; background: radial-gradient(ellipse at 10% 20%, rgba(200,140,100,0.08) 0%, transparent 50%), radial-gradient(ellipse at 90% 80%, rgba(185,130,80,0.07) 0%, transparent 50%); pointer-events: none; z-index: 0; }
-    .petals-container { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
-    .petal { position: absolute; top: -40px; background: radial-gradient(ellipse at 40% 30%, #f2c4a8, #d9896a); border-radius: 50% 0 50% 0; opacity: 0; animation: petalFall linear infinite; }
-    @keyframes petalFall { 0%{transform:translateY(0) rotate(0deg) translateX(0);opacity:0;} 5%{opacity:0.5;} 95%{opacity:0.2;} 100%{transform:translateY(110vh) rotate(360deg) translateX(60px);opacity:0;} }
+    html,body{min-height:100vh;background-color:var(--cream);font-family:var(--font-sans);font-weight:300;color:var(--ink);overflow-x:hidden;}
+    body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 10% 20%,rgba(200,140,100,0.08) 0%,transparent 50%),radial-gradient(ellipse at 90% 80%,rgba(185,130,80,0.07) 0%,transparent 50%);pointer-events:none;z-index:0;}
+    .petals-container{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
+    .petal{position:absolute;top:-40px;background:radial-gradient(ellipse at 40% 30%,#f2c4a8,#d9896a);border-radius:50% 0 50% 0;opacity:0;animation:petalFall linear infinite;}
+    @keyframes petalFall{0%{transform:translateY(0) rotate(0deg) translateX(0);opacity:0;}5%{opacity:0.5;}95%{opacity:0.2;}100%{transform:translateY(110vh) rotate(360deg) translateX(60px);opacity:0;}}
     .petal:nth-child(1){left:5%;width:8px;height:11px;animation-duration:9s;animation-delay:0s;}
     .petal:nth-child(2){left:15%;width:12px;height:16px;animation-duration:11s;animation-delay:1.5s;}
     .petal:nth-child(3){left:28%;width:9px;height:12px;animation-duration:8s;animation-delay:3s;}
@@ -32,77 +28,136 @@
     .petal:nth-child(8){left:88%;width:10px;height:14px;animation-duration:8s;animation-delay:3.5s;}
     .petal:nth-child(9){left:22%;width:7px;height:10px;animation-duration:14s;animation-delay:5s;}
     .petal:nth-child(10){left:62%;width:11px;height:15px;animation-duration:11s;animation-delay:6s;}
-    @keyframes fadeUp { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
+    @keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
 
     /* LOGIN */
-    #admin-login { position: fixed; inset: 0; z-index: 999; background: var(--cream); display: flex; align-items: center; justify-content: center; padding: 20px; }
-    #admin-login.hidden { display: none; }
-    .login-box { max-width: 420px; width: 100%; animation: fadeUp 0.8s ease both; }
-    .login-ornament { text-align: center; margin-bottom: 28px; }
-    .login-ornament .star { font-family: var(--font-serif); font-size: 22px; color: var(--rose); letter-spacing: 8px; display: block; margin-bottom: 6px; }
-    .login-ornament .line { display: inline-block; width: 70px; height: 0.5px; background: linear-gradient(to right, transparent, var(--blush), transparent); vertical-align: middle; }
-    .login-ornament .diamond { display: inline-block; width: 5px; height: 5px; background: var(--rose); transform: rotate(45deg); margin: 0 10px; vertical-align: middle; }
-    .login-card { background: #fffdf8; border: 0.5px solid rgba(185,130,80,0.2); border-radius: 2px; padding: 40px 36px; position: relative; box-shadow: 0 2px 40px var(--shadow-warm); }
-    .login-card::after { content:""; position:absolute; inset:10px; border:0.5px solid rgba(185,130,80,0.07); border-radius:1px; pointer-events:none; }
-    .login-card h2 { font-family: var(--font-serif); font-weight: 300; font-size: 28px; color: var(--ink); letter-spacing: 2px; margin-bottom: 4px; }
-    .login-card .sub { font-family: var(--font-serif); font-style: italic; font-size: 13px; color: var(--ink-faint); letter-spacing: 2px; margin-bottom: 30px; display: block; }
-    .field { margin-bottom: 22px; }
-    .field label { display: block; font-size: 11px; letter-spacing: 2px; color: var(--rose); margin-bottom: 8px; text-transform: uppercase; }
-    .field input { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border-strong); padding: 8px 0; font-family: var(--font-sans); font-size: 14px; font-weight: 300; color: var(--ink); outline: none; transition: border-color 0.2s; }
-    .field input:focus { border-bottom-color: var(--rose); }
-    .field input::placeholder { color: var(--ink-faint); font-style: italic; font-family: var(--font-serif); }
-    .field-note { font-size: 11px; color: var(--ink-faint); margin-top: 7px; line-height: 1.7; letter-spacing: 0.3px; }
-    .btn-primary { width: 100%; margin-top: 28px; background: transparent; border: 0.5px solid var(--border-strong); border-radius: 2px; padding: 12px; font-family: var(--font-sans); font-size: 11px; font-weight: 400; letter-spacing: 3px; color: var(--ink-light); cursor: pointer; transition: all 0.2s; text-transform: uppercase; }
-    .btn-primary:hover { background: rgba(201,125,90,0.08); border-color: var(--rose); color: var(--rose); }
-    .login-error { display: none; margin-top: 14px; text-align: center; font-family: var(--font-serif); font-style: italic; font-size: 13px; color: var(--red); }
-    .login-error.show { display: block; }
+    #admin-login{position:fixed;inset:0;z-index:999;background:var(--cream);display:flex;align-items:center;justify-content:center;padding:20px;}
+    #admin-login.hidden{display:none;}
+    .login-box{max-width:420px;width:100%;animation:fadeUp 0.8s ease both;}
+    .login-ornament{text-align:center;margin-bottom:28px;}
+    .login-ornament .star{font-family:var(--font-serif);font-size:22px;color:var(--rose);letter-spacing:8px;display:block;margin-bottom:6px;}
+    .login-ornament .line{display:inline-block;width:70px;height:0.5px;background:linear-gradient(to right,transparent,var(--blush),transparent);vertical-align:middle;}
+    .login-ornament .diamond{display:inline-block;width:5px;height:5px;background:var(--rose);transform:rotate(45deg);margin:0 10px;vertical-align:middle;}
+    .login-card{background:#fffdf8;border:0.5px solid rgba(185,130,80,0.2);border-radius:2px;padding:40px 36px;position:relative;box-shadow:0 2px 40px var(--shadow-warm);}
+    .login-card::after{content:"";position:absolute;inset:10px;border:0.5px solid rgba(185,130,80,0.07);border-radius:1px;pointer-events:none;}
+    .login-card h2{font-family:var(--font-serif);font-weight:300;font-size:28px;color:var(--ink);letter-spacing:2px;margin-bottom:4px;}
+    .login-card .sub{font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--ink-faint);letter-spacing:2px;margin-bottom:30px;display:block;}
+    .field{margin-bottom:22px;}
+    .field label{display:block;font-size:11px;letter-spacing:2px;color:var(--rose);margin-bottom:8px;text-transform:uppercase;}
+    .field input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border-strong);padding:8px 0;font-family:var(--font-sans);font-size:14px;font-weight:300;color:var(--ink);outline:none;transition:border-color 0.2s;}
+    .field input:focus{border-bottom-color:var(--rose);}
+    .field input::placeholder{color:var(--ink-faint);font-style:italic;font-family:var(--font-serif);}
+    .field-note{font-size:11px;color:var(--ink-faint);margin-top:7px;line-height:1.7;letter-spacing:0.3px;}
+    .btn-primary{width:100%;margin-top:28px;background:transparent;border:0.5px solid var(--border-strong);border-radius:2px;padding:12px;font-family:var(--font-sans);font-size:11px;font-weight:400;letter-spacing:3px;color:var(--ink-light);cursor:pointer;transition:all 0.2s;text-transform:uppercase;}
+    .btn-primary:hover{background:rgba(201,125,90,0.08);border-color:var(--rose);color:var(--rose);}
+    .login-error{display:none;margin-top:14px;text-align:center;font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--red);}
+    .login-error.show{display:block;}
 
     /* ADMIN UI */
-    #admin-ui { position: relative; z-index: 2; max-width: 760px; margin: 0 auto; padding: 60px 20px 80px; animation: fadeUp 0.8s ease both; }
-    .admin-header { text-align: center; margin-bottom: 48px; }
-    .admin-header .ornament { font-family: var(--font-serif); font-size: 22px; color: var(--rose); letter-spacing: 8px; display: block; margin-bottom: 8px; }
-    .admin-header .deco-line { display: inline-block; width: 80px; height: 0.5px; background: linear-gradient(to right, transparent, var(--blush), transparent); vertical-align: middle; }
-    .admin-header .deco-diamond { display: inline-block; width: 5px; height: 5px; background: var(--rose); transform: rotate(45deg); margin: 0 10px; vertical-align: middle; }
-    .admin-header h1 { font-family: var(--font-serif); font-weight: 300; font-size: 36px; color: var(--ink); letter-spacing: 2px; margin: 16px 0 6px; }
-    .admin-header p { font-family: var(--font-serif); font-style: italic; font-size: 14px; color: var(--ink-faint); letter-spacing: 2px; }
-    .back-link { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--ink-faint); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 32px; transition: color 0.2s; }
-    .back-link:hover { color: var(--rose); }
-    .logout-btn { float: right; background: none; border: 0.5px solid var(--border); border-radius: 2px; padding: 6px 14px; font-size: 11px; letter-spacing: 2px; color: var(--ink-faint); cursor: pointer; transition: all 0.2s; text-transform: uppercase; }
-    .logout-btn:hover { border-color: var(--rose); color: var(--rose); }
-    .section-card { background: #fffdf8; border: 0.5px solid rgba(185,130,80,0.2); border-radius: 2px; padding: 40px 44px; margin-bottom: 24px; position: relative; box-shadow: 0 2px 30px var(--shadow-warm); }
-    .section-card::after { content:""; position:absolute; inset:10px; border:0.5px solid rgba(185,130,80,0.06); border-radius:1px; pointer-events:none; }
-    .section-title { font-family: var(--font-serif); font-size: 24px; font-weight: 300; color: var(--ink); letter-spacing: 2px; margin-bottom: 4px; }
-    .section-sub { font-family: var(--font-serif); font-style: italic; font-size: 13px; color: var(--rose); letter-spacing: 1px; margin-bottom: 28px; display: block; }
-    .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; font-size: 11px; letter-spacing: 2px; color: var(--rose); margin-bottom: 8px; text-transform: uppercase; }
-    .form-group input[type="text"], .form-group textarea { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border-strong); padding: 10px 0; font-family: var(--font-sans); font-size: 14px; font-weight: 300; color: var(--ink); outline: none; transition: border-color 0.2s; resize: vertical; }
-    .form-group input:focus, .form-group textarea:focus { border-bottom-color: var(--rose); }
-    .form-group input::placeholder, .form-group textarea::placeholder { color: var(--ink-faint); font-style: italic; font-family: var(--font-serif); }
-    .form-group textarea { min-height: 120px; padding-top: 10px; }
-    .drop-zone { border: 1px dashed var(--border-strong); border-radius: 2px; padding: 32px 20px; text-align: center; cursor: pointer; transition: all 0.2s; background: rgba(232,196,160,0.04); position: relative; }
-    .drop-zone:hover, .drop-zone.dragover { border-color: var(--rose); background: rgba(201,125,90,0.06); }
-    .drop-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-    .drop-zone .dz-icon { font-size: 28px; opacity: 0.4; display: block; margin-bottom: 10px; }
-    .drop-zone .dz-label { font-family: var(--font-serif); font-style: italic; font-size: 15px; color: var(--ink-faint); }
-    .drop-zone .dz-sub { font-size: 11px; letter-spacing: 1px; color: var(--ink-faint); margin-top: 4px; opacity: 0.6; }
-    .photo-preview-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 16px; }
-    .preview-item { position: relative; aspect-ratio: 1; border-radius: 2px; overflow: hidden; border: 0.5px solid var(--border); }
-    .preview-item img { width: 100%; height: 100%; object-fit: cover; filter: sepia(8%) saturate(90%); }
-    .preview-item .remove-preview { position: absolute; top: 4px; right: 4px; background: rgba(44,32,22,0.7); color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    .preview-item .preview-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(44,32,22,0.6); padding: 4px 6px; }
-    .preview-item .preview-caption input { width: 100%; background: transparent; border: none; color: white; font-size: 10px; outline: none; font-family: var(--font-serif); font-style: italic; }
-    .action-btn { margin-top: 24px; background: transparent; border: 0.5px solid var(--border-strong); border-radius: 2px; padding: 13px 32px; font-family: var(--font-sans); font-size: 11px; font-weight: 400; letter-spacing: 3px; color: var(--ink-light); cursor: pointer; transition: all 0.25s; text-transform: uppercase; }
-    .action-btn:hover { background: rgba(201,125,90,0.08); border-color: var(--rose); color: var(--rose); }
-    .action-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-    .status-msg { display: none; margin-top: 16px; padding: 12px 16px; border-radius: 2px; font-size: 13px; font-family: var(--font-serif); font-style: italic; letter-spacing: 0.5px; line-height: 1.7; }
-    .status-msg.show { display: block; }
-    .status-msg.success { background: rgba(106,159,106,0.1); border: 0.5px solid rgba(106,159,106,0.3); color: var(--green); }
-    .status-msg.error   { background: rgba(184,85,85,0.1); border: 0.5px solid rgba(184,85,85,0.3); color: var(--red); }
-    .status-msg.info    { background: rgba(185,130,80,0.08); border: 0.5px solid var(--border-strong); color: var(--ink-light); }
-    .progress-bar { display: none; margin-top: 12px; height: 2px; background: var(--border); border-radius: 1px; overflow: hidden; }
-    .progress-bar.show { display: block; }
-    .progress-fill { height: 100%; background: var(--rose); width: 0%; transition: width 0.4s ease; }
-    @media(max-width:600px) { .section-card { padding: 28px 22px; } .photo-preview-grid { grid-template-columns: repeat(2, 1fr); } }
+    #admin-ui{position:relative;z-index:2;max-width:800px;margin:0 auto;padding:50px 20px 80px;animation:fadeUp 0.8s ease both;}
+    .admin-header{text-align:center;margin-bottom:40px;}
+    .admin-header .ornament{font-family:var(--font-serif);font-size:22px;color:var(--rose);letter-spacing:8px;display:block;margin-bottom:8px;}
+    .admin-header .deco-line{display:inline-block;width:80px;height:0.5px;background:linear-gradient(to right,transparent,var(--blush),transparent);vertical-align:middle;}
+    .admin-header .deco-diamond{display:inline-block;width:5px;height:5px;background:var(--rose);transform:rotate(45deg);margin:0 10px;vertical-align:middle;}
+    .admin-header h1{font-family:var(--font-serif);font-weight:300;font-size:34px;color:var(--ink);letter-spacing:2px;margin:16px 0 6px;}
+    .admin-header p{font-family:var(--font-serif);font-style:italic;font-size:14px;color:var(--ink-faint);letter-spacing:2px;}
+    .admin-top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;}
+    .back-link{text-decoration:none;color:var(--ink-faint);font-size:12px;letter-spacing:2px;text-transform:uppercase;transition:color 0.2s;}
+    .back-link:hover{color:var(--rose);}
+    .logout-btn{background:none;border:0.5px solid var(--border);border-radius:2px;padding:6px 14px;font-size:11px;letter-spacing:2px;color:var(--ink-faint);cursor:pointer;transition:all 0.2s;text-transform:uppercase;}
+    .logout-btn:hover{border-color:var(--rose);color:var(--rose);}
+
+    /* SECTION TABS */
+    .admin-tabs{display:flex;gap:0;margin-bottom:28px;border-bottom:1px solid var(--border);}
+    .admin-tab{background:transparent;border:none;border-bottom:2px solid transparent;padding:12px 24px;font-family:var(--font-sans);font-size:11px;letter-spacing:2px;color:var(--ink-faint);cursor:pointer;transition:all 0.2s;text-transform:uppercase;margin-bottom:-1px;}
+    .admin-tab:hover{color:var(--rose);}
+    .admin-tab.active{color:var(--rose);border-bottom-color:var(--rose);}
+
+    /* SECTION PANELS */
+    .admin-panel{display:none;}
+    .admin-panel.active{display:block;animation:fadeUp 0.3s ease both;}
+
+    /* CARDS */
+    .section-card{background:#fffdf8;border:0.5px solid rgba(185,130,80,0.2);border-radius:2px;padding:36px 40px;margin-bottom:20px;position:relative;box-shadow:0 2px 30px var(--shadow-warm);}
+    .section-card::after{content:"";position:absolute;inset:10px;border:0.5px solid rgba(185,130,80,0.06);border-radius:1px;pointer-events:none;}
+    .section-title{font-family:var(--font-serif);font-size:22px;font-weight:300;color:var(--ink);letter-spacing:2px;margin-bottom:4px;}
+    .section-sub{font-family:var(--font-serif);font-style:italic;font-size:13px;color:var(--rose);letter-spacing:1px;margin-bottom:24px;display:block;}
+
+    /* FORM */
+    .form-group{margin-bottom:20px;}
+    .form-group label{display:block;font-size:11px;letter-spacing:2px;color:var(--rose);margin-bottom:8px;text-transform:uppercase;}
+    .form-group input[type="text"],.form-group textarea{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border-strong);padding:10px 0;font-family:var(--font-sans);font-size:14px;font-weight:300;color:var(--ink);outline:none;transition:border-color 0.2s;resize:vertical;}
+    .form-group input:focus,.form-group textarea:focus{border-bottom-color:var(--rose);}
+    .form-group input::placeholder,.form-group textarea::placeholder{color:var(--ink-faint);font-style:italic;font-family:var(--font-serif);}
+    .form-group textarea{min-height:100px;padding-top:10px;}
+
+    /* DROP ZONE */
+    .drop-zone{border:1px dashed var(--border-strong);border-radius:2px;padding:28px 20px;text-align:center;cursor:pointer;transition:all 0.2s;background:rgba(232,196,160,0.04);position:relative;}
+    .drop-zone:hover,.drop-zone.dragover{border-color:var(--rose);background:rgba(201,125,90,0.06);}
+    .drop-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+    .drop-zone .dz-icon{font-size:26px;opacity:0.4;display:block;margin-bottom:8px;}
+    .drop-zone .dz-label{font-family:var(--font-serif);font-style:italic;font-size:15px;color:var(--ink-faint);}
+    .drop-zone .dz-sub{font-size:11px;letter-spacing:1px;color:var(--ink-faint);margin-top:4px;opacity:0.6;}
+
+    /* PREVIEW GRID */
+    .photo-preview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px;}
+    .preview-item{position:relative;aspect-ratio:1;border-radius:2px;overflow:hidden;border:0.5px solid var(--border);}
+    .preview-item img{width:100%;height:100%;object-fit:cover;filter:sepia(8%) saturate(90%);}
+    .preview-item .remove-preview{position:absolute;top:4px;right:4px;background:rgba(44,32,22,0.7);color:white;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+    .preview-item .preview-caption{position:absolute;bottom:0;left:0;right:0;background:rgba(44,32,22,0.6);padding:4px 6px;}
+    .preview-item .preview-caption input{width:100%;background:transparent;border:none;color:white;font-size:10px;outline:none;font-family:var(--font-serif);font-style:italic;}
+
+    /* BUTTONS */
+    .action-btn{margin-top:20px;background:transparent;border:0.5px solid var(--border-strong);border-radius:2px;padding:12px 28px;font-family:var(--font-sans);font-size:11px;font-weight:400;letter-spacing:3px;color:var(--ink-light);cursor:pointer;transition:all 0.25s;text-transform:uppercase;}
+    .action-btn:hover{background:rgba(201,125,90,0.08);border-color:var(--rose);color:var(--rose);}
+    .action-btn:disabled{opacity:0.4;cursor:not-allowed;}
+    .btn-danger{background:transparent;border:0.5px solid rgba(184,85,85,0.3);border-radius:2px;padding:6px 14px;font-family:var(--font-sans);font-size:11px;letter-spacing:2px;color:var(--red);cursor:pointer;transition:all 0.2s;text-transform:uppercase;}
+    .btn-danger:hover{background:rgba(184,85,85,0.08);border-color:var(--red);}
+    .btn-sm{padding:5px 12px;font-size:10px;letter-spacing:1.5px;margin-top:0;}
+    .btn-save{background:rgba(106,159,106,0.1);border:0.5px solid rgba(106,159,106,0.4);color:var(--green);}
+    .btn-save:hover{background:rgba(106,159,106,0.2);}
+
+    /* STATUS */
+    .status-msg{display:none;margin-top:14px;padding:12px 16px;border-radius:2px;font-size:13px;font-family:var(--font-serif);font-style:italic;letter-spacing:0.5px;line-height:1.7;}
+    .status-msg.show{display:block;}
+    .status-msg.success{background:rgba(106,159,106,0.1);border:0.5px solid rgba(106,159,106,0.3);color:var(--green);}
+    .status-msg.error{background:rgba(184,85,85,0.1);border:0.5px solid rgba(184,85,85,0.3);color:var(--red);}
+    .status-msg.info{background:rgba(185,130,80,0.08);border:0.5px solid var(--border-strong);color:var(--ink-light);}
+    .progress-bar{display:none;margin-top:10px;height:2px;background:var(--border);border-radius:1px;overflow:hidden;}
+    .progress-bar.show{display:block;}
+    .progress-fill{height:100%;background:var(--rose);width:0%;transition:width 0.4s ease;}
+
+    /* MANAGE PHOTOS LIST */
+    .manage-photo-list{display:flex;flex-direction:column;gap:10px;margin-top:4px;}
+    .manage-photo-row{display:flex;align-items:center;gap:12px;padding:10px 12px;background:rgba(232,196,160,0.06);border:0.5px solid var(--border);border-radius:2px;}
+    .manage-photo-row img{width:52px;height:52px;object-fit:cover;border-radius:2px;filter:sepia(8%);}
+    .manage-photo-row .mp-caption{flex:1;}
+    .manage-photo-row .mp-caption input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);padding:4px 0;font-family:var(--font-serif);font-style:italic;font-size:14px;color:var(--ink);outline:none;}
+    .manage-photo-row .mp-caption input:focus{border-bottom-color:var(--rose);}
+    .manage-photo-row .mp-actions{display:flex;gap:8px;flex-shrink:0;}
+
+    /* MANAGE LETTERS LIST */
+    .manage-letter-list{display:flex;flex-direction:column;gap:10px;margin-top:4px;}
+    .manage-letter-row{padding:14px 16px;background:rgba(232,196,160,0.06);border:0.5px solid var(--border);border-radius:2px;}
+    .manage-letter-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:0;}
+    .manage-letter-title{font-family:var(--font-serif);font-style:italic;font-size:16px;color:var(--ink-light);}
+    .manage-letter-date{font-size:12px;letter-spacing:1px;color:var(--ink-faint);}
+    .manage-letter-actions{display:flex;gap:8px;margin-top:10px;}
+    .manage-letter-edit{display:none;margin-top:14px;border-top:0.5px solid var(--border);padding-top:14px;}
+    .manage-letter-edit.open{display:block;}
+
+    /* ABOUT EDIT */
+    .about-fact-row{display:flex;gap:10px;margin-bottom:12px;align-items:center;}
+    .about-fact-row input{background:transparent;border:none;border-bottom:1px solid var(--border-strong);padding:7px 0;font-family:var(--font-sans);font-size:13px;font-weight:300;color:var(--ink);outline:none;transition:border-color 0.2s;}
+    .about-fact-row input:first-child{width:35%;font-size:12px;letter-spacing:1px;color:var(--ink-faint);}
+    .about-fact-row input:last-child{flex:1;}
+    .about-fact-row input:focus{border-bottom-color:var(--rose);}
+    .add-fact-btn{background:transparent;border:0.5px dashed var(--border-strong);border-radius:2px;padding:8px 16px;font-size:11px;letter-spacing:2px;color:var(--ink-faint);cursor:pointer;transition:all 0.2s;text-transform:uppercase;width:100%;margin-top:8px;}
+    .add-fact-btn:hover{border-color:var(--rose);color:var(--rose);}
+    .fact-remove{background:none;border:none;color:var(--ink-faint);cursor:pointer;font-size:16px;padding:0 4px;transition:color 0.2s;flex-shrink:0;}
+    .fact-remove:hover{color:var(--red);}
+
+    @media(max-width:600px){.section-card{padding:24px 18px;}.photo-preview-grid{grid-template-columns:repeat(2,1fr);}.admin-tab{padding:10px 14px;font-size:10px;}}
   </style>
 </head>
 <body>
@@ -114,11 +169,7 @@
     <div class="petal"></div>
   </div>
 
-  <!-- ============================================================
-       LOGIN
-       The GitHub token is typed here each session.
-       It is NEVER written to this file or stored anywhere.
-       ============================================================ -->
+  <!-- LOGIN -->
   <div id="admin-login">
     <div class="login-box">
       <div class="login-ornament">
@@ -128,146 +179,206 @@
       <div class="login-card">
         <h2>Admin</h2>
         <span class="sub">only for miggy</span>
-
         <div class="field">
           <label>Admin Password</label>
           <input type="password" id="admin-pass" placeholder="enter your password" />
         </div>
-
         <div class="field">
           <label>GitHub Token</label>
           <input type="password" id="admin-token" placeholder="ghp_..." autocomplete="off" spellcheck="false" />
-          <p class="field-note">Your personal access token. It is never saved — only used this session in your browser memory.</p>
+          <p class="field-note">Never saved — only used this session in memory.</p>
         </div>
-
         <button class="btn-primary" id="admin-login-btn">Enter</button>
         <div class="login-error" id="admin-error">Wrong password or invalid token.</div>
       </div>
     </div>
   </div>
 
-  <!-- ============================================================
-       ADMIN UI
-       ============================================================ -->
+  <!-- ADMIN UI -->
   <div id="admin-ui" style="display:none;">
 
     <div class="admin-header">
-      <button class="logout-btn" id="admin-logout">Log out</button>
-      <a class="back-link" href="index.html">← back to site</a>
       <span class="ornament">✦</span>
       <span class="deco-line"></span><span class="deco-diamond"></span><span class="deco-line"></span>
       <h1>Admin Panel</h1>
-      <p>upload letters &amp; photos directly to github</p>
+      <p>manage your site from anywhere</p>
     </div>
 
-    <!-- UPLOAD PHOTOS -->
-    <div class="section-card">
-      <div class="section-title">Upload Photos</div>
-      <span class="section-sub">add new photos to the gallery</span>
-      <div class="drop-zone" id="photo-drop">
-        <input type="file" id="photo-files" accept="image/*" multiple />
-        <span class="dz-icon">✾</span>
-        <div class="dz-label">Click or drag photos here</div>
-        <div class="dz-sub">JPG, PNG, WEBP, JFIF — multiple at once</div>
-      </div>
-      <div class="photo-preview-grid" id="photo-preview-grid"></div>
-      <button class="action-btn" id="upload-photos-btn">Upload Photos to GitHub</button>
-      <div class="progress-bar" id="photo-progress"><div class="progress-fill" id="photo-fill"></div></div>
-      <div class="status-msg" id="photo-status"></div>
+    <div class="admin-top-bar">
+      <a class="back-link" href="index.html">← back to site</a>
+      <button class="logout-btn" id="admin-logout">Log out</button>
     </div>
 
-    <!-- WRITE A LETTER -->
-    <div class="section-card">
-      <div class="section-title">Write a Letter</div>
-      <span class="section-sub">publish a new letter to the letters page</span>
-      <div class="form-group">
-        <label>Salutation</label>
-        <input type="text" id="letter-sal" placeholder="Dear Rica, Riri, Little Major," />
-      </div>
-      <div class="form-group">
-        <label>Date</label>
-        <input type="text" id="letter-date" placeholder="April 2026" />
-      </div>
-      <div class="form-group">
-        <label>Letter Body</label>
-        <textarea id="letter-body" placeholder="Write your letter here...&#10;&#10;Leave a blank line between paragraphs."></textarea>
-      </div>
-      <div class="form-group">
-        <label>Closing</label>
-        <input type="text" id="letter-close" placeholder="With love and gratitude," />
-      </div>
-      <div class="form-group">
-        <label>Archive Title</label>
-        <input type="text" id="letter-title" placeholder="The One That Started It All" />
-      </div>
-      <button class="action-btn" id="publish-btn">Publish Letter to GitHub</button>
-      <div class="status-msg" id="letter-status"></div>
+    <!-- SECTION TABS -->
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-tab="upload-photos">📷 Upload Photos</button>
+      <button class="admin-tab" data-tab="manage-photos">🗂 Manage Photos</button>
+      <button class="admin-tab" data-tab="write-letter">✉ Write Letter</button>
+      <button class="admin-tab" data-tab="manage-letters">📋 Manage Letters</button>
+      <button class="admin-tab" data-tab="edit-about">♙ Edit About</button>
     </div>
 
-  </div>
+    <!-- ══════════════════════════════
+         TAB 1: UPLOAD PHOTOS
+    ══════════════════════════════ -->
+    <div class="admin-panel active" id="panel-upload-photos">
+      <div class="section-card">
+        <div class="section-title">Upload Photos</div>
+        <span class="section-sub">add new photos to the gallery</span>
+        <div class="drop-zone" id="photo-drop">
+          <input type="file" id="photo-files" accept="image/*" multiple />
+          <span class="dz-icon">✾</span>
+          <div class="dz-label">Click or drag photos here</div>
+          <div class="dz-sub">JPG, PNG, WEBP, JFIF — multiple at once</div>
+        </div>
+        <div class="photo-preview-grid" id="photo-preview-grid"></div>
+        <button class="action-btn" id="upload-photos-btn">Upload to GitHub</button>
+        <div class="progress-bar" id="photo-progress"><div class="progress-fill" id="photo-fill"></div></div>
+        <div class="status-msg" id="photo-status"></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         TAB 2: MANAGE PHOTOS
+    ══════════════════════════════ -->
+    <div class="admin-panel" id="panel-manage-photos">
+      <div class="section-card">
+        <div class="section-title">Manage Photos</div>
+        <span class="section-sub">edit captions or delete photos from the gallery</span>
+        <button class="action-btn" id="load-photos-btn" style="margin-top:0;margin-bottom:16px;">Load Photos from GitHub</button>
+        <div class="manage-photo-list" id="manage-photo-list"></div>
+        <div class="status-msg" id="manage-photo-status"></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         TAB 3: WRITE LETTER
+    ══════════════════════════════ -->
+    <div class="admin-panel" id="panel-write-letter">
+      <div class="section-card">
+        <div class="section-title">Write a Letter</div>
+        <span class="section-sub">publish a new letter to the letters page</span>
+        <div class="form-group">
+          <label>Salutation</label>
+          <input type="text" id="letter-sal" placeholder="Dear Rica, Riri, Little Major," />
+        </div>
+        <div class="form-group">
+          <label>Date</label>
+          <input type="text" id="letter-date" placeholder="April 2026" />
+        </div>
+        <div class="form-group">
+          <label>Letter Body</label>
+          <textarea id="letter-body" placeholder="Write your letter here...&#10;&#10;Leave a blank line between paragraphs." style="min-height:160px;"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Closing</label>
+          <input type="text" id="letter-close" placeholder="With love and gratitude," />
+        </div>
+        <div class="form-group">
+          <label>Tab Title (shown in the letter tabs)</label>
+          <input type="text" id="letter-title" placeholder="The One That Started It All" />
+        </div>
+        <button class="action-btn" id="publish-btn">Publish Letter to GitHub</button>
+        <div class="status-msg" id="letter-status"></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         TAB 4: MANAGE LETTERS
+    ══════════════════════════════ -->
+    <div class="admin-panel" id="panel-manage-letters">
+      <div class="section-card">
+        <div class="section-title">Manage Letters</div>
+        <span class="section-sub">edit or delete existing letters</span>
+        <button class="action-btn" id="load-letters-btn" style="margin-top:0;margin-bottom:16px;">Load Letters from GitHub</button>
+        <div class="manage-letter-list" id="manage-letter-list"></div>
+        <div class="status-msg" id="manage-letter-status"></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         TAB 5: EDIT ABOUT
+    ══════════════════════════════ -->
+    <div class="admin-panel" id="panel-edit-about">
+      <div class="section-card">
+        <div class="section-title">Edit About Miggy</div>
+        <span class="section-sub">update the about page content</span>
+
+        <button class="action-btn" id="load-about-btn" style="margin-top:0;margin-bottom:20px;">Load Current About Page</button>
+
+        <div id="about-edit-form" style="display:none;">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" id="about-name" placeholder="Miggy" />
+          </div>
+          <div class="form-group">
+            <label>Subtitle (shown in rose color)</label>
+            <input type="text" id="about-sub" placeholder="the one who cares, quietly" />
+          </div>
+          <div class="form-group">
+            <label>Paragraph 1</label>
+            <textarea id="about-p1" style="min-height:80px;"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Paragraph 2</label>
+            <textarea id="about-p2" style="min-height:80px;"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Paragraph 3</label>
+            <textarea id="about-p3" style="min-height:60px;"></textarea>
+          </div>
+
+          <div class="form-group" style="margin-top:24px;">
+            <label style="margin-bottom:14px;">Facts Table</label>
+            <div id="facts-list"></div>
+            <button class="add-fact-btn" id="add-fact-btn">+ Add Fact Row</button>
+          </div>
+
+          <button class="action-btn" id="save-about-btn">Save About Page to GitHub</button>
+          <div class="status-msg" id="about-status"></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /#admin-ui -->
 
   <script>
     /* ============================================================
-       CONFIGURATION
-       ✅ Token is NOT in this file — you type it at login each time.
-       ✅ Safe to push this file to your public GitHub repo.
+       CONFIG — token is entered at login, never stored in file
        ============================================================ */
-    const ADMIN_PASSWORD = 'Miggy2026';  // ← Change this to your preferred password
+    const ADMIN_PASSWORD = 'Miggy2026'; // ← change anytime
     const GITHUB_USER    = 'Sc4llion';
     const GITHUB_REPO    = 'For-Rica.Github.Com';
     const BRANCH         = 'main';
 
-    /* Token lives ONLY in memory — cleared when you log out or close tab */
-    let GITHUB_TOKEN = '';
+    let GITHUB_TOKEN = ''; // memory only
 
-    /* ── API HELPERS ── */
-    const apiBase = () =>
-      `https://api.github.com/repos/${GITHUB_USER}/${encodeURIComponent(GITHUB_REPO)}`;
-
-    const apiHeaders = () => ({
-      'Authorization': `Bearer ${GITHUB_TOKEN}`,
-      'Accept': 'application/vnd.github+json',
-      'X-GitHub-Api-Version': '2022-11-28'
-    });
+    /* ── API ── */
+    const apiBase    = () => `https://api.github.com/repos/${GITHUB_USER}/${encodeURIComponent(GITHUB_REPO)}`;
+    const apiHeaders = () => ({ 'Authorization':`Bearer ${GITHUB_TOKEN}`, 'Accept':'application/vnd.github+json', 'X-GitHub-Api-Version':'2022-11-28' });
 
     async function ghGet(path) {
       const res = await fetch(`${apiBase()}/contents/${path}?ref=${BRANCH}`, { headers: apiHeaders() });
-      if (!res.ok) {
-        const e = await res.json().catch(() => ({}));
-        throw new Error(`GitHub read error (${res.status}): ${e.message || 'check your token and repo name'}`);
-      }
+      if (!res.ok) { const e=await res.json().catch(()=>({})); throw new Error(`Read error (${res.status}): ${e.message||'unknown'}`); }
       return res.json();
     }
-
-    async function ghPut(path, b64, message, sha = null) {
-      const body = { message, content: b64, branch: BRANCH };
+    async function ghPut(path, b64, msg, sha=null) {
+      const body = { message:msg, content:b64, branch:BRANCH };
       if (sha) body.sha = sha;
-      const res = await fetch(`${apiBase()}/contents/${path}`, {
-        method: 'PUT',
-        headers: { ...apiHeaders(), 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-      });
-      if (!res.ok) {
-        const e = await res.json().catch(() => ({}));
-        throw new Error(`GitHub write error (${res.status}): ${e.message || 'check your token permissions'}`);
-      }
+      const res = await fetch(`${apiBase()}/contents/${path}`, { method:'PUT', headers:{...apiHeaders(),'Content-Type':'application/json'}, body:JSON.stringify(body) });
+      if (!res.ok) { const e=await res.json().catch(()=>({})); throw new Error(`Write error (${res.status}): ${e.message||'unknown'}`); }
       return res.json();
     }
-
-    const toB64File = file => new Promise((res, rej) => {
-      const r = new FileReader();
-      r.onload  = e => res(e.target.result.split(',')[1]);
-      r.onerror = rej;
-      r.readAsDataURL(file);
-    });
-
-    const toB64Text = str => btoa(unescape(encodeURIComponent(str)));
-    const fromB64   = b64 => decodeURIComponent(escape(atob(b64.replace(/\n/g, ''))));
-
-    function status(el, type, msg) {
-      el.className = `status-msg show ${type}`;
-      el.textContent = msg;
+    async function ghDelete(path, msg, sha) {
+      const body = { message:msg, sha, branch:BRANCH };
+      const res = await fetch(`${apiBase()}/contents/${path}`, { method:'DELETE', headers:{...apiHeaders(),'Content-Type':'application/json'}, body:JSON.stringify(body) });
+      if (!res.ok) { const e=await res.json().catch(()=>({})); throw new Error(`Delete error (${res.status}): ${e.message||'unknown'}`); }
+      return res.json();
     }
+    const toB64File = f => new Promise((res,rej)=>{ const r=new FileReader(); r.onload=e=>res(e.target.result.split(',')[1]); r.onerror=rej; r.readAsDataURL(f); });
+    const toB64Text = s => btoa(unescape(encodeURIComponent(s)));
+    const fromB64   = b => decodeURIComponent(escape(atob(b.replace(/\n/g,''))));
+    function showStatus(el,type,msg){ el.className=`status-msg show ${type}`; el.textContent=msg; }
 
     /* ── LOGIN ── */
     const loginEl   = document.getElementById('admin-login');
@@ -281,212 +392,421 @@
     loginBtn.addEventListener('click', () => {
       const pass  = passEl.value;
       const token = tokenEl.value.trim();
-
-      if (pass !== ADMIN_PASSWORD) {
-        errorEl.textContent = 'Wrong password. Try again.';
-        errorEl.classList.add('show');
-        passEl.value = '';
-        passEl.focus();
-        return;
-      }
-
-      if (!token || (!token.startsWith('ghp_') && !token.startsWith('github_pat_'))) {
-        errorEl.textContent = 'Enter a valid GitHub token (starts with ghp_).';
-        errorEl.classList.add('show');
-        return;
-      }
-
-      GITHUB_TOKEN = token; // stored only in memory
+      if (pass !== ADMIN_PASSWORD) { errorEl.textContent='Wrong password.'; errorEl.classList.add('show'); passEl.value=''; passEl.focus(); return; }
+      if (!token || (!token.startsWith('ghp_') && !token.startsWith('github_pat_'))) { errorEl.textContent='Enter a valid GitHub token (starts with ghp_).'; errorEl.classList.add('show'); return; }
+      GITHUB_TOKEN = token;
       errorEl.classList.remove('show');
       loginEl.classList.add('hidden');
       uiEl.style.display = 'block';
+      passEl.value=''; tokenEl.value='';
+    });
+    passEl.addEventListener('keydown', e=>{ if(e.key==='Enter') tokenEl.focus(); });
+    tokenEl.addEventListener('keydown', e=>{ if(e.key==='Enter') loginBtn.click(); });
+    logoutBtn.addEventListener('click', ()=>{ GITHUB_TOKEN=''; loginEl.classList.remove('hidden'); uiEl.style.display='none'; });
 
-      /* Clear fields immediately after storing */
-      passEl.value  = '';
-      tokenEl.value = '';
+    /* ── TAB SWITCHING ── */
+    document.querySelectorAll('.admin-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+        document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+      });
     });
 
-    passEl.addEventListener('keydown',  e => { if (e.key === 'Enter') tokenEl.focus(); });
-    tokenEl.addEventListener('keydown', e => { if (e.key === 'Enter') loginBtn.click(); });
-
-    logoutBtn.addEventListener('click', () => {
-      GITHUB_TOKEN = ''; // wipe from memory
-      loginEl.classList.remove('hidden');
-      uiEl.style.display = 'none';
-    });
-
-    /* ── PHOTO UPLOAD ── */
-    const dropEl      = document.getElementById('photo-drop');
-    const filesEl     = document.getElementById('photo-files');
-    const previewEl   = document.getElementById('photo-preview-grid');
-    const uploadBtn   = document.getElementById('upload-photos-btn');
-    const photoStatEl = document.getElementById('photo-status');
-    const progEl      = document.getElementById('photo-progress');
-    const fillEl      = document.getElementById('photo-fill');
+    /* ════════════════════════════════════════════════
+       TAB 1: UPLOAD PHOTOS
+    ════════════════════════════════════════════════ */
+    const dropEl     = document.getElementById('photo-drop');
+    const filesEl    = document.getElementById('photo-files');
+    const previewEl  = document.getElementById('photo-preview-grid');
+    const uploadBtn  = document.getElementById('upload-photos-btn');
+    const photoStat  = document.getElementById('photo-status');
+    const progEl     = document.getElementById('photo-progress');
+    const fillEl     = document.getElementById('photo-fill');
 
     let photos = [];
 
-    dropEl.addEventListener('dragover', e => { e.preventDefault(); dropEl.classList.add('dragover'); });
-    dropEl.addEventListener('dragleave', () => dropEl.classList.remove('dragover'));
-    dropEl.addEventListener('drop', e => {
-      e.preventDefault(); dropEl.classList.remove('dragover');
-      addPhotos(Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')));
-    });
-    filesEl.addEventListener('change', e => { addPhotos(Array.from(e.target.files)); filesEl.value = ''; });
+    dropEl.addEventListener('dragover', e=>{ e.preventDefault(); dropEl.classList.add('dragover'); });
+    dropEl.addEventListener('dragleave', ()=>dropEl.classList.remove('dragover'));
+    dropEl.addEventListener('drop', e=>{ e.preventDefault(); dropEl.classList.remove('dragover'); addPhotos(Array.from(e.dataTransfer.files).filter(f=>f.type.startsWith('image/'))); });
+    filesEl.addEventListener('change', e=>{ addPhotos(Array.from(e.target.files)); filesEl.value=''; });
 
     function addPhotos(files) {
-      files.forEach(f => photos.push({ file: f, caption: f.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ') }));
+      files.forEach(f => photos.push({ file:f, caption:f.name.replace(/\.[^.]+$/,'').replace(/[-_]/g,' ') }));
       renderGrid();
     }
-
     function renderGrid() {
-      previewEl.innerHTML = '';
-      photos.forEach((p, i) => {
-        const url = URL.createObjectURL(p.file);
-        const div = document.createElement('div');
-        div.className = 'preview-item';
-        div.innerHTML = `
-          <img src="${url}" />
-          <button class="remove-preview" data-i="${i}">&times;</button>
-          <div class="preview-caption"><input type="text" value="${p.caption}" placeholder="caption" data-i="${i}" /></div>`;
+      previewEl.innerHTML='';
+      photos.forEach((p,i)=>{
+        const url=URL.createObjectURL(p.file);
+        const div=document.createElement('div');
+        div.className='preview-item';
+        div.innerHTML=`<img src="${url}" /><button class="remove-preview" data-i="${i}">&times;</button><div class="preview-caption"><input type="text" value="${p.caption}" placeholder="caption" data-i="${i}" /></div>`;
         previewEl.appendChild(div);
       });
-      previewEl.querySelectorAll('.remove-preview').forEach(b =>
-        b.addEventListener('click', () => { photos.splice(+b.dataset.i, 1); renderGrid(); }));
-      previewEl.querySelectorAll('input[data-i]').forEach(inp =>
-        inp.addEventListener('input', () => { photos[+inp.dataset.i].caption = inp.value; }));
+      previewEl.querySelectorAll('.remove-preview').forEach(b=>b.addEventListener('click',()=>{ photos.splice(+b.dataset.i,1); renderGrid(); }));
+      previewEl.querySelectorAll('input[data-i]').forEach(inp=>inp.addEventListener('input',()=>{ photos[+inp.dataset.i].caption=inp.value; }));
     }
 
-    uploadBtn.addEventListener('click', async () => {
-      if (!GITHUB_TOKEN) return status(photoStatEl, 'error', 'Session expired. Please log out and log back in.');
-      if (!photos.length)  return status(photoStatEl, 'error', 'Please select at least one photo first.');
-
-      uploadBtn.disabled = true;
-      progEl.classList.add('show');
-      fillEl.style.width = '5%';
-
+    uploadBtn.addEventListener('click', async ()=>{
+      if (!GITHUB_TOKEN) return showStatus(photoStat,'error','Session expired. Please log out and log in again.');
+      if (!photos.length) return showStatus(photoStat,'error','Please select at least one photo first.');
+      uploadBtn.disabled=true; progEl.classList.add('show'); fillEl.style.width='5%';
       try {
-        status(photoStatEl, 'info', 'Reading photos.html from GitHub…');
-        const file = await ghGet('photos.html');
-        let html = fromB64(file.content);
-        const sha = file.sha;
-
-        const tiles = [];
-        for (let i = 0; i < photos.length; i++) {
-          const p    = photos[i];
-          const name = p.file.name.replace(/\s+/g, '-');
-          const path = `photos/${name}`;
-
-          status(photoStatEl, 'info', `Uploading ${i + 1} of ${photos.length}: ${p.file.name}…`);
-          fillEl.style.width = `${10 + Math.round((i / photos.length) * 60)}%`;
-
-          const b64 = await toB64File(p.file);
-          let exSha = null;
-          try { exSha = (await ghGet(path)).sha; } catch {}
-          await ghPut(path, b64, `Add photo: ${name}`, exSha);
-
-          tiles.push(
-            `\n  <!-- PHOTO: ${p.caption} -->\n` +
-            `  <div class="photo-tile" data-caption="${p.caption}">\n` +
-            `    <div class="photo-frame"><img src="photos/${name}" alt="${p.caption}" /></div>\n` +
-            `    <div class="photo-overlay"><span class="photo-caption">${p.caption}</span></div>\n` +
-            `  </div>`
-          );
+        showStatus(photoStat,'info','Reading photos.html…');
+        const file=await ghGet('photos.html'); let html=fromB64(file.content); const sha=file.sha;
+        const tiles=[];
+        for (let i=0;i<photos.length;i++) {
+          const p=photos[i]; const name=p.file.name.replace(/\s+/g,'-'); const path=`photos/${name}`;
+          showStatus(photoStat,'info',`Uploading ${i+1}/${photos.length}: ${p.file.name}…`);
+          fillEl.style.width=`${10+Math.round((i/photos.length)*60)}%`;
+          const b64=await toB64File(p.file);
+          let exSha=null; try{ exSha=(await ghGet(path)).sha; }catch{}
+          await ghPut(path,b64,`Add photo: ${name}`,exSha);
+          tiles.push(`\n  <!-- PHOTO: ${p.caption} -->\n  <div class="photo-tile" data-caption="${p.caption}">\n    <div class="photo-frame"><img src="photos/${name}" alt="${p.caption}" /></div>\n    <div class="photo-overlay"><span class="photo-caption">${p.caption}</span></div>\n    <span class="photo-num">${name}</span>\n  </div>`);
         }
-
-        fillEl.style.width = '78%';
-        status(photoStatEl, 'info', 'Saving photos.html…');
-
-        const marker = '<div class="upload-note">';
-        if (!html.includes(marker)) throw new Error('Could not find the insert location in photos.html. Check the file has the upload-note div.');
-        html = html.replace(marker, tiles.join('\n') + '\n\n        ' + marker);
-
-        await ghPut('photos.html', toB64Text(html), `Add ${photos.length} photo(s) via admin`, sha);
-
-        fillEl.style.width = '100%';
-        status(photoStatEl, 'success', `✦ ${photos.length} photo(s) uploaded! Site will update in ~30 seconds.`);
-        photos = [];
-        renderGrid();
-
-      } catch (err) {
-        status(photoStatEl, 'error', `Error: ${err.message}`);
-      } finally {
-        uploadBtn.disabled = false;
-        setTimeout(() => { progEl.classList.remove('show'); fillEl.style.width = '0%'; }, 3000);
-      }
+        fillEl.style.width='78%'; showStatus(photoStat,'info','Saving photos.html…');
+        const marker='<div class="upload-note">';
+        if (!html.includes(marker)) throw new Error('Could not find insert location in photos.html.');
+        html=html.replace(marker, tiles.join('\n')+'\n\n        '+marker);
+        await ghPut('photos.html',toB64Text(html),`Add ${photos.length} photo(s) via admin`,sha);
+        fillEl.style.width='100%';
+        showStatus(photoStat,'success',`✦ ${photos.length} photo(s) uploaded! Site updates in ~30 sec.`);
+        photos=[]; renderGrid();
+      } catch(err){ showStatus(photoStat,'error',`Error: ${err.message}`); }
+      finally{ uploadBtn.disabled=false; setTimeout(()=>{ progEl.classList.remove('show'); fillEl.style.width='0%'; },3000); }
     });
 
-    /* ── PUBLISH LETTER ── */
+    /* ════════════════════════════════════════════════
+       TAB 2: MANAGE PHOTOS
+    ════════════════════════════════════════════════ */
+    const managePhotoList  = document.getElementById('manage-photo-list');
+    const managePhotoStat  = document.getElementById('manage-photo-status');
+    const loadPhotosBtn    = document.getElementById('load-photos-btn');
+
+    let photosHtmlCache = null;
+    let photosHtmlSha   = null;
+
+    loadPhotosBtn.addEventListener('click', async ()=>{
+      if (!GITHUB_TOKEN) return showStatus(managePhotoStat,'error','Session expired.');
+      loadPhotosBtn.disabled=true; showStatus(managePhotoStat,'info','Loading photos.html…');
+      try {
+        const file=await ghGet('photos.html'); photosHtmlCache=fromB64(file.content); photosHtmlSha=file.sha;
+        /* Parse photo tiles from HTML */
+        const parser=new DOMParser();
+        const doc=parser.parseFromString(photosHtmlCache,'text/html');
+        const tiles=Array.from(doc.querySelectorAll('.photo-tile:not(.empty)'));
+        managePhotoList.innerHTML='';
+        if (!tiles.length){ managePhotoList.innerHTML='<p style="color:var(--ink-faint);font-style:italic;font-family:var(--font-serif);">No photos found.</p>'; }
+        tiles.forEach((tile,i)=>{
+          const imgSrc=tile.querySelector('img')?.getAttribute('src')||'';
+          const caption=tile.dataset.caption||'';
+          const row=document.createElement('div'); row.className='manage-photo-row';
+          const thumbSrc=imgSrc.startsWith('http')?imgSrc:`https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${BRANCH}/${imgSrc}`;
+          row.innerHTML=`
+            <img src="${thumbSrc}" alt="${caption}" onerror="this.style.opacity='0.2'" />
+            <div class="mp-caption"><input type="text" value="${caption}" placeholder="caption" data-idx="${i}" /></div>
+            <div class="mp-actions">
+              <button class="action-btn btn-sm btn-save" data-idx="${i}">Save</button>
+              <button class="btn-danger btn-sm" data-idx="${i}" data-src="${imgSrc}">Delete</button>
+            </div>`;
+          managePhotoList.appendChild(row);
+        });
+
+        /* Save caption */
+        managePhotoList.querySelectorAll('.btn-save').forEach(btn=>{
+          btn.addEventListener('click', async ()=>{
+            const idx=+btn.dataset.idx;
+            const newCap=managePhotoList.querySelectorAll('.mp-caption input')[idx].value.trim();
+            btn.disabled=true; showStatus(managePhotoStat,'info','Saving caption…');
+            try {
+              /* Re-fetch to get fresh SHA */
+              const fresh=await ghGet('photos.html'); let html=fromB64(fresh.content);
+              /* Replace the caption in the specific tile by position */
+              const p2=new DOMParser(); const d2=p2.parseFromString(html,'text/html');
+              const tiles2=Array.from(d2.querySelectorAll('.photo-tile:not(.empty)'));
+              if (tiles2[idx]) {
+                const oldCap=tiles2[idx].dataset.caption||'';
+                html=html.replace(`data-caption="${oldCap}"`, `data-caption="${newCap}"`);
+                /* Also update alt text and span */
+                html=html.replace(`alt="${oldCap}"`,`alt="${newCap}"`);
+                html=html.replace(`>${oldCap}</span>`,`>${newCap}</span>`);
+              }
+              await ghPut('photos.html',toB64Text(html),`Edit caption: ${newCap}`,fresh.sha);
+              showStatus(managePhotoStat,'success','Caption updated! Site updates in ~30 sec.');
+            } catch(e){ showStatus(managePhotoStat,'error',`Error: ${e.message}`); }
+            finally{ btn.disabled=false; }
+          });
+        });
+
+        /* Delete photo */
+        managePhotoList.querySelectorAll('.btn-danger').forEach(btn=>{
+          btn.addEventListener('click', async ()=>{
+            if (!confirm('Delete this photo? This cannot be undone.')) return;
+            const idx=+btn.dataset.idx; const imgSrc=btn.dataset.src;
+            btn.disabled=true; showStatus(managePhotoStat,'info','Deleting photo…');
+            try {
+              /* Remove tile from photos.html */
+              const fresh=await ghGet('photos.html'); let html=fromB64(fresh.content);
+              const p2=new DOMParser(); const d2=p2.parseFromString(html,'text/html');
+              const tiles2=Array.from(d2.querySelectorAll('.photo-tile:not(.empty)'));
+              if (tiles2[idx]) {
+                const outerHTML=tiles2[idx].outerHTML;
+                /* Try to remove the comment + tile block */
+                const cap=tiles2[idx].dataset.caption||'';
+                const commentPattern=`<!-- PHOTO: ${cap} -->`;
+                if (html.includes(commentPattern)){
+                  const start=html.indexOf(commentPattern);
+                  /* Find end of this tile block */
+                  const tileEnd=html.indexOf('</div>\n  </div>',start);
+                  if (tileEnd>-1) html=html.slice(0,start)+html.slice(tileEnd+16);
+                } else {
+                  html=html.replace(outerHTML,'');
+                }
+              }
+              await ghPut('photos.html',toB64Text(html),`Delete photo via admin`,fresh.sha);
+              /* Try to delete image file too */
+              try {
+                const imgFile=await ghGet(imgSrc);
+                await ghDelete(imgSrc,`Delete image: ${imgSrc}`,imgFile.sha);
+              } catch {}
+              showStatus(managePhotoStat,'success','Photo deleted! Site updates in ~30 sec.');
+              /* Reload list */
+              setTimeout(()=>loadPhotosBtn.click(),1500);
+            } catch(e){ showStatus(managePhotoStat,'error',`Error: ${e.message}`); btn.disabled=false; }
+          });
+        });
+
+        showStatus(managePhotoStat,'success',`Loaded ${tiles.length} photo(s).`);
+      } catch(e){ showStatus(managePhotoStat,'error',`Error: ${e.message}`); }
+      finally{ loadPhotosBtn.disabled=false; }
+    });
+
+    /* ════════════════════════════════════════════════
+       TAB 3: WRITE LETTER
+    ════════════════════════════════════════════════ */
     const salEl     = document.getElementById('letter-sal');
     const dateEl    = document.getElementById('letter-date');
     const bodyEl    = document.getElementById('letter-body');
     const closeEl   = document.getElementById('letter-close');
     const titleEl   = document.getElementById('letter-title');
     const pubBtn    = document.getElementById('publish-btn');
-    const letStatEl = document.getElementById('letter-status');
+    const letStat   = document.getElementById('letter-status');
 
-    pubBtn.addEventListener('click', async () => {
-      if (!GITHUB_TOKEN) return status(letStatEl, 'error', 'Session expired. Please log out and log back in.');
-
-      const sal   = salEl.value.trim();
-      const date  = dateEl.value.trim();
-      const body  = bodyEl.value.trim();
-      const close = closeEl.value.trim() || 'With love,';
-      const title = titleEl.value.trim()  || 'A Letter';
-
-      if (!sal || !date || !body) return status(letStatEl, 'error', 'Please fill in the salutation, date, and body.');
-
-      pubBtn.disabled = true;
-      status(letStatEl, 'info', 'Reading letters.html from GitHub…');
-
+    pubBtn.addEventListener('click', async ()=>{
+      if (!GITHUB_TOKEN) return showStatus(letStat,'error','Session expired.');
+      const sal=salEl.value.trim(), date=dateEl.value.trim(), body=bodyEl.value.trim();
+      const close=closeEl.value.trim()||'With love,', title=titleEl.value.trim()||'A Letter';
+      if (!sal||!date||!body) return showStatus(letStat,'error','Fill in salutation, date, and body.');
+      pubBtn.disabled=true; showStatus(letStat,'info','Reading letters.html…');
       try {
-        const file = await ghGet('letters.html');
-        let html = fromB64(file.content);
-        const sha = file.sha;
-
-        /* Build paragraphs */
-        const paras = body.split(/\n\s*\n/).map(p => p.trim()).filter(Boolean)
-          .map(p => `            <p>${p.replace(/\n/g, '<br />')}</p>`).join('\n');
-
-        /* Build article block */
-        const article =
-          `\n        <!-- ═══ LETTER: ${title} ═══ -->\n` +
-          `        <article class="letter-paper">\n` +
-          `          <div class="letter-date">${date}</div>\n` +
-          `          <div class="letter-salutation">${sal}</div>\n` +
-          `          <div class="letter-body">\n${paras}\n          </div>\n` +
-          `          <div class="letter-closing">\n` +
-          `            <div class="closing-label">${close}</div>\n` +
-          `            <div class="closing-name">Miggy</div>\n` +
-          `          </div>\n        </article>\n`;
-
-        /* Insert before archive */
-        const m1 = '<!-- Archive index', m2 = '<div class="letters-archive">';
-        if      (html.includes(m1)) html = html.replace(m1, article + '        ' + m1);
-        else if (html.includes(m2)) html = html.replace(m2, article + '        ' + m2);
+        const file=await ghGet('letters.html'); let html=fromB64(file.content); const sha=file.sha;
+        const paras=body.split(/\n\s*\n/).map(p=>p.trim()).filter(Boolean).map(p=>`            <p>${p.replace(/\n/g,'<br />')}</p>`).join('\n');
+        const article=`\n        <!-- ═══ LETTER: ${title} ═══ -->\n        <article class="letter-paper letter-panel" data-title="${title}" data-date="${date}">\n          <div class="letter-date">${date}</div>\n          <div class="letter-salutation">${sal}</div>\n          <div class="letter-body">\n${paras}\n          </div>\n          <div class="letter-closing">\n            <div class="closing-label">${close}</div>\n            <div class="closing-name">Miggy</div>\n          </div>\n        </article>\n`;
+        const m1='<!-- ADD MORE LETTERS HERE', m2='<!-- ── PREV / NEXT NAV ──', m3='<div class="letter-nav">';
+        if (html.includes(m1)) html=html.replace(m1, article+'        '+m1);
+        else if (html.includes(m2)) html=html.replace(m2, article+'        '+m2);
+        else if (html.includes(m3)) html=html.replace(m3, article+'        '+m3);
         else throw new Error('Could not find insert location in letters.html.');
+        showStatus(letStat,'info','Saving letters.html…');
+        await ghPut('letters.html',toB64Text(html),`Add letter: ${title}`,sha);
+        showStatus(letStat,'success','✦ Letter published! Site updates in ~30 sec.');
+        salEl.value=''; dateEl.value=''; bodyEl.value=''; closeEl.value=''; titleEl.value='';
+      } catch(e){ showStatus(letStat,'error',`Error: ${e.message}`); }
+      finally{ pubBtn.disabled=false; }
+    });
 
-        /* Add archive list entry */
-        const entry =
-          `\n          <div class="archive-item">\n` +
-          `            <span class="archive-title">${title}</span>\n` +
-          `            <span class="archive-date">${date}</span>\n` +
-          `            <span class="archive-badge">new</span>\n` +
-          `          </div>`;
-        html = html.replace('<div class="archive-item">', entry + '\n          <div class="archive-item">');
+    /* ════════════════════════════════════════════════
+       TAB 4: MANAGE LETTERS
+    ════════════════════════════════════════════════ */
+    const manageLetterList = document.getElementById('manage-letter-list');
+    const manageLetterStat = document.getElementById('manage-letter-status');
+    const loadLettersBtn   = document.getElementById('load-letters-btn');
 
-        status(letStatEl, 'info', 'Saving letters.html to GitHub…');
-        await ghPut('letters.html', toB64Text(html), `Add letter: ${title}`, sha);
+    loadLettersBtn.addEventListener('click', async ()=>{
+      if (!GITHUB_TOKEN) return showStatus(manageLetterStat,'error','Session expired.');
+      loadLettersBtn.disabled=true; showStatus(manageLetterStat,'info','Loading letters.html…');
+      try {
+        const file=await ghGet('letters.html'); const html=fromB64(file.content);
+        const parser=new DOMParser(); const doc=parser.parseFromString(html,'text/html');
+        const articles=Array.from(doc.querySelectorAll('article.letter-panel'));
+        manageLetterList.innerHTML='';
+        if (!articles.length){ manageLetterList.innerHTML='<p style="color:var(--ink-faint);font-style:italic;font-family:var(--font-serif);">No letters found.</p>'; showStatus(manageLetterStat,'info','Done.'); return; }
 
-        status(letStatEl, 'success', '✦ Letter published! Site will update in ~30 seconds.');
-        salEl.value = ''; dateEl.value = ''; bodyEl.value = ''; closeEl.value = ''; titleEl.value = '';
+        articles.forEach((art,i)=>{
+          const title=art.dataset.title||`Letter ${i+1}`;
+          const date=art.dataset.date||'';
+          const salutation=art.querySelector('.letter-salutation')?.textContent||'';
+          const bodyParas=Array.from(art.querySelectorAll('.letter-body p')).map(p=>p.textContent).join('\n\n');
+          const closingLabel=art.querySelector('.closing-label')?.textContent||'';
 
-      } catch (err) {
-        status(letStatEl, 'error', `Error: ${err.message}`);
-      } finally {
-        pubBtn.disabled = false;
-      }
+          const row=document.createElement('div'); row.className='manage-letter-row';
+          row.innerHTML=`
+            <div class="manage-letter-header">
+              <span class="manage-letter-title">${title}</span>
+              <span class="manage-letter-date">${date}</span>
+            </div>
+            <div class="manage-letter-actions">
+              <button class="action-btn btn-sm" data-edit="${i}">✎ Edit</button>
+              <button class="btn-danger btn-sm" data-del="${i}">✕ Delete</button>
+            </div>
+            <div class="manage-letter-edit" id="letter-edit-${i}">
+              <div class="form-group"><label>Tab Title</label><input type="text" class="le-title" value="${title}" /></div>
+              <div class="form-group"><label>Date</label><input type="text" class="le-date" value="${date}" /></div>
+              <div class="form-group"><label>Salutation</label><input type="text" class="le-sal" value="${salutation}" /></div>
+              <div class="form-group"><label>Body</label><textarea class="le-body" style="min-height:120px;">${bodyParas}</textarea></div>
+              <div class="form-group"><label>Closing</label><input type="text" class="le-close" value="${closingLabel}" /></div>
+              <button class="action-btn btn-sm btn-save" data-save="${i}">Save Changes to GitHub</button>
+            </div>`;
+          manageLetterList.appendChild(row);
+        });
+
+        /* Toggle edit */
+        manageLetterList.querySelectorAll('[data-edit]').forEach(btn=>{
+          btn.addEventListener('click',()=>{
+            const panel=document.getElementById(`letter-edit-${btn.dataset.edit}`);
+            panel.classList.toggle('open');
+            btn.textContent=panel.classList.contains('open')?'✕ Close':'✎ Edit';
+          });
+        });
+
+        /* Save edited letter */
+        manageLetterList.querySelectorAll('[data-save]').forEach(btn=>{
+          btn.addEventListener('click', async ()=>{
+            const idx=+btn.dataset.save;
+            const panel=document.getElementById(`letter-edit-${idx}`);
+            const newTitle=panel.querySelector('.le-title').value.trim();
+            const newDate=panel.querySelector('.le-date').value.trim();
+            const newSal=panel.querySelector('.le-sal').value.trim();
+            const newBody=panel.querySelector('.le-body').value.trim();
+            const newClose=panel.querySelector('.le-close').value.trim();
+            btn.disabled=true; showStatus(manageLetterStat,'info','Saving…');
+            try {
+              const fresh=await ghGet('letters.html'); let html=fromB64(fresh.content);
+              const p2=new DOMParser(); const d2=p2.parseFromString(html,'text/html');
+              const arts=Array.from(d2.querySelectorAll('article.letter-panel'));
+              if (!arts[idx]) throw new Error('Letter not found.');
+              const oldArticle=arts[idx];
+              const paras=newBody.split(/\n\s*\n/).map(p=>p.trim()).filter(Boolean).map(p=>`            <p>${p.replace(/\n/g,'<br />')}</p>`).join('\n');
+              const newArticle=`<article class="letter-paper letter-panel" data-title="${newTitle}" data-date="${newDate}">\n          <div class="letter-date">${newDate}</div>\n          <div class="letter-salutation">${newSal}</div>\n          <div class="letter-body">\n${paras}\n          </div>\n          <div class="letter-closing">\n            <div class="closing-label">${newClose}</div>\n            <div class="closing-name">Miggy</div>\n          </div>\n        </article>`;
+              html=html.replace(oldArticle.outerHTML, newArticle);
+              await ghPut('letters.html',toB64Text(html),`Edit letter: ${newTitle}`,fresh.sha);
+              showStatus(manageLetterStat,'success','Letter updated! Site updates in ~30 sec.');
+            } catch(e){ showStatus(manageLetterStat,'error',`Error: ${e.message}`); }
+            finally{ btn.disabled=false; }
+          });
+        });
+
+        /* Delete letter */
+        manageLetterList.querySelectorAll('[data-del]').forEach(btn=>{
+          btn.addEventListener('click', async ()=>{
+            if (!confirm('Delete this letter? This cannot be undone.')) return;
+            const idx=+btn.dataset.del; btn.disabled=true; showStatus(manageLetterStat,'info','Deleting…');
+            try {
+              const fresh=await ghGet('letters.html'); let html=fromB64(fresh.content);
+              const p2=new DOMParser(); const d2=p2.parseFromString(html,'text/html');
+              const arts=Array.from(d2.querySelectorAll('article.letter-panel'));
+              if (!arts[idx]) throw new Error('Letter not found.');
+              html=html.replace(arts[idx].outerHTML,'');
+              await ghPut('letters.html',toB64Text(html),`Delete letter via admin`,fresh.sha);
+              showStatus(manageLetterStat,'success','Letter deleted! Site updates in ~30 sec.');
+              setTimeout(()=>loadLettersBtn.click(),1500);
+            } catch(e){ showStatus(manageLetterStat,'error',`Error: ${e.message}`); btn.disabled=false; }
+          });
+        });
+
+        showStatus(manageLetterStat,'success',`Loaded ${articles.length} letter(s).`);
+      } catch(e){ showStatus(manageLetterStat,'error',`Error: ${e.message}`); }
+      finally{ loadLettersBtn.disabled=false; }
+    });
+
+    /* ════════════════════════════════════════════════
+       TAB 5: EDIT ABOUT
+    ════════════════════════════════════════════════ */
+    const loadAboutBtn  = document.getElementById('load-about-btn');
+    const aboutEditForm = document.getElementById('about-edit-form');
+    const saveAboutBtn  = document.getElementById('save-about-btn');
+    const aboutStat     = document.getElementById('about-status');
+    const factsList     = document.getElementById('facts-list');
+    const addFactBtn    = document.getElementById('add-fact-btn');
+
+    let aboutHtmlSha = null;
+
+    loadAboutBtn.addEventListener('click', async ()=>{
+      if (!GITHUB_TOKEN) return showStatus(aboutStat,'error','Session expired.');
+      loadAboutBtn.disabled=true; showStatus(aboutStat,'info','Loading about.html…');
+      try {
+        const file=await ghGet('about.html'); const html=fromB64(file.content); aboutHtmlSha=file.sha;
+        const p=new DOMParser(); const doc=p.parseFromString(html,'text/html');
+        document.getElementById('about-name').value = doc.querySelector('.about-name')?.textContent||'';
+        document.getElementById('about-sub').value  = doc.querySelector('.about-sub')?.textContent||'';
+        const paras = Array.from(doc.querySelectorAll('.about-card > p'));
+        document.getElementById('about-p1').value = paras[0]?.textContent||'';
+        document.getElementById('about-p2').value = paras[1]?.textContent||'';
+        document.getElementById('about-p3').value = paras[2]?.textContent||'';
+        /* Load facts */
+        factsList.innerHTML='';
+        doc.querySelectorAll('.fact-row').forEach(row=>{
+          const label=row.querySelector('.fact-label')?.textContent||'';
+          const value=row.querySelector('.fact-value')?.textContent||'';
+          addFactRow(label,value);
+        });
+        aboutEditForm.style.display='block';
+        showStatus(aboutStat,'success','About page loaded. Edit and save below.');
+      } catch(e){ showStatus(aboutStat,'error',`Error: ${e.message}`); }
+      finally{ loadAboutBtn.disabled=false; }
+    });
+
+    function addFactRow(label='',value=''){
+      const row=document.createElement('div'); row.className='about-fact-row';
+      row.innerHTML=`<input type="text" placeholder="label" value="${label}" /><input type="text" placeholder="value" value="${value}" /><button class="fact-remove" title="Remove">×</button>`;
+      row.querySelector('.fact-remove').addEventListener('click',()=>row.remove());
+      factsList.appendChild(row);
+    }
+    addFactBtn.addEventListener('click',()=>addFactRow());
+
+    saveAboutBtn.addEventListener('click', async ()=>{
+      if (!GITHUB_TOKEN) return showStatus(aboutStat,'error','Session expired.');
+      saveAboutBtn.disabled=true; showStatus(aboutStat,'info','Reading about.html…');
+      try {
+        const fresh=await ghGet('about.html'); let html=fromB64(fresh.content);
+        const p=new DOMParser(); const doc=p.parseFromString(html,'text/html');
+
+        /* Update name */
+        const nameEl=doc.querySelector('.about-name');
+        if (nameEl) { const n=document.getElementById('about-name').value.trim(); html=html.replace(nameEl.outerHTML,`<div class="about-name">${n}</div>`); }
+
+        /* Update sub */
+        const subEl=doc.querySelector('.about-sub');
+        if (subEl) { const s=document.getElementById('about-sub').value.trim(); html=html.replace(subEl.outerHTML,`<span class="about-sub">${s}</span>`); }
+
+        /* Update paragraphs */
+        const paras=Array.from(doc.querySelectorAll('.about-card > p'));
+        ['about-p1','about-p2','about-p3'].forEach((id,i)=>{
+          if (paras[i]){ const v=document.getElementById(id).value.trim(); html=html.replace(paras[i].outerHTML,`<p>${v}</p>`); }
+        });
+
+        /* Rebuild facts */
+        const factsContainer=doc.querySelector('.about-facts');
+        if (factsContainer) {
+          const rows=Array.from(factsList.querySelectorAll('.about-fact-row'));
+          let newFactsHTML=`<div class="about-facts">\n            <h3>A FEW THINGS</h3>\n`;
+          rows.forEach(row=>{
+            const inputs=row.querySelectorAll('input');
+            const label=inputs[0].value.trim(); const value=inputs[1].value.trim();
+            if (label||value) newFactsHTML+=`            <div class="fact-row">\n              <span class="fact-label">${label}</span>\n              <span class="fact-value">${value}</span>\n            </div>\n`;
+          });
+          newFactsHTML+=`          </div>`;
+          html=html.replace(factsContainer.outerHTML,newFactsHTML);
+        }
+
+        await ghPut('about.html',toB64Text(html),`Update About page via admin`,fresh.sha);
+        showStatus(aboutStat,'success','✦ About page updated! Site updates in ~30 sec.');
+      } catch(e){ showStatus(aboutStat,'error',`Error: ${e.message}`); }
+      finally{ saveAboutBtn.disabled=false; }
     });
   </script>
+
 </body>
 </html>
