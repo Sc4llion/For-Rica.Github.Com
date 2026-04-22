@@ -6,7 +6,7 @@
   <title>For Rica — Letters</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     :root {
       --cream:#fdf8f0; --cream-deep:#f5ede0; --ink:#2c2016; --ink-light:#6b5744; --ink-faint:#a8917c;
       --blush:#e8c4a0; --rose:#c97d5a; --rose-dark:#a05f40; --gold:#b98250;
@@ -55,11 +55,34 @@
     .ornament-divider .star-glyph{font-family:var(--font-serif);font-size:26px;color:var(--rose);letter-spacing:8px;display:block;margin-bottom:8px;}
     .ornament-divider .line{display:inline-block;width:100px;height:0.5px;background:linear-gradient(to right,transparent,var(--blush),transparent);vertical-align:middle;}
     .ornament-divider .diamond{display:inline-block;width:6px;height:6px;background:var(--rose);transform:rotate(45deg);margin:0 12px;vertical-align:middle;}
-    .letters-wrapper{max-width:640px;width:100%;}
-    .page-title{text-align:center;margin-bottom:40px;}
+    .letters-wrapper{max-width:680px;width:100%;}
+    .page-title{text-align:center;margin-bottom:36px;}
     .page-title .eyebrow{font-family:var(--font-serif);font-style:italic;font-size:13px;letter-spacing:4px;color:var(--ink-faint);display:block;margin-bottom:10px;}
     .page-title h1{font-family:var(--font-serif);font-weight:300;font-size:36px;color:var(--ink);letter-spacing:2px;}
-    .letter-paper{background:#fffdf8;border:0.5px solid rgba(185,130,80,0.2);border-radius:2px;padding:56px 52px;position:relative;box-shadow:0 2px 40px rgba(100,60,20,0.06),0 1px 4px rgba(100,60,20,0.04);margin-bottom:32px;}
+
+    /* ── LETTER TAB NAVIGATION ── */
+    .letter-tabs {
+      display:flex; flex-wrap:wrap; gap:8px;
+      margin-bottom:32px; justify-content:center;
+    }
+    .letter-tab {
+      background:transparent; border:0.5px solid var(--border-strong);
+      border-radius:2px; padding:8px 18px; cursor:pointer;
+      font-family:var(--font-serif); font-style:italic; font-size:14px;
+      color:var(--ink-light); transition:all 0.2s ease;
+      display:flex; align-items:center; gap:8px;
+    }
+    .letter-tab:hover { border-color:var(--rose); color:var(--rose); background:rgba(201,125,90,0.05); }
+    .letter-tab.active { background:rgba(232,196,160,0.2); border-color:var(--rose); color:var(--rose); }
+    .letter-tab .tab-date { font-size:11px; letter-spacing:1px; opacity:0.7; font-style:normal; }
+    .letter-tab .tab-badge { font-size:10px; background:rgba(201,125,90,0.15); color:var(--rose); padding:1px 7px; border-radius:10px; font-style:normal; }
+
+    /* ── LETTER PANELS (one visible at a time) ── */
+    .letter-panel { display:none; }
+    .letter-panel.active { display:block; animation:fadeUp 0.5s ease both; }
+
+    /* ── LETTER PAPER CARD ── */
+    .letter-paper{background:#fffdf8;border:0.5px solid rgba(185,130,80,0.2);border-radius:2px;padding:56px 52px;position:relative;box-shadow:0 2px 40px rgba(100,60,20,0.06),0 1px 4px rgba(100,60,20,0.04);margin-bottom:24px;}
     .letter-paper::after{content:"";position:absolute;inset:12px;border:0.5px solid rgba(185,130,80,0.08);border-radius:1px;pointer-events:none;}
     .letter-date{text-align:right;font-family:var(--font-serif);font-style:italic;font-size:14px;color:var(--ink-light);letter-spacing:0.5px;margin-bottom:32px;}
     .letter-salutation{font-family:var(--font-serif);font-size:22px;font-weight:400;color:var(--ink);margin-bottom:28px;letter-spacing:0.3px;}
@@ -69,13 +92,28 @@
     .letter-closing{margin-top:36px;border-top:0.5px solid rgba(185,130,80,0.15);padding-top:28px;}
     .letter-closing .closing-label{font-family:var(--font-serif);font-style:italic;font-size:15px;color:var(--ink-light);margin-bottom:6px;}
     .letter-closing .closing-name{font-family:var(--font-serif);font-size:28px;font-weight:400;color:var(--ink);letter-spacing:1px;}
-    .letters-archive{margin-top:48px;}
-    .archive-label{font-size:11px;letter-spacing:3px;color:var(--rose);font-weight:400;margin-bottom:16px;display:block;}
-    .archive-item{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:0.5px solid var(--border);}
-    .archive-item .archive-title{font-family:var(--font-serif);font-style:italic;font-size:16px;color:var(--ink-light);}
-    .archive-item .archive-date{font-size:12px;letter-spacing:1px;color:var(--ink-faint);}
-    .archive-item .archive-badge{font-size:11px;background:rgba(201,125,90,0.12);color:var(--rose);padding:2px 10px;border-radius:12px;}
-    @media(max-width:768px){.app-container{flex-direction:column;}.sidebar{width:100%;height:auto;position:static;border-right:none;border-bottom:1px solid var(--border);padding:20px 0;}.main-content{height:auto;overflow-y:visible;padding:40px 15px;}.letter-paper{padding:36px 28px;}}
+
+    /* ── PREV / NEXT NAV ── */
+    .letter-nav {
+      display:flex; justify-content:space-between; align-items:center;
+      margin-top:8px;
+    }
+    .nav-btn {
+      background:transparent; border:0.5px solid var(--border-strong); border-radius:2px;
+      padding:8px 20px; font-family:var(--font-sans); font-size:11px;
+      letter-spacing:2px; color:var(--ink-faint); cursor:pointer;
+      transition:all 0.2s ease; text-transform:uppercase;
+    }
+    .nav-btn:hover { border-color:var(--rose); color:var(--rose); }
+    .nav-btn:disabled { opacity:0.25; pointer-events:none; }
+    .nav-counter { font-family:var(--font-serif); font-style:italic; font-size:14px; color:var(--ink-faint); }
+
+    @media(max-width:768px){
+      .app-container{flex-direction:column;}
+      .sidebar{width:100%;height:auto;position:static;border-right:none;border-bottom:1px solid var(--border);padding:20px 0;}
+      .main-content{height:auto;overflow-y:visible;padding:40px 15px;}
+      .letter-paper{padding:36px 28px;}
+    }
   </style>
 </head>
 <body>
@@ -126,13 +164,17 @@
           <h1>Letters</h1>
         </div>
 
-        <!-- ═══════════════════════════════════════════════════
-             LETTER #1 — April 2026
-             To add a new letter: copy this entire <article> block,
-             paste it below, and update the content.
-             The badge count updates automatically!
-             ═══════════════════════════════════════════════════ -->
-        <article class="letter-paper">
+        <!-- ── TAB LIST (auto-built by JS from articles below) ── -->
+        <div class="letter-tabs" id="letter-tabs"></div>
+
+        <!-- ── LETTER PANELS ──
+             Each <article> becomes one tab panel.
+             To add a new letter: copy an <article data-title="..." data-date="..."> block.
+             JS will auto-create the tab for it.
+        ── -->
+
+        <!-- LETTER 1 -->
+        <article class="letter-paper letter-panel" data-title="The One That Started It All" data-date="April 2026">
           <div class="letter-date">April 2026</div>
           <div class="letter-salutation">Dear Rica, Riri, Little Major,</div>
           <div class="letter-body">
@@ -148,19 +190,13 @@
           </div>
         </article>
 
-        <!-- Archive index — auto-populated by script below -->
-        <div class="letters-archive">
-          <span class="archive-label">ALL LETTERS</span>
-          
-          <div class="archive-item">
-            <span class="archive-title">The One That Started It All</span>
-            <span class="archive-date">April 2026</span>
-            <span class="archive-badge">newest</span>
-          </div>
-          <div class="archive-item" style="opacity:0.35;">
-            <span class="archive-title" style="font-style:italic;">more letters coming…</span>
-            <span class="archive-date">—</span>
-          </div>
+        <!-- ADD MORE LETTERS HERE — copy the article block above, change data-title, data-date, and content -->
+
+        <!-- ── PREV / NEXT NAVIGATION ── -->
+        <div class="letter-nav">
+          <button class="nav-btn" id="prev-btn">← Previous</button>
+          <span class="nav-counter" id="nav-counter"></span>
+          <button class="nav-btn" id="next-btn">Next →</button>
         </div>
 
       </div>
@@ -168,23 +204,59 @@
   </div>
 
   <script>
-    /* ============================================================
-       BADGE COUNTER — letters.html
-       1. Count all <article class="letter-paper"> on this page
-       2. Save that count to localStorage so all other pages can read it
-       3. Update both badges in this page's sidebar
-       ============================================================ */
+    /* ── BADGE COUNTS ── */
     const PHOTO_COUNT_KEY  = 'rica-photo-count';
     const LETTER_COUNT_KEY = 'rica-letter-count';
-
-    // Count letters on THIS page and save
-    const letterCount = document.querySelectorAll('article.letter-paper').length;
-    localStorage.setItem(LETTER_COUNT_KEY, letterCount);
-
-    // Read photo count saved by photos.html
     const storedPhotos = localStorage.getItem(PHOTO_COUNT_KEY) || '—';
 
-    // Update sidebar badges
+    /* ── LETTER TAB SYSTEM ── */
+    const panels  = Array.from(document.querySelectorAll('article.letter-panel'));
+    const tabsEl  = document.getElementById('letter-tabs');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const counter = document.getElementById('nav-counter');
+
+    let current = 0;
+
+    /* Build tabs from each article's data-title and data-date */
+    panels.forEach((panel, i) => {
+      const title = panel.dataset.title || `Letter ${i + 1}`;
+      const date  = panel.dataset.date  || '';
+
+      const tab = document.createElement('button');
+      tab.className = 'letter-tab' + (i === 0 ? ' active' : '');
+      tab.innerHTML = `${title} <span class="tab-date">${date}</span>` + (i === 0 ? ' <span class="tab-badge">newest</span>' : '');
+      tab.addEventListener('click', () => showPanel(i));
+      tabsEl.appendChild(tab);
+    });
+
+    function showPanel(index) {
+      panels.forEach((p, i) => {
+        p.classList.toggle('active', i === index);
+      });
+      tabsEl.querySelectorAll('.letter-tab').forEach((t, i) => {
+        t.classList.toggle('active', i === index);
+      });
+      current = index;
+      updateNav();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateNav() {
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === panels.length - 1;
+      counter.textContent = panels.length > 1 ? `${current + 1} of ${panels.length}` : '';
+    }
+
+    prevBtn.addEventListener('click', () => { if (current > 0) showPanel(current - 1); });
+    nextBtn.addEventListener('click', () => { if (current < panels.length - 1) showPanel(current + 1); });
+
+    /* Show first panel on load */
+    showPanel(0);
+
+    /* Save letter count and update badges */
+    const letterCount = panels.length;
+    localStorage.setItem(LETTER_COUNT_KEY, letterCount);
     document.getElementById('badge-letters').textContent = letterCount;
     document.getElementById('badge-photos').textContent  = storedPhotos;
   </script>
