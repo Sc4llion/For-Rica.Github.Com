@@ -17,21 +17,8 @@
       --font-serif: "Cormorant Garamond", serif;
       --font-sans: "Lato", sans-serif;
     }
-
-    html, body {
-      min-height: 100vh; background-color: var(--cream);
-      font-family: var(--font-sans); font-weight: 300;
-      color: var(--ink); overflow-x: hidden;
-    }
-
-    body::before {
-      content: ""; position: fixed; inset: 0;
-      background: radial-gradient(ellipse at 10% 20%, rgba(200,140,100,0.08) 0%, transparent 50%),
-                  radial-gradient(ellipse at 90% 80%, rgba(185,130,80,0.07) 0%, transparent 50%);
-      pointer-events: none; z-index: 0;
-    }
-
-    /* ── PETALS ── */
+    html, body { min-height: 100vh; background-color: var(--cream); font-family: var(--font-sans); font-weight: 300; color: var(--ink); overflow-x: hidden; }
+    body::before { content: ""; position: fixed; inset: 0; background: radial-gradient(ellipse at 10% 20%, rgba(200,140,100,0.08) 0%, transparent 50%), radial-gradient(ellipse at 90% 80%, rgba(185,130,80,0.07) 0%, transparent 50%); pointer-events: none; z-index: 0; }
     .petals-container { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
     .petal { position: absolute; top: -40px; background: radial-gradient(ellipse at 40% 30%, #f2c4a8, #d9896a); border-radius: 50% 0 50% 0; opacity: 0; animation: petalFall linear infinite; }
     @keyframes petalFall { 0%{transform:translateY(0) rotate(0deg) translateX(0);opacity:0;} 5%{opacity:0.5;} 95%{opacity:0.2;} 100%{transform:translateY(110vh) rotate(360deg) translateX(60px);opacity:0;} }
@@ -45,166 +32,81 @@
     .petal:nth-child(8){left:88%;width:10px;height:14px;animation-duration:8s;animation-delay:3.5s;}
     .petal:nth-child(9){left:22%;width:7px;height:10px;animation-duration:14s;animation-delay:5s;}
     .petal:nth-child(10){left:62%;width:11px;height:15px;animation-duration:11s;animation-delay:6s;}
-
     @keyframes fadeUp { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
 
-    /* ── LOGIN GATE ── */
-    #admin-login {
-      position: fixed; inset: 0; z-index: 999;
-      background: var(--cream);
-      display: flex; align-items: center; justify-content: center;
-      padding: 20px;
-    }
+    /* LOGIN */
+    #admin-login { position: fixed; inset: 0; z-index: 999; background: var(--cream); display: flex; align-items: center; justify-content: center; padding: 20px; }
     #admin-login.hidden { display: none; }
-
-    .login-box { max-width: 380px; width: 100%; animation: fadeUp 0.8s ease both; }
-
+    .login-box { max-width: 420px; width: 100%; animation: fadeUp 0.8s ease both; }
     .login-ornament { text-align: center; margin-bottom: 28px; }
     .login-ornament .star { font-family: var(--font-serif); font-size: 22px; color: var(--rose); letter-spacing: 8px; display: block; margin-bottom: 6px; }
     .login-ornament .line { display: inline-block; width: 70px; height: 0.5px; background: linear-gradient(to right, transparent, var(--blush), transparent); vertical-align: middle; }
     .login-ornament .diamond { display: inline-block; width: 5px; height: 5px; background: var(--rose); transform: rotate(45deg); margin: 0 10px; vertical-align: middle; }
-
-    .login-card {
-      background: #fffdf8; border: 0.5px solid rgba(185,130,80,0.2);
-      border-radius: 2px; padding: 40px 36px; position: relative;
-      box-shadow: 0 2px 40px var(--shadow-warm);
-    }
+    .login-card { background: #fffdf8; border: 0.5px solid rgba(185,130,80,0.2); border-radius: 2px; padding: 40px 36px; position: relative; box-shadow: 0 2px 40px var(--shadow-warm); }
     .login-card::after { content:""; position:absolute; inset:10px; border:0.5px solid rgba(185,130,80,0.07); border-radius:1px; pointer-events:none; }
-
     .login-card h2 { font-family: var(--font-serif); font-weight: 300; font-size: 28px; color: var(--ink); letter-spacing: 2px; margin-bottom: 4px; }
     .login-card .sub { font-family: var(--font-serif); font-style: italic; font-size: 13px; color: var(--ink-faint); letter-spacing: 2px; margin-bottom: 30px; display: block; }
-
-    .field { margin-bottom: 20px; }
+    .field { margin-bottom: 22px; }
     .field label { display: block; font-size: 11px; letter-spacing: 2px; color: var(--rose); margin-bottom: 8px; text-transform: uppercase; }
-    .field input {
-      width: 100%; background: transparent; border: none;
-      border-bottom: 1px solid var(--border-strong);
-      padding: 8px 0; font-family: var(--font-sans); font-size: 14px;
-      font-weight: 300; color: var(--ink); outline: none;
-      transition: border-color 0.2s;
-    }
+    .field input { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border-strong); padding: 8px 0; font-family: var(--font-sans); font-size: 14px; font-weight: 300; color: var(--ink); outline: none; transition: border-color 0.2s; }
     .field input:focus { border-bottom-color: var(--rose); }
     .field input::placeholder { color: var(--ink-faint); font-style: italic; font-family: var(--font-serif); }
-
-    .btn-primary {
-      width: 100%; margin-top: 28px; background: transparent;
-      border: 0.5px solid var(--border-strong); border-radius: 2px;
-      padding: 12px; font-family: var(--font-sans); font-size: 11px;
-      font-weight: 400; letter-spacing: 3px; color: var(--ink-light);
-      cursor: pointer; transition: all 0.2s; text-transform: uppercase;
-    }
+    .field-note { font-size: 11px; color: var(--ink-faint); margin-top: 7px; line-height: 1.7; letter-spacing: 0.3px; }
+    .btn-primary { width: 100%; margin-top: 28px; background: transparent; border: 0.5px solid var(--border-strong); border-radius: 2px; padding: 12px; font-family: var(--font-sans); font-size: 11px; font-weight: 400; letter-spacing: 3px; color: var(--ink-light); cursor: pointer; transition: all 0.2s; text-transform: uppercase; }
     .btn-primary:hover { background: rgba(201,125,90,0.08); border-color: var(--rose); color: var(--rose); }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-
     .login-error { display: none; margin-top: 14px; text-align: center; font-family: var(--font-serif); font-style: italic; font-size: 13px; color: var(--red); }
     .login-error.show { display: block; }
 
-    /* ── MAIN ADMIN UI ── */
+    /* ADMIN UI */
     #admin-ui { position: relative; z-index: 2; max-width: 760px; margin: 0 auto; padding: 60px 20px 80px; animation: fadeUp 0.8s ease both; }
-
     .admin-header { text-align: center; margin-bottom: 48px; }
     .admin-header .ornament { font-family: var(--font-serif); font-size: 22px; color: var(--rose); letter-spacing: 8px; display: block; margin-bottom: 8px; }
     .admin-header .deco-line { display: inline-block; width: 80px; height: 0.5px; background: linear-gradient(to right, transparent, var(--blush), transparent); vertical-align: middle; }
     .admin-header .deco-diamond { display: inline-block; width: 5px; height: 5px; background: var(--rose); transform: rotate(45deg); margin: 0 10px; vertical-align: middle; }
     .admin-header h1 { font-family: var(--font-serif); font-weight: 300; font-size: 36px; color: var(--ink); letter-spacing: 2px; margin: 16px 0 6px; }
     .admin-header p { font-family: var(--font-serif); font-style: italic; font-size: 14px; color: var(--ink-faint); letter-spacing: 2px; }
-
-    /* Back link */
     .back-link { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--ink-faint); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 32px; transition: color 0.2s; }
     .back-link:hover { color: var(--rose); }
-
-    /* Logout */
     .logout-btn { float: right; background: none; border: 0.5px solid var(--border); border-radius: 2px; padding: 6px 14px; font-size: 11px; letter-spacing: 2px; color: var(--ink-faint); cursor: pointer; transition: all 0.2s; text-transform: uppercase; }
     .logout-btn:hover { border-color: var(--rose); color: var(--rose); }
-
-    /* ── SECTION CARDS ── */
-    .section-card {
-      background: #fffdf8; border: 0.5px solid rgba(185,130,80,0.2);
-      border-radius: 2px; padding: 40px 44px; margin-bottom: 24px;
-      position: relative; box-shadow: 0 2px 30px var(--shadow-warm);
-    }
+    .section-card { background: #fffdf8; border: 0.5px solid rgba(185,130,80,0.2); border-radius: 2px; padding: 40px 44px; margin-bottom: 24px; position: relative; box-shadow: 0 2px 30px var(--shadow-warm); }
     .section-card::after { content:""; position:absolute; inset:10px; border:0.5px solid rgba(185,130,80,0.06); border-radius:1px; pointer-events:none; }
-
     .section-title { font-family: var(--font-serif); font-size: 24px; font-weight: 300; color: var(--ink); letter-spacing: 2px; margin-bottom: 4px; }
     .section-sub { font-family: var(--font-serif); font-style: italic; font-size: 13px; color: var(--rose); letter-spacing: 1px; margin-bottom: 28px; display: block; }
-
     .form-group { margin-bottom: 20px; }
     .form-group label { display: block; font-size: 11px; letter-spacing: 2px; color: var(--rose); margin-bottom: 8px; text-transform: uppercase; }
-
-    .form-group input[type="text"],
-    .form-group input[type="date"],
-    .form-group textarea {
-      width: 100%; background: transparent; border: none;
-      border-bottom: 1px solid var(--border-strong);
-      padding: 10px 0; font-family: var(--font-sans); font-size: 14px;
-      font-weight: 300; color: var(--ink); outline: none;
-      transition: border-color 0.2s; resize: vertical;
-    }
+    .form-group input[type="text"], .form-group textarea { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border-strong); padding: 10px 0; font-family: var(--font-sans); font-size: 14px; font-weight: 300; color: var(--ink); outline: none; transition: border-color 0.2s; resize: vertical; }
     .form-group input:focus, .form-group textarea:focus { border-bottom-color: var(--rose); }
     .form-group input::placeholder, .form-group textarea::placeholder { color: var(--ink-faint); font-style: italic; font-family: var(--font-serif); }
     .form-group textarea { min-height: 120px; padding-top: 10px; }
-
-    /* File drop zone */
-    .drop-zone {
-      border: 1px dashed var(--border-strong); border-radius: 2px;
-      padding: 32px 20px; text-align: center; cursor: pointer;
-      transition: all 0.2s; background: rgba(232,196,160,0.04);
-      position: relative;
-    }
+    .drop-zone { border: 1px dashed var(--border-strong); border-radius: 2px; padding: 32px 20px; text-align: center; cursor: pointer; transition: all 0.2s; background: rgba(232,196,160,0.04); position: relative; }
     .drop-zone:hover, .drop-zone.dragover { border-color: var(--rose); background: rgba(201,125,90,0.06); }
     .drop-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
     .drop-zone .dz-icon { font-size: 28px; opacity: 0.4; display: block; margin-bottom: 10px; }
     .drop-zone .dz-label { font-family: var(--font-serif); font-style: italic; font-size: 15px; color: var(--ink-faint); }
     .drop-zone .dz-sub { font-size: 11px; letter-spacing: 1px; color: var(--ink-faint); margin-top: 4px; opacity: 0.6; }
-
-    /* Photo preview grid */
     .photo-preview-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 16px; }
     .preview-item { position: relative; aspect-ratio: 1; border-radius: 2px; overflow: hidden; border: 0.5px solid var(--border); }
     .preview-item img { width: 100%; height: 100%; object-fit: cover; filter: sepia(8%) saturate(90%); }
     .preview-item .remove-preview { position: absolute; top: 4px; right: 4px; background: rgba(44,32,22,0.7); color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
     .preview-item .preview-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(44,32,22,0.6); padding: 4px 6px; }
     .preview-item .preview-caption input { width: 100%; background: transparent; border: none; color: white; font-size: 10px; outline: none; font-family: var(--font-serif); font-style: italic; }
-
-    /* Action button */
-    .action-btn {
-      margin-top: 24px; background: transparent;
-      border: 0.5px solid var(--border-strong); border-radius: 2px;
-      padding: 13px 32px; font-family: var(--font-sans); font-size: 11px;
-      font-weight: 400; letter-spacing: 3px; color: var(--ink-light);
-      cursor: pointer; transition: all 0.25s; text-transform: uppercase;
-    }
+    .action-btn { margin-top: 24px; background: transparent; border: 0.5px solid var(--border-strong); border-radius: 2px; padding: 13px 32px; font-family: var(--font-sans); font-size: 11px; font-weight: 400; letter-spacing: 3px; color: var(--ink-light); cursor: pointer; transition: all 0.25s; text-transform: uppercase; }
     .action-btn:hover { background: rgba(201,125,90,0.08); border-color: var(--rose); color: var(--rose); }
     .action-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-    .action-btn.loading::after { content: " ..."; }
-
-    /* Status messages */
-    .status-msg {
-      display: none; margin-top: 16px; padding: 12px 16px;
-      border-radius: 2px; font-size: 13px; font-family: var(--font-serif);
-      font-style: italic; letter-spacing: 0.5px;
-    }
+    .status-msg { display: none; margin-top: 16px; padding: 12px 16px; border-radius: 2px; font-size: 13px; font-family: var(--font-serif); font-style: italic; letter-spacing: 0.5px; line-height: 1.7; }
     .status-msg.show { display: block; }
     .status-msg.success { background: rgba(106,159,106,0.1); border: 0.5px solid rgba(106,159,106,0.3); color: var(--green); }
-    .status-msg.error   { background: rgba(184,85,85,0.1);  border: 0.5px solid rgba(184,85,85,0.3);  color: var(--red); }
+    .status-msg.error   { background: rgba(184,85,85,0.1); border: 0.5px solid rgba(184,85,85,0.3); color: var(--red); }
     .status-msg.info    { background: rgba(185,130,80,0.08); border: 0.5px solid var(--border-strong); color: var(--ink-light); }
-
-    /* Progress bar */
     .progress-bar { display: none; margin-top: 12px; height: 2px; background: var(--border); border-radius: 1px; overflow: hidden; }
     .progress-bar.show { display: block; }
-    .progress-fill { height: 100%; background: var(--rose); width: 0%; transition: width 0.3s ease; }
-
-    /* Divider */
-    .section-divider { border: none; border-top: 0.5px solid var(--border); margin: 32px 0; }
-
-    @media(max-width:600px) {
-      .section-card { padding: 28px 22px; }
-      .photo-preview-grid { grid-template-columns: repeat(2, 1fr); }
-    }
+    .progress-fill { height: 100%; background: var(--rose); width: 0%; transition: width 0.4s ease; }
+    @media(max-width:600px) { .section-card { padding: 28px 22px; } .photo-preview-grid { grid-template-columns: repeat(2, 1fr); } }
   </style>
 </head>
 <body>
 
-  <!-- PETALS -->
   <div class="petals-container" aria-hidden="true">
     <div class="petal"></div><div class="petal"></div><div class="petal"></div>
     <div class="petal"></div><div class="petal"></div><div class="petal"></div>
@@ -213,8 +115,9 @@
   </div>
 
   <!-- ============================================================
-       ADMIN LOGIN GATE
-       Password protects the admin panel
+       LOGIN
+       The GitHub token is typed here each session.
+       It is NEVER written to this file or stored anywhere.
        ============================================================ -->
   <div id="admin-login">
     <div class="login-box">
@@ -225,18 +128,26 @@
       <div class="login-card">
         <h2>Admin</h2>
         <span class="sub">only for miggy</span>
+
         <div class="field">
-          <label>Password</label>
-          <input type="password" id="admin-pass" placeholder="enter admin password" />
+          <label>Admin Password</label>
+          <input type="password" id="admin-pass" placeholder="enter your password" />
         </div>
+
+        <div class="field">
+          <label>GitHub Token</label>
+          <input type="password" id="admin-token" placeholder="ghp_..." autocomplete="off" spellcheck="false" />
+          <p class="field-note">Your personal access token. It is never saved — only used this session in your browser memory.</p>
+        </div>
+
         <button class="btn-primary" id="admin-login-btn">Enter</button>
-        <div class="login-error" id="admin-error">Wrong password. Try again.</div>
+        <div class="login-error" id="admin-error">Wrong password or invalid token.</div>
       </div>
     </div>
   </div>
 
   <!-- ============================================================
-       ADMIN UI (shown after login)
+       ADMIN UI
        ============================================================ -->
   <div id="admin-ui" style="display:none;">
 
@@ -246,446 +157,336 @@
       <span class="ornament">✦</span>
       <span class="deco-line"></span><span class="deco-diamond"></span><span class="deco-line"></span>
       <h1>Admin Panel</h1>
-      <p>upload letters &amp; photos to github</p>
+      <p>upload letters &amp; photos directly to github</p>
     </div>
 
-    <!-- ══════════════════════════════════════════════
-         SECTION 1 — UPLOAD PHOTOS
-         ══════════════════════════════════════════════ -->
+    <!-- UPLOAD PHOTOS -->
     <div class="section-card">
       <div class="section-title">Upload Photos</div>
       <span class="section-sub">add new photos to the gallery</span>
-
-      <!-- Drop zone -->
       <div class="drop-zone" id="photo-drop">
         <input type="file" id="photo-files" accept="image/*" multiple />
         <span class="dz-icon">✾</span>
         <div class="dz-label">Click or drag photos here</div>
-        <div class="dz-sub">JPG, PNG, WEBP, JFIF — multiple allowed</div>
+        <div class="dz-sub">JPG, PNG, WEBP, JFIF — multiple at once</div>
       </div>
-
-      <!-- Preview grid (filled by JS) -->
       <div class="photo-preview-grid" id="photo-preview-grid"></div>
-
-      <!-- Upload button -->
       <button class="action-btn" id="upload-photos-btn">Upload Photos to GitHub</button>
-      <div class="progress-bar" id="photo-progress"><div class="progress-fill" id="photo-progress-fill"></div></div>
+      <div class="progress-bar" id="photo-progress"><div class="progress-fill" id="photo-fill"></div></div>
       <div class="status-msg" id="photo-status"></div>
     </div>
 
-    <!-- ══════════════════════════════════════════════
-         SECTION 2 — WRITE A LETTER
-         ══════════════════════════════════════════════ -->
+    <!-- WRITE A LETTER -->
     <div class="section-card">
       <div class="section-title">Write a Letter</div>
       <span class="section-sub">publish a new letter to the letters page</span>
-
       <div class="form-group">
         <label>Salutation</label>
-        <input type="text" id="letter-salutation" placeholder="Dear Rica, Riri, Little Major," />
+        <input type="text" id="letter-sal" placeholder="Dear Rica, Riri, Little Major," />
       </div>
-
       <div class="form-group">
         <label>Date</label>
         <input type="text" id="letter-date" placeholder="April 2026" />
       </div>
-
       <div class="form-group">
         <label>Letter Body</label>
-        <textarea id="letter-body" placeholder="Write your letter here...&#10;&#10;Each blank line between paragraphs becomes a new paragraph."></textarea>
+        <textarea id="letter-body" placeholder="Write your letter here...&#10;&#10;Leave a blank line between paragraphs."></textarea>
       </div>
-
       <div class="form-group">
-        <label>Closing (e.g. With love and gratitude,)</label>
-        <input type="text" id="letter-closing" placeholder="With love and gratitude," />
+        <label>Closing</label>
+        <input type="text" id="letter-close" placeholder="With love and gratitude," />
       </div>
-
       <div class="form-group">
-        <label>Archive Title (shown in the letters list)</label>
-        <input type="text" id="letter-archive-title" placeholder="The One That Started It All" />
+        <label>Archive Title</label>
+        <input type="text" id="letter-title" placeholder="The One That Started It All" />
       </div>
-
-      <button class="action-btn" id="publish-letter-btn">Publish Letter to GitHub</button>
+      <button class="action-btn" id="publish-btn">Publish Letter to GitHub</button>
       <div class="status-msg" id="letter-status"></div>
     </div>
 
-  </div><!-- /#admin-ui -->
+  </div>
 
   <script>
     /* ============================================================
        CONFIGURATION
+       ✅ Token is NOT in this file — you type it at login each time.
+       ✅ Safe to push this file to your public GitHub repo.
        ============================================================ */
-    const GITHUB_TOKEN = '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';
-    const GITHUB_USER  = 'Sc4llion';
-    const GITHUB_REPO  = 'For-Rica.Github.Com';
-    const BRANCH       = 'main';
+    const ADMIN_PASSWORD = 'Miggy2026';  // ← Change this to your preferred password
+    const GITHUB_USER    = 'Sc4llion';
+    const GITHUB_REPO    = 'For-Rica.Github.Com';
+    const BRANCH         = 'main';
 
-    /* Admin password — change this to whatever you want */
-    const ADMIN_PASSWORD = 'Miggy2026';
+    /* Token lives ONLY in memory — cleared when you log out or close tab */
+    let GITHUB_TOKEN = '';
 
-    /* ============================================================
-       GITHUB API HELPERS
-       ============================================================ */
+    /* ── API HELPERS ── */
+    const apiBase = () =>
+      `https://api.github.com/repos/${GITHUB_USER}/${encodeURIComponent(GITHUB_REPO)}`;
 
-    /* Build base API URL — encoded to handle dots in repo name safely */
-    const REPO_ENCODED = encodeURIComponent(GITHUB_REPO);
-    const API_BASE     = `https://api.github.com/repos/${GITHUB_USER}/${REPO_ENCODED}`;
-    const GH_HEADERS   = {
-      Authorization: `Bearer ${GITHUB_TOKEN}`,
-      Accept: 'application/vnd.github+json',
+    const apiHeaders = () => ({
+      'Authorization': `Bearer ${GITHUB_TOKEN}`,
+      'Accept': 'application/vnd.github+json',
       'X-GitHub-Api-Version': '2022-11-28'
-    };
+    });
 
-    /* Get a file from GitHub (returns { content, sha } or null) */
-    async function githubGet(path) {
-      const res = await fetch(`${API_BASE}/contents/${path}?ref=${BRANCH}`, { headers: GH_HEADERS });
-      if (!res.ok) { const e = await res.json().catch(()=>({})); console.error("githubGet failed:", res.status, e.message||""); return null; }
+    async function ghGet(path) {
+      const res = await fetch(`${apiBase()}/contents/${path}?ref=${BRANCH}`, { headers: apiHeaders() });
+      if (!res.ok) {
+        const e = await res.json().catch(() => ({}));
+        throw new Error(`GitHub read error (${res.status}): ${e.message || 'check your token and repo name'}`);
+      }
       return res.json();
     }
 
-    /* Create or update a file on GitHub */
-    async function githubPut(path, base64Content, message, sha = null) {
-      const body = { message, content: base64Content, branch: BRANCH };
+    async function ghPut(path, b64, message, sha = null) {
+      const body = { message, content: b64, branch: BRANCH };
       if (sha) body.sha = sha;
-      const res = await fetch(`${API_BASE}/contents/${path}`, {
+      const res = await fetch(`${apiBase()}/contents/${path}`, {
         method: 'PUT',
-        headers: { ...GH_HEADERS, 'Content-Type': 'application/json' },
+        headers: { ...apiHeaders(), 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
       });
-      if (!res.ok) { const e = await res.json().catch(()=>({})); console.error("githubPut failed:", res.status, e.message||""); return null; }
+      if (!res.ok) {
+        const e = await res.json().catch(() => ({}));
+        throw new Error(`GitHub write error (${res.status}): ${e.message || 'check your token permissions'}`);
+      }
       return res.json();
     }
 
-    /* Convert a File object to base64 string */
-    function fileToBase64(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload  = e => resolve(e.target.result.split(',')[1]); // strip data: prefix
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-    }
+    const toB64File = file => new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload  = e => res(e.target.result.split(',')[1]);
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
 
-    /* Convert plain text (HTML string) to base64 */
-    function textToBase64(str) {
-      return btoa(unescape(encodeURIComponent(str)));
-    }
+    const toB64Text = str => btoa(unescape(encodeURIComponent(str)));
+    const fromB64   = b64 => decodeURIComponent(escape(atob(b64.replace(/\n/g, ''))));
 
-    /* Decode base64 to text */
-    function base64ToText(b64) {
-      return decodeURIComponent(escape(atob(b64)));
-    }
-
-    /* Show a status message */
-    function showStatus(el, type, msg) {
+    function status(el, type, msg) {
       el.className = `status-msg show ${type}`;
       el.textContent = msg;
     }
 
-    /* ============================================================
-       ADMIN LOGIN
-       ============================================================ */
-    const adminLogin    = document.getElementById('admin-login');
-    const adminUI       = document.getElementById('admin-ui');
-    const adminPassInput= document.getElementById('admin-pass');
-    const adminLoginBtn = document.getElementById('admin-login-btn');
-    const adminError    = document.getElementById('admin-error');
-    const adminLogout   = document.getElementById('admin-logout');
+    /* ── LOGIN ── */
+    const loginEl   = document.getElementById('admin-login');
+    const uiEl      = document.getElementById('admin-ui');
+    const passEl    = document.getElementById('admin-pass');
+    const tokenEl   = document.getElementById('admin-token');
+    const loginBtn  = document.getElementById('admin-login-btn');
+    const errorEl   = document.getElementById('admin-error');
+    const logoutBtn = document.getElementById('admin-logout');
 
-    const ADMIN_SESSION = 'rica-admin-session';
+    loginBtn.addEventListener('click', () => {
+      const pass  = passEl.value;
+      const token = tokenEl.value.trim();
 
-    /* Check existing session */
-    if (sessionStorage.getItem(ADMIN_SESSION) === 'ok') {
-      adminLogin.classList.add('hidden');
-      adminUI.style.display = 'block';
-    }
-
-    adminLoginBtn.addEventListener('click', () => {
-      if (adminPassInput.value === ADMIN_PASSWORD) {
-        sessionStorage.setItem(ADMIN_SESSION, 'ok');
-        adminLogin.classList.add('hidden');
-        adminUI.style.display = 'block';
-        adminError.classList.remove('show');
-      } else {
-        adminError.classList.add('show');
-        adminPassInput.value = '';
-        adminPassInput.focus();
+      if (pass !== ADMIN_PASSWORD) {
+        errorEl.textContent = 'Wrong password. Try again.';
+        errorEl.classList.add('show');
+        passEl.value = '';
+        passEl.focus();
+        return;
       }
+
+      if (!token || (!token.startsWith('ghp_') && !token.startsWith('github_pat_'))) {
+        errorEl.textContent = 'Enter a valid GitHub token (starts with ghp_).';
+        errorEl.classList.add('show');
+        return;
+      }
+
+      GITHUB_TOKEN = token; // stored only in memory
+      errorEl.classList.remove('show');
+      loginEl.classList.add('hidden');
+      uiEl.style.display = 'block';
+
+      /* Clear fields immediately after storing */
+      passEl.value  = '';
+      tokenEl.value = '';
     });
 
-    adminPassInput.addEventListener('keydown', e => { if (e.key === 'Enter') adminLoginBtn.click(); });
+    passEl.addEventListener('keydown',  e => { if (e.key === 'Enter') tokenEl.focus(); });
+    tokenEl.addEventListener('keydown', e => { if (e.key === 'Enter') loginBtn.click(); });
 
-    adminLogout.addEventListener('click', () => {
-      sessionStorage.removeItem(ADMIN_SESSION);
-      adminLogin.classList.remove('hidden');
-      adminUI.style.display = 'none';
+    logoutBtn.addEventListener('click', () => {
+      GITHUB_TOKEN = ''; // wipe from memory
+      loginEl.classList.remove('hidden');
+      uiEl.style.display = 'none';
     });
 
-    /* ============================================================
-       PHOTO UPLOAD SECTION
-       ============================================================ */
-    const photoFiles    = document.getElementById('photo-files');
-    const photoDrop     = document.getElementById('photo-drop');
-    const previewGrid   = document.getElementById('photo-preview-grid');
-    const uploadBtn     = document.getElementById('upload-photos-btn');
-    const photoStatus   = document.getElementById('photo-status');
-    const photoProgress = document.getElementById('photo-progress');
-    const photoFill     = document.getElementById('photo-progress-fill');
+    /* ── PHOTO UPLOAD ── */
+    const dropEl      = document.getElementById('photo-drop');
+    const filesEl     = document.getElementById('photo-files');
+    const previewEl   = document.getElementById('photo-preview-grid');
+    const uploadBtn   = document.getElementById('upload-photos-btn');
+    const photoStatEl = document.getElementById('photo-status');
+    const progEl      = document.getElementById('photo-progress');
+    const fillEl      = document.getElementById('photo-fill');
 
-    let selectedPhotos = []; // Array of { file, caption }
+    let photos = [];
 
-    /* Drag-over highlight */
-    photoDrop.addEventListener('dragover', e => { e.preventDefault(); photoDrop.classList.add('dragover'); });
-    photoDrop.addEventListener('dragleave', () => photoDrop.classList.remove('dragover'));
-    photoDrop.addEventListener('drop', e => {
-      e.preventDefault();
-      photoDrop.classList.remove('dragover');
-      const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
-      addPhotos(files);
+    dropEl.addEventListener('dragover', e => { e.preventDefault(); dropEl.classList.add('dragover'); });
+    dropEl.addEventListener('dragleave', () => dropEl.classList.remove('dragover'));
+    dropEl.addEventListener('drop', e => {
+      e.preventDefault(); dropEl.classList.remove('dragover');
+      addPhotos(Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')));
     });
-
-    photoFiles.addEventListener('change', e => {
-      addPhotos(Array.from(e.target.files));
-      photoFiles.value = '';
-    });
+    filesEl.addEventListener('change', e => { addPhotos(Array.from(e.target.files)); filesEl.value = ''; });
 
     function addPhotos(files) {
-      files.forEach(file => {
-        const caption = file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
-        selectedPhotos.push({ file, caption });
-        renderPreviews();
-      });
+      files.forEach(f => photos.push({ file: f, caption: f.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ') }));
+      renderGrid();
     }
 
-    function renderPreviews() {
-      previewGrid.innerHTML = '';
-      selectedPhotos.forEach((p, i) => {
+    function renderGrid() {
+      previewEl.innerHTML = '';
+      photos.forEach((p, i) => {
         const url = URL.createObjectURL(p.file);
         const div = document.createElement('div');
         div.className = 'preview-item';
         div.innerHTML = `
-          <img src="${url}" alt="" />
+          <img src="${url}" />
           <button class="remove-preview" data-i="${i}">&times;</button>
-          <div class="preview-caption">
-            <input type="text" value="${p.caption}" placeholder="caption" data-i="${i}" />
-          </div>
-        `;
-        previewGrid.appendChild(div);
+          <div class="preview-caption"><input type="text" value="${p.caption}" placeholder="caption" data-i="${i}" /></div>`;
+        previewEl.appendChild(div);
       });
-
-      /* Remove buttons */
-      previewGrid.querySelectorAll('.remove-preview').forEach(btn => {
-        btn.addEventListener('click', () => {
-          selectedPhotos.splice(parseInt(btn.dataset.i), 1);
-          renderPreviews();
-        });
-      });
-
-      /* Caption inputs */
-      previewGrid.querySelectorAll('input[data-i]').forEach(input => {
-        input.addEventListener('input', () => {
-          selectedPhotos[parseInt(input.dataset.i)].caption = input.value;
-        });
-      });
+      previewEl.querySelectorAll('.remove-preview').forEach(b =>
+        b.addEventListener('click', () => { photos.splice(+b.dataset.i, 1); renderGrid(); }));
+      previewEl.querySelectorAll('input[data-i]').forEach(inp =>
+        inp.addEventListener('input', () => { photos[+inp.dataset.i].caption = inp.value; }));
     }
 
-    /* ── UPLOAD PHOTOS to GitHub ── */
     uploadBtn.addEventListener('click', async () => {
-      if (selectedPhotos.length === 0) {
-        showStatus(photoStatus, 'error', 'Please select at least one photo first.');
-        return;
-      }
+      if (!GITHUB_TOKEN) return status(photoStatEl, 'error', 'Session expired. Please log out and log back in.');
+      if (!photos.length)  return status(photoStatEl, 'error', 'Please select at least one photo first.');
 
       uploadBtn.disabled = true;
-      uploadBtn.classList.add('loading');
-      photoProgress.classList.add('show');
-      showStatus(photoStatus, 'info', `Uploading ${selectedPhotos.length} photo(s) to GitHub…`);
+      progEl.classList.add('show');
+      fillEl.style.width = '5%';
 
       try {
-        /* Step 1: Fetch current photos.html from GitHub */
-        showStatus(photoStatus, 'info', 'Reading photos.html from GitHub…');
-        const fileData = await githubGet('photos.html');
-        if (!fileData) throw new Error('Could not read photos.html from GitHub. Check your repo name and branch.');
+        status(photoStatEl, 'info', 'Reading photos.html from GitHub…');
+        const file = await ghGet('photos.html');
+        let html = fromB64(file.content);
+        const sha = file.sha;
 
-        let html = base64ToText(fileData.content.replace(/\n/g, ''));
-        const sha = fileData.sha;
+        const tiles = [];
+        for (let i = 0; i < photos.length; i++) {
+          const p    = photos[i];
+          const name = p.file.name.replace(/\s+/g, '-');
+          const path = `photos/${name}`;
 
-        /* Step 2: Upload each image file */
-        let uploaded = 0;
-        const newTiles = [];
+          status(photoStatEl, 'info', `Uploading ${i + 1} of ${photos.length}: ${p.file.name}…`);
+          fillEl.style.width = `${10 + Math.round((i / photos.length) * 60)}%`;
 
-        for (const photo of selectedPhotos) {
-          const ext      = photo.file.name.split('.').pop().toLowerCase();
-          const safeName = photo.file.name.replace(/\s+/g, '-');
-          const imgPath  = `photos/${safeName}`;
+          const b64 = await toB64File(p.file);
+          let exSha = null;
+          try { exSha = (await ghGet(path)).sha; } catch {}
+          await ghPut(path, b64, `Add photo: ${name}`, exSha);
 
-          showStatus(photoStatus, 'info', `Uploading ${photo.file.name}… (${uploaded + 1}/${selectedPhotos.length})`);
-          photoFill.style.width = `${Math.round((uploaded / selectedPhotos.length) * 60)}%`;
-
-          const b64 = await fileToBase64(photo.file);
-
-          /* Check if file already exists (need sha to overwrite) */
-          const existing = await githubGet(imgPath);
-          const result   = await githubPut(imgPath, b64, `Add photo: ${safeName}`, existing?.sha);
-
-          if (!result) throw new Error(`Failed to upload ${photo.file.name}. Check your token permissions.`);
-
-          /* Build the HTML tile for this photo */
-          newTiles.push(`
-  <!-- PHOTO: ${photo.caption} -->
-  <div class="photo-tile" data-caption="${photo.caption}">
-    <div class="photo-frame"><img src="photos/${safeName}" alt="${photo.caption}" /></div>
-    <div class="photo-overlay"><span class="photo-caption">${photo.caption}</span></div>
-  </div>`);
-
-          uploaded++;
+          tiles.push(
+            `\n  <!-- PHOTO: ${p.caption} -->\n` +
+            `  <div class="photo-tile" data-caption="${p.caption}">\n` +
+            `    <div class="photo-frame"><img src="photos/${name}" alt="${p.caption}" /></div>\n` +
+            `    <div class="photo-overlay"><span class="photo-caption">${p.caption}</span></div>\n` +
+            `  </div>`
+          );
         }
 
-        photoFill.style.width = '70%';
+        fillEl.style.width = '78%';
+        status(photoStatEl, 'info', 'Saving photos.html…');
 
-        /* Step 3: Inject new tiles into photos.html before closing </div> of #photo-grid */
-        const insertMarker = '</div>\n\n        <div class="upload-note">';
-        const altMarker    = '</div>\n\n\n        <div class="upload-note">';
+        const marker = '<div class="upload-note">';
+        if (!html.includes(marker)) throw new Error('Could not find the insert location in photos.html. Check the file has the upload-note div.');
+        html = html.replace(marker, tiles.join('\n') + '\n\n        ' + marker);
 
-        const tileHtml = newTiles.join('\n');
+        await ghPut('photos.html', toB64Text(html), `Add ${photos.length} photo(s) via admin`, sha);
 
-        if (html.includes(insertMarker)) {
-          html = html.replace(insertMarker, tileHtml + '\n          ' + insertMarker);
-        } else if (html.includes(altMarker)) {
-          html = html.replace(altMarker, tileHtml + '\n          ' + altMarker);
-        } else {
-          /* Fallback: insert before upload-note div */
-          html = html.replace('<div class="upload-note">', tileHtml + '\n\n        <div class="upload-note">');
-        }
-
-        photoFill.style.width = '85%';
-
-        /* Step 4: Push updated photos.html back to GitHub */
-        showStatus(photoStatus, 'info', 'Saving photos.html to GitHub…');
-        const saveResult = await githubPut('photos.html', textToBase64(html), `Add ${selectedPhotos.length} photo(s) via admin panel`, sha);
-
-        if (!saveResult) throw new Error('Failed to save photos.html. The file may have been modified — try again.');
-
-        photoFill.style.width = '100%';
-        showStatus(photoStatus, 'success', `✦ ${selectedPhotos.length} photo(s) uploaded successfully! Your site will update in a few seconds.`);
-
-        /* Clear selection */
-        selectedPhotos = [];
-        renderPreviews();
+        fillEl.style.width = '100%';
+        status(photoStatEl, 'success', `✦ ${photos.length} photo(s) uploaded! Site will update in ~30 seconds.`);
+        photos = [];
+        renderGrid();
 
       } catch (err) {
-        showStatus(photoStatus, 'error', `Error: ${err.message}`);
+        status(photoStatEl, 'error', `Error: ${err.message}`);
       } finally {
         uploadBtn.disabled = false;
-        uploadBtn.classList.remove('loading');
-        setTimeout(() => { photoProgress.classList.remove('show'); photoFill.style.width = '0%'; }, 2000);
+        setTimeout(() => { progEl.classList.remove('show'); fillEl.style.width = '0%'; }, 3000);
       }
     });
 
-    /* ============================================================
-       LETTER PUBLISHING SECTION
-       ============================================================ */
-    const letterSalutation   = document.getElementById('letter-salutation');
-    const letterDate         = document.getElementById('letter-date');
-    const letterBody         = document.getElementById('letter-body');
-    const letterClosing      = document.getElementById('letter-closing');
-    const letterArchiveTitle = document.getElementById('letter-archive-title');
-    const publishBtn         = document.getElementById('publish-letter-btn');
-    const letterStatus       = document.getElementById('letter-status');
+    /* ── PUBLISH LETTER ── */
+    const salEl     = document.getElementById('letter-sal');
+    const dateEl    = document.getElementById('letter-date');
+    const bodyEl    = document.getElementById('letter-body');
+    const closeEl   = document.getElementById('letter-close');
+    const titleEl   = document.getElementById('letter-title');
+    const pubBtn    = document.getElementById('publish-btn');
+    const letStatEl = document.getElementById('letter-status');
 
-    publishBtn.addEventListener('click', async () => {
-      const salutation   = letterSalutation.value.trim();
-      const date         = letterDate.value.trim();
-      const body         = letterBody.value.trim();
-      const closing      = letterClosing.value.trim();
-      const archiveTitle = letterArchiveTitle.value.trim();
+    pubBtn.addEventListener('click', async () => {
+      if (!GITHUB_TOKEN) return status(letStatEl, 'error', 'Session expired. Please log out and log back in.');
 
-      if (!salutation || !body || !date) {
-        showStatus(letterStatus, 'error', 'Please fill in at least the salutation, date, and body.');
-        return;
-      }
+      const sal   = salEl.value.trim();
+      const date  = dateEl.value.trim();
+      const body  = bodyEl.value.trim();
+      const close = closeEl.value.trim() || 'With love,';
+      const title = titleEl.value.trim()  || 'A Letter';
 
-      publishBtn.disabled = true;
-      publishBtn.classList.add('loading');
-      showStatus(letterStatus, 'info', 'Reading letters.html from GitHub…');
+      if (!sal || !date || !body) return status(letStatEl, 'error', 'Please fill in the salutation, date, and body.');
+
+      pubBtn.disabled = true;
+      status(letStatEl, 'info', 'Reading letters.html from GitHub…');
 
       try {
-        /* Step 1: Fetch current letters.html */
-        const fileData = await githubGet('letters.html');
-        if (!fileData) throw new Error('Could not read letters.html from GitHub.');
+        const file = await ghGet('letters.html');
+        let html = fromB64(file.content);
+        const sha = file.sha;
 
-        let html = base64ToText(fileData.content.replace(/\n/g, ''));
-        const sha = fileData.sha;
+        /* Build paragraphs */
+        const paras = body.split(/\n\s*\n/).map(p => p.trim()).filter(Boolean)
+          .map(p => `            <p>${p.replace(/\n/g, '<br />')}</p>`).join('\n');
 
-        /* Step 2: Build paragraph HTML from body text */
-        const paragraphs = body
-          .split(/\n\s*\n/)
-          .map(p => p.trim())
-          .filter(Boolean)
-          .map(p => `            <p>${p.replace(/\n/g, '<br />')}</p>`)
-          .join('\n');
+        /* Build article block */
+        const article =
+          `\n        <!-- ═══ LETTER: ${title} ═══ -->\n` +
+          `        <article class="letter-paper">\n` +
+          `          <div class="letter-date">${date}</div>\n` +
+          `          <div class="letter-salutation">${sal}</div>\n` +
+          `          <div class="letter-body">\n${paras}\n          </div>\n` +
+          `          <div class="letter-closing">\n` +
+          `            <div class="closing-label">${close}</div>\n` +
+          `            <div class="closing-name">Miggy</div>\n` +
+          `          </div>\n        </article>\n`;
 
-        /* Step 3: Build the new <article> block */
-        const newLetter = `
-        <!-- ═══ LETTER: ${archiveTitle || date} ═══ -->
-        <article class="letter-paper">
-          <div class="letter-date">${date}</div>
-          <div class="letter-salutation">${salutation}</div>
-          <div class="letter-body">
-${paragraphs}
-          </div>
-          <div class="letter-closing">
-            <div class="closing-label">${closing || 'With love,'}</div>
-            <div class="closing-name">Miggy</div>
-          </div>
-        </article>
-`;
+        /* Insert before archive */
+        const m1 = '<!-- Archive index', m2 = '<div class="letters-archive">';
+        if      (html.includes(m1)) html = html.replace(m1, article + '        ' + m1);
+        else if (html.includes(m2)) html = html.replace(m2, article + '        ' + m2);
+        else throw new Error('Could not find insert location in letters.html.');
 
-        /* Step 4: Insert new letter BEFORE the archive section */
-        const archiveMarker = '<!-- Archive index';
-        if (html.includes(archiveMarker)) {
-          html = html.replace(archiveMarker, newLetter + '\n        ' + archiveMarker);
-        } else {
-          /* Fallback: insert before .letters-archive div */
-          html = html.replace('<div class="letters-archive">', newLetter + '\n        <div class="letters-archive">');
-        }
+        /* Add archive list entry */
+        const entry =
+          `\n          <div class="archive-item">\n` +
+          `            <span class="archive-title">${title}</span>\n` +
+          `            <span class="archive-date">${date}</span>\n` +
+          `            <span class="archive-badge">new</span>\n` +
+          `          </div>`;
+        html = html.replace('<div class="archive-item">', entry + '\n          <div class="archive-item">');
 
-        /* Step 5: Add entry to the archive list */
-        const archiveEntry = `
-          <div class="archive-item">
-            <span class="archive-title">${archiveTitle || 'A Letter'}</span>
-            <span class="archive-date">${date}</span>
-            <span class="archive-badge">new</span>
-          </div>`;
+        status(letStatEl, 'info', 'Saving letters.html to GitHub…');
+        await ghPut('letters.html', toB64Text(html), `Add letter: ${title}`, sha);
 
-        html = html.replace(
-          '<div class="archive-item">',
-          archiveEntry + '\n          <div class="archive-item">'
-        );
-
-        /* Step 6: Push updated letters.html to GitHub */
-        showStatus(letterStatus, 'info', 'Saving letters.html to GitHub…');
-        const saveResult = await githubPut('letters.html', textToBase64(html), `Add letter: ${archiveTitle || date}`, sha);
-
-        if (!saveResult) throw new Error('Failed to save letters.html. Try again.');
-
-        showStatus(letterStatus, 'success', '✦ Letter published successfully! Your site will update in a few seconds.');
-
-        /* Clear form */
-        letterSalutation.value = '';
-        letterDate.value       = '';
-        letterBody.value       = '';
-        letterClosing.value    = '';
-        letterArchiveTitle.value = '';
+        status(letStatEl, 'success', '✦ Letter published! Site will update in ~30 seconds.');
+        salEl.value = ''; dateEl.value = ''; bodyEl.value = ''; closeEl.value = ''; titleEl.value = '';
 
       } catch (err) {
-        showStatus(letterStatus, 'error', `Error: ${err.message}`);
+        status(letStatEl, 'error', `Error: ${err.message}`);
       } finally {
-        publishBtn.disabled = false;
-        publishBtn.classList.remove('loading');
+        pubBtn.disabled = false;
       }
     });
   </script>
-
 </body>
 </html>
