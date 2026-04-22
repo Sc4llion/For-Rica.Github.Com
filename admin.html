@@ -315,7 +315,7 @@
     /* ============================================================
        CONFIGURATION
        ============================================================ */
-    const GITHUB_TOKEN = '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';
+    const GITHUB_TOKEN = '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';
     const GITHUB_USER  = 'Sc4llion';
     const GITHUB_REPO  = 'For-Rica.Github.Com';
     const BRANCH       = 'main';
@@ -331,8 +331,9 @@
     const REPO_ENCODED = encodeURIComponent(GITHUB_REPO);
     const API_BASE     = `https://api.github.com/repos/${GITHUB_USER}/${REPO_ENCODED}`;
     const GH_HEADERS   = {
-      Authorization: `token ${GITHUB_TOKEN}`,
-      Accept: 'application/vnd.github.v3+json'
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
+      Accept: 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28'
     };
 
     /* Get a file from GitHub (returns { content, sha } or null) */
