@@ -467,9 +467,9 @@
           tiles.push(`\n  <!-- PHOTO: ${p.caption} -->\n  <div class="photo-tile" data-caption="${p.caption}">\n    <div class="photo-frame"><img src="photos/${name}" alt="${p.caption}" /></div>\n    <div class="photo-overlay"><span class="photo-caption">${p.caption}</span></div>\n    <span class="photo-num">${name}</span>\n  </div>`);
         }
         fillEl.style.width='78%'; showStatus(photoStat,'info','Saving photos.html…');
-        const marker='<div class="upload-note">';
+        const marker='</div>\n        <!-- /.photos-grid -->';
         if (!html.includes(marker)) throw new Error('Could not find insert location in photos.html.');
-        html=html.replace(marker, tiles.join('\n')+'\n\n        '+marker);
+        html=html.replace(marker, tiles.join('\n') + '\n\n        ' + marker);
         await ghPut('photos.html',toB64Text(html),`Add ${photos.length} photo(s) via admin`,sha);
         fillEl.style.width='100%';
         showStatus(photoStat,'success',`✦ ${photos.length} photo(s) uploaded! Site updates in ~30 sec.`);
