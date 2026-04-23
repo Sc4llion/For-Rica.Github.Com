@@ -467,9 +467,9 @@
           tiles.push(`\n  <!-- PHOTO: ${p.caption} -->\n  <div class="photo-tile" data-caption="${p.caption}">\n    <div class="photo-frame"><img src="photos/${name}" alt="${p.caption}" /></div>\n    <div class="photo-overlay"><span class="photo-caption">${p.caption}</span></div>\n    <span class="photo-num">${name}</span>\n  </div>`);
         }
         fillEl.style.width='78%'; showStatus(photoStat,'info','Saving photos.html…');
-        const marker='</div>\n        <!-- /.photos-grid -->';
+        const marker='<div class="upload-note">';
         if (!html.includes(marker)) throw new Error('Could not find insert location in photos.html.');
-        html=html.replace(marker, tiles.join('\n') + '\n\n        ' + marker);
+        html=html.replace(marker, tiles.join('\n')+'\n\n        '+marker);
         await ghPut('photos.html',toB64Text(html),`Add ${photos.length} photo(s) via admin`,sha);
         fillEl.style.width='100%';
         showStatus(photoStat,'success',`✦ ${photos.length} photo(s) uploaded! Site updates in ~30 sec.`);
@@ -547,57 +547,33 @@
             const idx=+btn.dataset.idx; const imgSrc=btn.dataset.src;
             btn.disabled=true; showStatus(managePhotoStat,'info','Deleting photo…');
             try {
+              /* Remove tile from photos.html */
               const fresh=await ghGet('photos.html'); let html=fromB64(fresh.content);
-
-              /* ── RELIABLE DELETE ──────────────────────────────────────
-                 Build a regex that matches the entire tile block using the
-                 image src as the unique identifier. This works regardless
-                 of how the browser's DOMParser reformats outerHTML.
-                 The pattern matches:
-                   optional <!-- PHOTO: ... --> comment line
-                   <div class="photo-tile" ...>  (everything inside)  </div>
-                 anchored by the unique src="photos/filename" string.
-              ──────────────────────────────────────────────────────── */
-              const escapedSrc = imgSrc.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-
-              /* Pattern 1: with <!-- PHOTO: caption --> comment above */
-              const withComment = new RegExp(
-                '\\s*<!--\\s*PHOTO:[^>]*-->\\s*' +
-                '<div[^>]*class="photo-tile"[^>]*>[\\s\\S]*?' +
-                'src="' + escapedSrc + '"' +
-                '[\\s\\S]*?<\\/div>\\s*<\\/div>\\s*<\\/div>',
-                'g'
-              );
-
-              /* Pattern 2: tile only, no comment */
-              const tileOnly = new RegExp(
-                '\\s*<div[^>]*class="photo-tile"[^>]*>[\\s\\S]*?' +
-                'src="' + escapedSrc + '"' +
-                '[\\s\\S]*?<\\/div>\\s*<\\/div>\\s*<\\/div>',
-                'g'
-              );
-
-              if (withComment.test(html)) {
-                html = html.replace(withComment, '');
-              } else if (tileOnly.test(html)) {
-                html = html.replace(tileOnly, '');
-              } else {
-                throw new Error('Could not find the photo tile in photos.html to delete.');
+              const p2=new DOMParser(); const d2=p2.parseFromString(html,'text/html');
+              const tiles2=Array.from(d2.querySelectorAll('.photo-tile:not(.empty)'));
+              if (tiles2[idx]) {
+                const outerHTML=tiles2[idx].outerHTML;
+                /* Try to remove the comment + tile block */
+                const cap=tiles2[idx].dataset.caption||'';
+                const commentPattern=`<!-- PHOTO: ${cap} -->`;
+                if (html.includes(commentPattern)){
+                  const start=html.indexOf(commentPattern);
+                  /* Find end of this tile block */
+                  const tileEnd=html.indexOf('</div>\n  </div>',start);
+                  if (tileEnd>-1) html=html.slice(0,start)+html.slice(tileEnd+16);
+                } else {
+                  html=html.replace(outerHTML,'');
+                }
               }
-
-              /* Save updated photos.html */
-              await ghPut('photos.html', toB64Text(html), `Delete photo: ${imgSrc}`, fresh.sha);
-
-              /* Also delete the actual image file from the repo */
+              await ghPut('photos.html',toB64Text(html),`Delete photo via admin`,fresh.sha);
+              /* Try to delete image file too */
               try {
-                const imgFile = await ghGet(imgSrc);
-                await ghDelete(imgSrc, `Delete image file: ${imgSrc}`, imgFile.sha);
-              } catch {
-                /* Image file may not exist or already deleted — that's fine */
-              }
-
+                const imgFile=await ghGet(imgSrc);
+                await ghDelete(imgSrc,`Delete image: ${imgSrc}`,imgFile.sha);
+              } catch {}
               showStatus(managePhotoStat,'success','Photo deleted! Site updates in ~30 sec.');
-              setTimeout(()=>loadPhotosBtn.click(), 1500);
+              /* Reload list */
+              setTimeout(()=>loadPhotosBtn.click(),1500);
             } catch(e){ showStatus(managePhotoStat,'error',`Error: ${e.message}`); btn.disabled=false; }
           });
         });
